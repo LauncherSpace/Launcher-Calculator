@@ -867,7 +867,7 @@
 			var Second_stage_propellant_mass = Second_stage_wet_mass*(1.-v2nd_Dry_to_Wet_mass_ratio/100.);
 			var Second_stage_dry_mass = Second_stage_wet_mass - Second_stage_propellant_mass;
 			var Transfer_Orbit_stage_dry_mass = v3rd_Stage_mass_ratio == 0 ? 0 : ((Rocket_Mass*v3rd_Stage_mass_ratio/100.)*v3rd_Dry_to_Wet_mass_ratio/100.);
-			var Transfer_Orbit_stage_propellant_mass = Transfer_Orbit_stage_dry_mass*(100./v3rd_Dry_to_Wet_mass_ratio)-Transfer_Orbit_stage_dry_mass ;		     	
+			var Transfer_Orbit_stage_propellant_mass = (Rocket_Mass*v3rd_Stage_mass_ratio/100.) - Transfer_Orbit_stage_dry_mass;		     	
 		} else
 		{
 			First_stage_propellant_mass = parseFloat(elFirst_stage_propellant_mass.value);
