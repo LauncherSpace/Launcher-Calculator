@@ -221,6 +221,9 @@
 	      <TR>
 		<TD title="Payload mass calculated by an approximate method.">Payload mass (calculated)</TD>
 		<TD><h9><b><span style="background-color: #FFFF00"><LABEL id="Payload_mass_calculated5"></LABEL> kg </span></TD></TR>
+      	      <TR>
+		<TD title="This is the complexity of the rocket development estimated on a 12-point scale.&#013;It takes into account only the technical complexity of achieving the performance&#013;objectives but not the the rocket scale.">Aggressivity</TD>
+		<TD><h8><LABEL id="Aggressivity"></LABEL> points</TD></TR>
 	      <TR class="ProjectingH">
 		<TD title="The percentage ratio of assumed payload mass to the calculated payload mass.">Payload change</TD>
 		<TD><h8><LABEL id="Payload_change"></LABEL> % </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD>
@@ -531,6 +534,7 @@
 
 	var elPayload_mass_calculated  = document.querySelector('#Payload_mass_calculated');
 	var elPayload_mass_calculated5 = document.querySelector('#Payload_mass_calculated5');
+	var elAggressivity = document.querySelector('#Aggressivity');
 	var elPayload_change = document.querySelector('#Payload_change');
 	var elExpand = document.querySelector('#Expand');
 	var elsExpanding = document.querySelectorAll('.content tr[class="Expanding"]');
@@ -552,6 +556,7 @@
 	var Irremovable_Gravity_Losses;
 	var Vsp_for_target_orbit;
 	var Payload_mass;
+	var Aggressivity = 0.;
 
 	window.onload = onPageLoad;
 	window.onunload = onPageUnload;
@@ -620,13 +625,16 @@
 			       [10, 8.2, 10, 1, 0.5, 0.5, 363, 399, 434, 434],  //Lox/LH2 
 			       [8,  7.,  10, 0, 0.,  0.,  239, 266, 266, 266],  //Mono    
 			       [8,  7.,  10, 0, 0.,  0.,  257, 283, 283, 283]]; //Solid   
+
+	var ScoreCalcWeight = [[1., 1., 0. , 1., 1., 0. , 1., 0.25, 1., 0. ],  // 2 stages 
+			       [1., 1., 0.5, 1., 1., 0.5, 1., 0.25, 1., 0.5]]; // 3 stages
 	
 	var s_rocket_count = 27;
 	var s_rocket_data =  [["New Project",			1.20,   32475, 1.7,  150, 3500,  0,  775,   24.86,   0.,     8.,   10.,     20,    2., 2.,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Cape Canaveral",	"LEO", 0, "Designed Rocket - engine based"],
 			     ["NASA Saturn V",			1.165,2909200,10.1, 8000, 3500,  0, 48600,  21.284,  4.228,  5.677,  8.081, 10.976,2.6, 2.0, 2,   263.0, 304,   421, 421, 0,1, 2,1, 2,1,    "Cape Canaveral",	"Moon",0, "Apollo lunar program launcher"],
 			     ["Launcher Rocket-1",		1.19,   32600, 1.7,  150, 3500,  0,  750,   25.00,   0.0,    7.9,    10.,   20,    2,   2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"LEO", 0, "4 E2 engines at the 1st stage (project)"],
 			     ["Launcher XL",			1.2,    73540, 2.1,  400, 3500,  0, 1500,   13.65,   2.,     8.0,    10.,   20,    2,   2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"SSO", 0, "9 E2 engines at the 1st stage (project)"],
-			     ["Launcher Light",			1.15,    8500, 1.1,   30, 3500,  0,  150,    12.3,   3.,      9.5,   12.,   19,    2.,  2.,  1,   290.5, 327,   318, 318, 0,0, 0,3, 0,3,    "Wallops",	"LEO", 0, "1 E2 engine at the 1st stage, pres fed 2nd stage"],
+			     ["Launcher Light",			1.15,    8500, 1.1,   30, 3500,  0,  150,    12.3,   3.,      9.5,   12.,   17,    2.,  2.,  1,   290.5, 327,   312, 312, 0,0, 0,3, 0,3,    "Wallops",	"LEO", 0, "1 E2 engine at the 1st stage, pres fed 2nd stage"],
 			     ["Launcher Nano",			1.5,      500,0.45,    0, 3500,  0,    1,   24.00,   4.,    23.00, 23.00,   15,    3,   3,   3,   225.0, 270,   315, 300, 0,3, 0,3, 0,3,    "Wallops",	"LEO", 0, "The smallest orbital launcher (project)"],
 			     ["Yuzhnoye Zenit-2",		1.605, 443730, 4.15,1800, 3500,  0,13470,   20.551,  0.,     7.93,  9.15,   20,    1.2, 1.2, 0.8, 309.0, 336,   349, 352, 0,0, 0,0, 0,0,    "Baikonur",		"LEO", 0, "Yuzhnoye Ukraine"],
 			     ["Yuzhnoye Zenit-3SL",		1.57,  463220, 4.15,1850, 3500,  0, 3170,   23.499, 4.251,   7.78,  9.15,   14.42, 1.2, 1.2, 0.8, 309.5, 337.2, 350, 361, 0,0, 0,0, 0,0,    "Sea Launch (Equator)",	"GEO", 0, "Yuzhnoye Ukraine"],
@@ -867,6 +875,7 @@
 			var Second_stage_propellant_mass = Second_stage_wet_mass*(1.-v2nd_Dry_to_Wet_mass_ratio/100.);
 			var Second_stage_dry_mass = Second_stage_wet_mass - Second_stage_propellant_mass;
 			var Transfer_Orbit_stage_dry_mass = v3rd_Stage_mass_ratio == 0 ? 0 : ((Rocket_Mass*v3rd_Stage_mass_ratio/100.)*v3rd_Dry_to_Wet_mass_ratio/100.);
+//			var Transfer_Orbit_stage_propellant_mass = Transfer_Orbit_stage_dry_mass*(100./v3rd_Dry_to_Wet_mass_ratio)-Transfer_Orbit_stage_dry_mass ;		     	
 			var Transfer_Orbit_stage_propellant_mass = (Rocket_Mass*v3rd_Stage_mass_ratio/100.) - Transfer_Orbit_stage_dry_mass;		     	
 		} else
 		{
@@ -1173,7 +1182,8 @@
 		if(index == 0)ThrustToWeight_corr = 0.8*(elThrust_to_weight_ratio.value-1.2);
 		if(index == 1)ThrustToWeight_corr = 0.8*(Thrust_To_Weight_2st-1.1);
 
-		if(cycle == 0) orsc_corr = 0.5;
+		if(cycle == 0) orsc_corr = 0.5; //Staged Combustion
+		if(cycle == 2) orsc_corr = 0.5; //Electric
 		if(fuel == 4) {cycle_corr = 1.; orsc_corr = 0.;}
 		var val_min = (s_fuel_data_min[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 		var val_max = (s_fuel_data_max[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
@@ -1203,6 +1213,7 @@
 			range.value = (val_min + val_max - input_value) * 100.;
 		else
 			range.value = input_value * 100.;
+	    CalculateScore();
 	}
 
 	function updateCycle()
@@ -1295,6 +1306,7 @@
 			}
 		Calculate();
 		f3stagesChange();
+		CalculateScore();
 	}
 
 	function updateEngine1()
@@ -1407,6 +1419,7 @@
 			s_slider_edit[index].value = ((vmin + vmax - s_slider[index].value) / 100.).toFixed(2);
 		} else
 			s_slider_edit[index].value = s_slider[index].value / 100.;
+                CalculateScore();
 		Calculate();
 		CalculationError();		
 	}
@@ -1436,6 +1449,7 @@
 			s_slider[index].value = val_min + val_max - s_slider_edit[index].value * 100.;
 		} else
 			s_slider[index].value =  s_slider_edit[index].value * 100.;
+                CalculateScore();
 	}
 
 	function updateSliderEdit0(index)
@@ -1833,6 +1847,7 @@
 		    Calculate();
 		}
 		CalculationError();		
+		CalculateScore();
 	}
 
 	function SetLimitation()
@@ -1949,6 +1964,34 @@
 	{
 		DelLimitation();
 		LimitationChange();
+	}
+
+	function CalculateScore()
+	{
+		Aggressivity = 1.;
+		// if Pressure Fed
+		if(elCycle.selectedIndex == 3) Aggressivity = Aggressivity - 0.5;
+		if(elCycle2.selectedIndex == 3) Aggressivity = Aggressivity - 0.5;
+		if(elCycle3.selectedIndex == 3) Aggressivity = Aggressivity - 0.5;
+		// if Lox/Methane
+		if(elFuel.selectedIndex == 2) Aggressivity = Aggressivity + 0.3;
+		if(elFuel2.selectedIndex == 2) Aggressivity = Aggressivity + 0.3;
+		if(elFuel3.selectedIndex == 2) Aggressivity = Aggressivity + 0.3;
+		// if Lox/LH2
+		if(elFuel.selectedIndex == 2) Aggressivity = Aggressivity + 0.8;
+		if(elFuel2.selectedIndex == 2) Aggressivity = Aggressivity + 0.8;
+		if(elFuel3.selectedIndex == 2) Aggressivity = Aggressivity + 0.8;
+
+		for (var i = 0; i < 6; ++i)
+			{
+			if (parseFloat(s_slider[i].max) > 0.) Aggressivity = Aggressivity + ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(1-(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)), 2);
+			}
+		for (var i = 6; i < 10; ++i)
+			{
+			if (i == 0) Aggressivity = 0;
+			Aggressivity = Aggressivity + ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow((parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)), 2);
+			}
+		elAggressivity.textContent = Aggressivity.toFixed(1);
 	}
 
 	function MassRecalculate()
