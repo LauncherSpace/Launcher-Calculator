@@ -67,7 +67,7 @@
 <P align="center"><FONT size="6">Launcher 🚀 Calculator</FONT>
         <BR>An open source orbital launch vehicle payload calculator by <a href="https://launcherspace.com">Launcher</a><BR>
 <FONT size="2"><a href="#" onclick="openAbout()">Background and usage</a> |  <a href="#" onclick="openLicense()">MIT License</a
-> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">GitHub</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a></font><BR><center></p>
+> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a></font><BR><center></p>
 <TABLE border="0">
   <TBODY>
   <TR>
@@ -223,7 +223,7 @@
 		<TD><h9><b><span style="background-color: #FFFF00"><LABEL id="Payload_mass_calculated5"></LABEL> kg </span></TD></TR>
       	      <TR>
 		<TD title="This is the complexity of the rocket development estimated on a 12-point scale.&#013;It takes into account only the technical complexity of achieving the performance&#013;objectives but not the the rocket scale.">Aggressivity</TD>
-		<TD><h8><LABEL id="Aggressivity"></LABEL> points</TD></TR>
+		<TD><h8><LABEL id="Aggressivity"></LABEL> pts</TD></TR>
 	      <TR class="ProjectingH">
 		<TD title="The percentage ratio of assumed payload mass to the calculated payload mass.">Payload change</TD>
 		<TD><h8><LABEL id="Payload_change"></LABEL> % </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD>
@@ -1984,6 +1984,7 @@
 
 		for (var i = 0; i < 6; ++i)
 			{
+			if (i < 3 & parseFloat(s_slider_edit[i].value) == 0.) Aggressivity = 1/0;
 			if (parseFloat(s_slider[i].max) > 0.) Aggressivity = Aggressivity + ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(1-(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)), 2);
 			}
 		for (var i = 6; i < 10; ++i)
