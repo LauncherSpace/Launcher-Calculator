@@ -142,12 +142,12 @@
 	      <TR>
 
 	      <TR class="ProjectingH">
-		<TD align="center"> </TD>
+		<TD title="Moving the sliders to the right increases efficiency but is more difficult to achieve" align="center">Payload decrease <-- --> Payload increase</TD>
 		<TD align="right" title="Reasonable restrictions on the rocket characteristics"></SELECT>Limitations ON<INPUT id="Limitation" type="checkbox"></TD></TR>
 	      <TR>
 
 	      <TR>
-		<TD title="Moving the sliders to the right increases efficiency but is more difficult to achieve" align="center">Payload decrease <-- --> Payload increase </TD>
+		<TD title="Set all sliders to minimum or maximum values." align="center"><INPUT style="width:30px" id="Set_AllMin" type="checkbox">Set all to Min <-- --> Set all to Max<INPUT style="width:30px" id="Set_AllMax" type="checkbox"></TD>
 		<TD align="right" title="Using the averaged characteristics mode"></SELECT>Set averages<INPUT id="Set_averages" type="checkbox"></TD></TR>
 	      <TR>
 
@@ -232,7 +232,7 @@
 	<TBODY>
 	<TR>
 	  <TD><FONT size="5" title="Choose the Launch point"><b>Spaceport</b><BR></FONT> <SELECT title="Spaceport name"
-	    id="StartingPoint"></SELECT>&ensp;<id="Air Launch" title="Launch of an existing rocket from an airplane">Air Launch<INPUT id="Air_Launch" type="checkbox">
+	    id="StartingPoint"></SELECT>&ensp;<id="Air Launch" title="Launch of an existing rocket from an airplane">Air Launch<INPUT style="width:30px" id="Air_Launch" type="checkbox">
 	 
 	    <TABLE border="1">
 	      <TBODY title="">
@@ -546,6 +546,8 @@
 	var elsGEOI = document.querySelectorAll('.content tr[class="fGEOI"]');
 	var elLimitation = document.querySelector('#Limitation');
 	var elSet_averages = document.querySelector('#Set_averages');
+	var elSet_AllMin = document.querySelector('#Set_AllMin');
+	var elSet_AllMax = document.querySelector('#Set_AllMax');
 	var elProjecting = document.querySelectorAll('.content tr[class="Projecting"]');
 	var elProjectingH = document.querySelectorAll('.content tr[class="ProjectingH"]');
 
@@ -1940,6 +1942,8 @@
 	{
 		if (elSet_averages.checked)
 		{
+		elSet_AllMin.checked = false;
+		elSet_AllMax.checked = false;
 		SetAverages(0,10);
 		Calculate();
 		}
@@ -1959,11 +1963,63 @@
 		elSpecific_Impulse_Variation.value = 100.;
 		updateSliderEdit0(10);
 	}
-	
+
 	function DelAverages()
 	{
 		DelLimitation();
 		LimitationChange();
+	}
+
+	function Set_AllMinChange()
+	{
+		if (elSet_AllMin.checked)
+		{
+		elSet_averages.checked = false;
+		elSet_AllMax.checked = false;
+		SetAllMin();
+		Calculate();
+		}
+		else
+		{
+		if (elRocket.selectedIndex > 0) DelAverages();
+		}
+	}
+
+	function SetAllMin()
+	{
+		for (var i = 0; i < 10; ++i)
+			{
+			s_slider[i].value = parseFloat(s_slider[i].min);
+			updateSlider(i);
+			}
+		elSpecific_Impulse_Variation.value = 100.;
+		updateSliderEdit0(10);
+	}
+
+	function Set_AllMaxChange()
+	{
+		if (elSet_AllMax.checked)
+		{
+		elSet_averages.checked = false;
+		elSet_AllMin.checked = false;
+		SetAllMax();
+		Calculate();
+		}
+		else
+		{
+		if (elRocket.selectedIndex > 0) DelAverages();
+		}
+	}
+
+	function SetAllMax()
+	{
+		for (var i = 0; i < 10; ++i)
+			{
+			s_slider[i].value = parseFloat(s_slider[i].max);
+			updateSlider(i);
+			}
+		elSpecific_Impulse_Variation.value = 100.;
+		updateSliderEdit0(10);
 	}
 
 	function CalculateScore()
@@ -2260,6 +2316,12 @@
 
 		elSet_averages.checked = false;
 		elSet_averages.addEventListener('change', Set_averagesChange);
+
+		elSet_AllMin.checked = false;
+		elSet_AllMin.addEventListener('change', Set_AllMinChange);
+
+		elSet_AllMax.checked = false;
+		elSet_AllMax.addEventListener('change', Set_AllMaxChange);
 		
 		updateRocket();
 		updateStartingPoint();
