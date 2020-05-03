@@ -65,6 +65,7 @@
 <BODY>
 <DIV class="content">
 <P align="center"><FONT size="6">Launcher 🚀 Calculator</FONT>
+<FONT size="4"><label title="Software version number"> &emsp;&emsp;v26</FONT>
         <BR>An open source orbital launch vehicle payload calculator by <a href="https://launcherspace.com">Launcher</a><BR>
 <FONT size="2"><a href="#" onclick="openAbout()">Background and usage</a> |  <a href="#" onclick="openLicense()">MIT License</a
 > | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a></font><BR><center></p>
@@ -644,15 +645,15 @@
 			     ["ULA Atlas V 401",		1.15,  328770, 4.2, 2900, 4500,  0, 9800,    7.05,   0.,     7.04,   10.1,  20,    3,   3,   0.8, 311.9, 338.4, 450, 300, 0,0, 2,0, 2,0,    "Cape Canaveral",	"ISS", 0, "United Launch Alliance"],
 			     ["Orbital (NG now) Antares 100",	1.19,  274735, 3.9,  970, 4500,  0, 4600,    5.10,   0.,     7.17,   8.69,  20,    3,   0,   0.8, 297.,  331.,  301, 300, 0,0, 4,1, 4,1,    "Wallops",		"LEO", 0, "Orbital Sciences Corporation (Aj-26)"],
 			     ["Northrop Grumman Antares 230",	1.32,  287000, 3.9,  970, 4500,  0, 6500,    9.103,  0.,     7.845,  7.985, 20,    3,   0,   0.8, 311.9, 339.2, 304, 300, 0,0, 4,1, 4,1,    "Wallops",		"LEO", 0, "Northrop Grumman (RD-181)"],
-			     ["Northrop Grumman Pegasus",	3.18,   18280, 1.27, 100, 3500,  0,  443,   23.31,   2.39,  13.34,  10.39,  13.48, 0,   0,   0,   270.0, 295,   289, 287, 4,1, 4,1, 4,1,    "Vandenberg",		"LEO", 1, "Northrop Grumman Air Launch"],
-			     ["SpaceX Falcon 1e",		1.19,   46955, 1.7,  145, 3500,  0,  650,   10.41,   0.00,   6.13,  11.07,  20.00, 3,   3,   1,   263.0, 304,   317, 300, 0,1, 0,3, 0,3,    "Omelek Island",		"LEO", 0, "First SpaceX Launcher"],
+			     ["Northrop Grumman Pegasus",	3.18,   18280, 1.27, 100, 3500,  0,  443,   23.31,   2.39,  13.34,  10.39,  13.48, 0,   0,   0,   270.0, 295,   289, 287, 4,1, 4,1, 4,1,    "Vandenberg",	"LEO", 1, "Northrop Grumman Air Launch"],
+			     ["SpaceX Falcon 1e",		1.19,   46955, 1.7,  145, 3500,  0,  650,   10.41,   0.00,   6.13,  11.07,  20.00, 3,   3,   1,   263.0, 304,   317, 300, 0,1, 0,3, 0,3,    "Omelek Island",	"LEO", 0, "First SpaceX Launcher"],
 			     ["SpaceX Falcon 9 V1.0",		1.22,  308000,3.66, 1000, 3500,  0, 8500,   16.56,   0.00,   6.74,   5.96,  20.00, 2.0, 2.0, 1,   266.0, 304,   336, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "SpaceX"],
 			     ["SpaceX Falcon 9 V1.1",		1.19,  490600, 5.2, 1900, 3500,  0, 13150,  14.656,  0.00,   5.493,  5.425, 20.00, 3.0, 3.0, 1,   282.0, 311,   342, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "SpaceX"],
 			     ["SpaceX Falcon 9 FT",		1.41,  524554, 5.2, 1700, 3500,  0, 22800,  20.93,   0.00,   5.14,   4.04,  20.00, 1.0, 1.0, 1,   286.0, 321,   348, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "Heavy SpaceX Launcher"],
-			     ["SpaceX Starship",		1.41, 5150000, 9.0,    0, 3500,  0,150000,  25.9,    0.00,   14.0,   9.1,	10., 1.5, 1.5,  1,   330.0, 356,   380, 440, 1,0, 1,0, 1,0,    "SpaceX Boca Chica",		"LEO", 0, "SpaceX (project)"],
+			     ["SpaceX Starship",		1.41, 5150000, 9.0,    0, 3500,  0,150000,  25.9,    0.00,   14.0,   9.1,   10.,   1.5, 1.5, 1,   330.0, 356,   380, 440, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, "SpaceX (project)"],
 			     ["Rocket Lab Electron",		1.32,   12355, 1.2,   44, 3500, 50,   150,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   256.0, 303,   333, 250, 0,2, 0,2, 3,3,    "Rocket Lab LC-1",	"SSO", 0, "Rocketlab"],
-			     ["Blue Origin New Glenn 2st",	1.22, 1380000, 7.0, 4000, 3500,  0, 45000,  19.564,  0.00,   9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 1,0,    "Cape Canaveral",		"LEO", 0, "Blue Origin 2-Stages (Superceded) (project)"],
-			     ["Blue Origin New Glenn 3st",	1.20, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",		"Mars",0, "Blue Origin 3-Stages (Superceded) (project)"],
+			     ["Blue Origin New Glenn 2st",	1.22, 1380000, 7.0, 4000, 3500,  0, 45000,  19.564,  0.00,   9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 1,0,    "Cape Canaveral",	"LEO", 0, "Blue Origin 2-Stages (Superceded) (project)"],
+			     ["Blue Origin New Glenn 3st",	1.20, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",	"Mars",0, "Blue Origin 3-Stages (Superceded) (project)"],
 			     ["Virgin Orbit Launcher One",	1.44,   22900, 1.6,  100, 3500,  0,   300,  11.13,   0.00,   9.00,   9.00,  20.00, 3,   3,   1,   290.0, 308,   328, 300, 0,1, 0,1, 0,1,    "Mojave",		"SSO", 1, "Virgin Orbit (project)"],
 			     ["Relativity Terran 1 ",		1.2,    55500, 2.7,  400, 3500,   0, 1250,  17.50,   0.00,   9.00,   9.00,  20.00, 2,   2,   1,   267.0, 310,   360, 300, 1,1, 1,1, 1,1,    "Cape Canaveral",	"LEO", 0, "Relativity (project)"],
 			     ["Astra Rocket-3",			1.4,    10400, 1.32,   30, 3500,  0,   100,  11.0,    0.00,  10.00,   9.00,  20.00, 2,   2,   1,   234.0, 284,   315, 300, 0,2, 0,3, 3,3,    "Kodiak",		"LEO", 0, "Astra (project)"],
@@ -2050,6 +2051,7 @@
 			if (i == 0) Aggressivity = 0;
 			Aggressivity = Aggressivity + ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow((parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)), 2);
 			}
+		if (Aggressivity < 0)Aggressivity = 0.;
 		elAggressivity.textContent = Aggressivity.toFixed(1);
 	}
 
