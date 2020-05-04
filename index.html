@@ -216,12 +216,9 @@
 	      <TR>
 		<TD title="The percentage ratio of payload mass to the initial rocket mass." width="460">Payload to Lift-off mass ratio</TD>
 		<TD width="220"><h8><LABEL id="Payload_to_Lift_off_mass_ratio"></LABEL> % </TD></TR>
-	      <TR class="Expanding">
-		<TD title="Payload mass calculated at first iteration">Payload mass (1)</TD>
-		<TD><h8><LABEL id="Payload_mass_calculated"></LABEL> kg</TD></TR>
 	      <TR>
 		<TD title="Payload mass calculated by an approximate method.">Payload mass (calculated)</TD>
-		<TD><h9><b><span style="background-color: #FFFF00"><LABEL id="Payload_mass_calculated5"></LABEL> kg </span></TD></TR>
+		<TD><h9><b><span style="background-color: #FFFF00"><LABEL id="Payload_mass_calculated"></LABEL> kg </span></TD></TR>
       	      <TR>
 		<TD title="This is the complexity of the rocket development estimated on a 12-point scale.&#013;It takes into account only the technical complexity of achieving the performance&#013;objectives but not the the rocket scale.">Aggressivity index</TD>
 		<TD><h8><LABEL id="Aggressivity"></LABEL> pts</TD></TR>
@@ -288,7 +285,7 @@
 		<TD title="The point of the orbit farthest from Earth">Orbit Apogee (0 means a circular orbit)</TD>
 		<TD><INPUT id="Orbit_Apogee"> km</TD></TR>
 	      <TR class="fGEOI">
-		<TD title="The angle between the Earth's equatorial plane and the satellite's orbital plane.&#013;The inclination of an orbit is always greater than the spaceport latitude.">Orbit Inclination</TD>
+		<TD title="The angle between the Earth's equatorial plane and the satellite's orbital plane.&#013;The inclination of an orbit is always greater than the spaceport latitude.&#013;Decreasing the orbit inclination requires a special maneuver and leads&#013;to a significant enegry expenditure.">Orbit Inclination</TD>
 		<TD><INPUT id="Orbit_Inclination"> deg</TD></TR>
 	      <TR class="Expanding">
 		<TD title="Orbital speed at perigee (maximum)">Perigee velocity</TD>
@@ -534,7 +531,6 @@
 	var elCalculation_Error = document.querySelector('#Calculation_Error');
 
 	var elPayload_mass_calculated  = document.querySelector('#Payload_mass_calculated');
-	var elPayload_mass_calculated5 = document.querySelector('#Payload_mass_calculated5');
 	var elAggressivity = document.querySelector('#Aggressivity');
 	var elPayload_change = document.querySelector('#Payload_change');
 	var elExpand = document.querySelector('#Expand');
@@ -956,16 +952,10 @@
 			}
 
 		//=== Result ===
-			if (itt == 1)
-			{
-				elPayload_mass_calculated.textContent = Payload_mass_calculated.toFixed(1);
-			} else if (itt == 5)
-			{
-				var Assumed_payload_mass_base = parseFloat(elAssumed_payload_mass.value);
-				elPayload_mass_calculated5.textContent = Payload_mass_calculated.toFixed(1);
-				var Payload_change = Payload_mass_calculated/Assumed_payload_mass_base;
-				elPayload_change.textContent = (Payload_change * 100.).toFixed(1);	
-			}
+			var Assumed_payload_mass_base = parseFloat(elAssumed_payload_mass.value);
+			elPayload_mass_calculated.textContent = Payload_mass_calculated.toFixed(1);
+			var Payload_change = Payload_mass_calculated/Assumed_payload_mass_base;
+			elPayload_change.textContent = (Payload_change * 100.).toFixed(1);	
 			Assumed_payload_mass = Payload_mass_calculated;
 //			if(elRocket.selectedIndex == 0)elAssumed_payload_mass.value = Assumed_payload_mass;
 			Payload_mass = Payload_mass_calculated;
@@ -1062,7 +1052,7 @@
 		var Second_stage_dry_mass = parseFloat(elSecond_stage_dry_mass.value);
 		var Transfer_Orbit_stage_propellant_mass = parseFloat(elTransfer_Orbit_stage_propellant_mass.value);
 		var Transfer_Orbit_stage_dry_mass = parseFloat(elTransfer_Orbit_stage_dry_mass.value);
-		var Payload_mass = parseFloat(elPayload_mass_calculated5.textContent);
+		var Payload_mass = parseFloat(elPayload_mass_calculated.textContent);
                 var Summary_Mass = First_stage_propellant_mass + First_stage_dry_mass
 			+ Second_stage_propellant_mass + Second_stage_dry_mass
 			+ Transfer_Orbit_stage_propellant_mass + Transfer_Orbit_stage_dry_mass
