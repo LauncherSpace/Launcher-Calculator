@@ -620,8 +620,8 @@
 			       [13, 13, 20, 0, 0,   0, 290, 320, 320, 320]]; //Solid
 	
 	var s_fuel_data_min = [[5,  4.,  10, 1, 0.5, 0.5, 283, 310, 332, 332],  //Lox/Ker 
-			       [6,  5.,  10, 1, 0.5, 0.5, 297, 327, 345, 345],  //Lox/Meth
-			       [10, 8.2, 10, 1, 0.5, 0.5, 363, 399, 434, 434],  //Lox/LH2 
+			       [6.2,5.2,  10, 1, 0.5, 0.5, 297, 327, 345, 345],  //Lox/Meth
+			       [10, 8.0, 10, 1, 0.5, 0.5, 363, 399, 434, 434],  //Lox/LH2 
 			       [8,  7.,  10, 0, 0.,  0.,  239, 266, 266, 266],  //Mono    
 			       [8,  7.,  10, 0, 0.,  0.,  257, 283, 283, 283]]; //Solid   
 
@@ -631,7 +631,7 @@
 	var s_rocket_count = 27;
 	var s_rocket_data =  [["New Project",			1.20,   32475, 1.7,  150, 3500,  0,  775,   24.86,   0.,     8.,   10.,     20,    2., 2.,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Cape Canaveral",	"LEO", 0, "Designed Rocket - engine based"],
 			     ["NASA Saturn V",			1.165,2909200,10.1, 8000, 3500,  0, 48600,  21.284,  4.228,  5.677,  8.081, 10.976,2.6, 2.0, 2,   263.0, 304,   421, 421, 0,1, 2,1, 2,1,    "Cape Canaveral",	"Moon",0, "Apollo lunar program launcher"],
-			     ["Launcher Rocket-1",		1.19,   32600, 1.7,  150, 3500,  0,  750,   25.00,   0.0,    7.9,    10.,   20,    2,   2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"LEO", 0, "4 E2 engines at the 1st stage (project)"],
+			     ["Launcher Rocket-1",		1.19,   32600, 1.7,  150, 3500,  0,  750,   25.00,   0.0,    8.5,    9.87,   20,    2,   2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"LEO", 0, "4 E2 engines at the 1st stage (project)"],
 			     ["Launcher XL",			1.2,    73540, 2.1,  400, 3500,  0, 1500,   13.65,   2.,     8.0,    10.,   20,    2,   2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"SSO", 0, "9 E2 engines at the 1st stage (project)"],
 			     ["Launcher Light",			1.15,    8500, 1.1,   30, 3500,  0,  150,    12.3,   3.,      9.5,   12.,   17,    2.,  2.,  1,   290.5, 327,   312, 312, 0,0, 0,3, 0,3,    "Wallops",	"LEO", 0, "1 E2 engine at the 1st stage, pres fed 2nd stage"],
 			     ["Launcher Nano",			1.5,      500,0.45,    0, 3500,  0,    1,   24.00,   4.,    23.00, 23.00,   15,    3,   3,   3,   225.0, 270,   315, 300, 0,3, 0,3, 0,3,    "Wallops",	"LEO", 0, "The smallest orbital launcher (project)"],
@@ -646,7 +646,7 @@
 			     ["SpaceX Falcon 9 V1.0",		1.22,  308000,3.66, 1000, 3500,  0, 8500,   16.56,   0.00,   6.74,   5.96,  20.00, 2.0, 2.0, 1,   266.0, 304,   336, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "SpaceX"],
 			     ["SpaceX Falcon 9 V1.1",		1.19,  490600, 5.2, 1900, 3500,  0, 13150,  14.656,  0.00,   5.493,  5.425, 20.00, 3.0, 3.0, 1,   282.0, 311,   342, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "SpaceX"],
 			     ["SpaceX Falcon 9 FT",		1.41,  524554, 5.2, 1700, 3500,  0, 22800,  20.93,   0.00,   5.14,   4.04,  20.00, 1.0, 1.0, 1,   286.0, 321,   348, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "Heavy SpaceX Launcher"],
-			     ["SpaceX Starship",		1.41, 5150000, 9.0,    0, 3500,  0,150000,  25.9,    0.00,   14.0,   9.1,   10.,   1.5, 1.5, 1,   330.0, 356,   380, 440, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, "SpaceX (project)"],
+			     ["SpaceX Starship",		1.41, 5150000, 9.0,    0, 3500,  0,150000,  25.9,    0.00,   14.0,   9.1,   10.,   1.5, 1.5, 1,   330.0, 356,   380, 380, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, "SpaceX (project)"],
 			     ["Rocket Lab Electron",		1.32,   12355, 1.2,   44, 3500, 50,   150,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   256.0, 303,   333, 250, 0,2, 0,2, 3,3,    "Rocket Lab LC-1",	"SSO", 0, "Rocketlab"],
 			     ["Blue Origin New Glenn 2st",	1.22, 1380000, 7.0, 4000, 3500,  0, 45000,  19.564,  0.00,   9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 1,0,    "Cape Canaveral",	"LEO", 0, "Blue Origin 2-Stages (Superceded) (project)"],
 			     ["Blue Origin New Glenn 3st",	1.20, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",	"Mars",0, "Blue Origin 3-Stages (Superceded) (project)"],
@@ -2019,28 +2019,31 @@
 	{
 		Aggressivity = 1.;
 		// if Pressure Fed
-		if(elCycle.selectedIndex == 3) Aggressivity = Aggressivity - 0.5;
-		if(elCycle2.selectedIndex == 3) Aggressivity = Aggressivity - 0.5;
-		if(elCycle3.selectedIndex == 3) Aggressivity = Aggressivity - 0.5;
+		if(elCycle.selectedIndex == 3) Aggressivity = Aggressivity - 1.25*0.5;
+		if(elCycle2.selectedIndex == 3) Aggressivity = Aggressivity - 1.25*0.5;
+		if(elStages.selectedIndex == 1 & elCycle3.selectedIndex == 3) Aggressivity = Aggressivity - 0.5*0.5;
 		// if Lox/Methane
-		if(elFuel.selectedIndex == 2) Aggressivity = Aggressivity + 0.3;
-		if(elFuel2.selectedIndex == 2) Aggressivity = Aggressivity + 0.3;
-		if(elFuel3.selectedIndex == 2) Aggressivity = Aggressivity + 0.3;
+		if(elFuel.selectedIndex == 2) Aggressivity = Aggressivity + 1.25*0.3;
+		if(elFuel2.selectedIndex == 2) Aggressivity = Aggressivity + 1.25*0.3;
+		if(elStages.selectedIndex == 1 & elFuel3.selectedIndex == 2) Aggressivity = Aggressivity + 0.5*0.3;
 		// if Lox/LH2
-		if(elFuel.selectedIndex == 2) Aggressivity = Aggressivity + 0.8;
-		if(elFuel2.selectedIndex == 2) Aggressivity = Aggressivity + 0.8;
-		if(elFuel3.selectedIndex == 2) Aggressivity = Aggressivity + 0.8;
+		if(elFuel.selectedIndex == 2) Aggressivity = Aggressivity + 1.25*0.8;
+		if(elFuel2.selectedIndex == 2) Aggressivity = Aggressivity + 1.25*0.8;
+		if(elStages.selectedIndex == 1 & elFuel3.selectedIndex == 2) Aggressivity = Aggressivity + 0.5*0.8;
 
 		for (var i = 0; i < 6; ++i)
 			{
 			if (i < 3 & parseFloat(s_slider_edit[i].value) == 0.) Aggressivity = 1/0;
-			if (parseFloat(s_slider[i].max) > 0.) Aggressivity = Aggressivity + ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(1-(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)), 2);
+			if (parseFloat(s_slider[i].max) > 0.) Aggressivity = Aggressivity + 1.25*ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(Math.max(1e-3,1.-(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
 			}
+		if (elStages.selectedIndex == 1)
+		{
 		for (var i = 6; i < 10; ++i)
 			{
 			if (i == 0) Aggressivity = 0;
-			Aggressivity = Aggressivity + ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow((parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)), 2);
+			Aggressivity = Aggressivity + 0.5*ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(Math.max(1e-3,(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
 			}
+		}
 		if (Aggressivity < 0)Aggressivity = 0.;
 		elAggressivity.textContent = Aggressivity.toFixed(1);
 	}
