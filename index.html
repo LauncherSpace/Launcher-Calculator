@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+﻿<!DOCTYPE HTML>
 <!DOCTYPE html PUBLIC "" ""><HTML lang="en">
 <HEAD>
 <META content="IE=11.0000"http-equiv="X-UA-Compatible">     
@@ -7,14 +7,169 @@
 <meta name="description" content="An open source orbital launch vehicle (rocket) payload calculator by Launcher" />
 <link rel="shortcut icon" type="image/png" href="favicon.png"/>
 <TITLE>Launcher Calculator</TITLE>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <STYLE>
-	h8 {display:inline-block; text-align:right; width:128px}
-	h9 {display:inline-block; text-align:right; width:140px}
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: #eeeff1;
+  border-radius: 6px;
+  border: 1px solid #eeeff1;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 1px #000000;
+  border: 0px solid #000000;
+  height: 15px;
+  width: 15px;
+  border-radius: 42px;
+  background: #000000;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -9px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #eeeff1;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: #eeeff1;
+  border-radius: 6px;
+  border: 1px solid #eeeff1;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 1px #000000;
+  border: 0px solid #000000;
+  height: 15px;
+  width: 15px;
+  border-radius: 42px;
+  background: #000000;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #eeeff1;
+  border: 1px solid #eeeff1;
+  border-radius: 12px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type=range]::-ms-fill-upper {
+  background: #eeeff1;
+  border: 1px solid #eeeff1;
+  border-radius: 12px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 0px 0px 1px #000000;
+  border: 0px solid #000000;
+  height: 15px;
+  width: 15px;
+  border-radius: 42px;
+  background: #000000;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #eeeff1;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #eeeff1;
+}
+
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px 0;
+  border: 1px solid #888;
+  width: 80%;
+  position: fixed;
+    top: 5%;
+    left: 0;
+    right: 0;
+    /* overflow-y: scroll; */
+    height: calc(100% - 20%);
+}
+#modelContentGroup{
+	overflow-y: auto;
+    height: calc(100% - 30px);
+	width: 100%;
+}
+#modelTitle{margin: 0;
+    float: left;
+	padding: 0 0 16px 20px;}
+.model-header{
+	width: 100%;
+	border-bottom: 1px solid #cccc;
+	height: auto;
+    overflow: hidden;
+}
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin: -10px 20px 0px 0;
+}
+#popupContent{
+	padding: 0 30px;
+    text-align: justify;
+}
+#popupContent p{ font-size: 16px;}
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+	h8 {display:inline-block; text-align:right; width:128px;padding: 10px 0;}
+	h9 {display:inline-block; text-align:right;padding: 4px 0;width:128px}
 
 	body {
+		font-family: 'Montserrat', sans-serif !important;
+		font-weight: 500;
 		margin: 0;
 		padding: 0;
-		background-color: #FFFFFF;
+		background-color: #fafbff;
 		background-position: top;
 		background-repeat: repeat;
 		background-attachment: fixed;
@@ -27,11 +182,12 @@
 		height: 100%;
 		}
 	.content {
-			margin: 0 10px;
 			background-color: #ffffff;
 			display: inline-block;
 			text-align: left;
 			max-width:1800px;
+			height: auto;
+    		overflow: hidden;
 		}
 		input{width:64px; text-align: right; font-size: 1.1em;}
 		input[type=range]{width:96px;}
@@ -57,355 +213,587 @@
 			border-radius: 6px;
  			position: fixed;
 		}
+	.launcher-header{
+		display: block;
+		list-style: none;
+		height: auto;
+		overflow: hidden;
+		padding: 0;
+		margin-bottom: 0;
+		padding: 20px 20px 8px 20px;
+		border-bottom: 1px solid #eeeff1;
 	}
+	.headerTitle{padding-right: 20px;width: calc(40% - 35px);max-width: 530px;float: left;}
+	.secondHeader{padding-right: 40px !important;float: left; width:calc(30% - 30px);}
+	.lastChild{width: 30%;float: right;}
+	.secondHeader font, .lastChild font{font-weight: 600;}
+	.logoContent font{display: inline-flex;}
+	.logoContent font img{width:30px;height:30px;margin: 0 7px 0px 7px;}
+	.logoContent span{font-size: 16px; font-weight: 400;}
+	.lastChild h8{padding: 2px;text-align: right;}
+	#RocketDescription{margin: 0;width: 99%;overflow: hidden;font-weight: 400;line-height: 1.5; font-size: 16px;}
+	.launcher-header p{
+		margin: 5px 0 10px 0;
+		line-height: 1;
+		padding: 0;
+		font-size: 16px;
+		letter-spacing: -0.5px;
+  		color: #000000;
+	}
+	.launcher-header p FONT{
+		font-weight: 600;
+	}
+	.logoContent{font-size: 26px !important;}
+	.headerBG{background-color: #EFF3F6;height: auto;overflow: hidden;}
+	.hyper-content{font-size: 14px !important;color: #6e6e6e !important;padding:3px 0 !important;}
+	.launcher-header li a{color: #5c00f7;font-size:14px;font-weight: 500;text-decoration:none;}
+	select{border-radius: 3px;background-color:#fff !important;border: solid 0.5px #688093;font-size:14.5px;padding:5px 10px;font-weight: 600;min-width: 170px;height: 32px;margin: 2px 0px;
+		background: url("dropdown.png") no-repeat right;
+    -webkit-appearance: none;
+    background-position-x: 96%;}
+	.right-select{float:right;}
+	#Rocket{margin-top: 5px;width: 100%;max-width:400px}
+	.headerTable{font-size:14px;}
+	.headerTable tr{font-size: 16px;font-weight: 400;}
+	.heighlightBG{border-radius: 2px;background-color: #5c00f7;padding: 5px;color:#fff;font-size: 18px;}
+	.highlightprice{padding: 0px 0 5px 0;text-align: right;}
+	.borderTable{border:1px solid #eeeff1;width: 100%;}
+	table{width: 100%;}
+	.borderTable tr{font-size: 15px;font-weight: 400;}
+	.borderTable td{padding:0px 10px;line-height: 1;}
+	input[type=checkbox]{width: 20px;background-color: #fff;}
+	input[type="text"]{border-radius: 1.5px;
+    border: solid 0.5px #688093;margin: 2px 0;text-align: right;
+    padding: 4px 8px 4px 8px;}
+	.tableResultContent input[type="text"]{width:85px;}
+	.tableResultContent .mobilelayout_r1{padding-right: 10px;}
+	.inputstyle-1{width:150px;text-align: left;}
+	.spacetitle{height: auto;overflow: hidden;background-color: #ffffff;padding: 5px 10px;border: 1px solid rgba(216, 216, 216, 0.25);}
+	.spacetitle select{margin-left: 15px;}
+	.padd2{padding:5px 10px}
+	.spacetitle font, .padd2 font{font-weight: 600;}
+	.spaceheder2cont font{font-size: 16px;font-weight: 400;}
+	.topspace{margin-top: 30px;}
+	.tdpadd1{padding: 0px 10px !important;}
+	.tablecontent{padding: 30px 30px 40px 30px;height:100%;overflow:hidden;}
+	.number-text1{padding: 4px 8px 4px 8px;margin-top: 5px;min-width: 80px;}
+	.kgtext{padding-left: 5px;}
+	.tableRocketContent{
+		float: left;
+		width: calc(55% - 15px);
+		padding-bottom: 30px;
+	}
+	.tableResultContent{float: left;
+    width: calc(45% - 15px);
+	margin-left: 30px;}
+	.right-content{float:right;border:none;padding: 6px 0 !important;}
+	.right-content01{padding: 2px 0 !important;}
+	.adwacedContent{width:100%;padding-bottom: 40px;}
+	.engineText{float: left;width: calc(100% - 170px);padding-top: 8px;}
+	.nopadd{padding-top: 0;}
+	.spaceheder2cont, .leftTitle{float: left;}
+	.layout_wt_content{text-align: right;float: right;}
+	.layout_wt_content input{float: left;}
+	.layout_wt_content span{display: inline-block;width: 20px;text-align:left;padding-left:5px;margin-top: 10px;}
+	.layout_wt_content h8 span{margin-top: 0;}
+	.adwacedContent button{margin:0 auto;display:block;font-size:16px;width: 170px;height: 40px;border-radius: 2px;border: solid 0.5px #b5bdcd;background-color: #fff;;}
+	.mobilelayout_r2, .mobilelayout_r2 h8{text-align:right;width: 100%;}
+	.mobilelayout_r1, .mobRight{text-align: right;}
+	.mobRight select, .mobpadd select, .mobpadd input{margin-right: 25px;}
+	.mobilelayout_r2 input[type="range"]{margin-top: 15px;width:calc(100% - 115px)}
+	.mobileinner-r1 input{margin-left: 5px;}
+	.rocketnewview{display: flex;float: right;}
+	.rocketnewview input{width: 30px;min-width: 28px;}
+	.rocketnewview .inputstyle-1, #Second_stage_engine_thrust{width: 60px;}
+	.rocketnewview span{padding-top: 7px;padding-left: 5px;}
+	.rocketnewview .kgtext{padding-right: 5px;}
+	@media only screen and (max-width: 980px) {
+		.tableRocketContent{float: none;width: 100%;max-width: 100%;}
+		.tableResultContent{float: none;width: 100%;max-width: 100%;margin: 0;}
+	.secondHeader{padding-right: 30px !important;}
+		
+	}
+	@media only screen and (max-width: 768px) {
+		.headerTitle, .lastChild{padding: 0;width: 100%;}
+		.secondHeader{padding-bottom: 30px;padding-right: 0 !important;width: 100%;}
 
+	}
+	@media only screen and (max-width: 600px) {
+		#RocketDescription{width: 100%;}
+		.tablecontent{padding: 30px 15px 40px 5px;}
+		.spacetitle{display: block;}
+		.borderTable, .spacetitle, .borderTable td{border: none;}
+		.secondHeader{padding-bottom: 30px;}
+		.right-select{float:none;}
+		.borderTable tr {display: inline-block;font-size: 14px; width:100%;border-bottom:0.5px solid #eeeff1}               
+        .borderTable td { display: inline-block;line-height: 1.3;  width:calc(100%);padding: 0 5px;}
+		.borderTable td[hidden=true]{display: none !important;}
+		select{width:50%;margin: 10px 0;}
+		input[type="text"]{width:50%;margin: 10px 0;}
+		h8, h9 {padding: 6px 0;}
+		.right-content{float:right;text-align: right;padding: 5px 0 10px 0 !important;}
+		.dummy-node{display: none !important;}
+		input[type=range]{margin-right: 20px;}
+		.tableResultContent{margin:0;margin-top: 20px;}
+		.spacetitle{display: grid;}
+		.spacetitle select {margin: 15px 0 0 0;}
+		select {font-size: 13px;background-size: 10px;}
+		.mobLeft select{float: left;min-width: 49%;width: 49%;margin-bottom: 0;}
+		.mobRight select{float: right;min-width: 49%;width: 49%;margin-bottom: 0;margin-top: -42px;}
+		.engineText{padding-top:5px;line-height: 1;height: auto;width: 100%;}
+		.mobilelayout_l1{width: 65%;float: left;padding-top: 4px;}
+		.mobilelayout_r1{width: 30%;float: right;}
+		.mobilelayout_r1 input{width: 82%;margin: 0;float: right;margin-top: -28px;}
+		.mobilelayout_r1 select{width: 100%;min-width:80px;margin: 4px 0;float: right;margin-top: -15px;}
+		.mobilelayout_r2{width: 30%;float: right;margin-top: -23px;}
+		.mobilelayout_r2 h8{padding: 2px 10px;text-align: right !important;}
+		.padd2, .spacetitle{padding: 5px;margin-bottom:5px;border-bottom:0.5px solid #eeeff1}
+		.layout_wt_content{margin-top:-26px ;}
+		.layout_wt_content input{float: left;margin: 0;width: calc(100% - 50px) !important;}
+		.layout_wt_content span{float: left;padding-left: 5px;}
+		.layout_wt_content h9 span {    margin-top: 0px;}
+		.layout_wt_content h8, .layout_wt_content h9{display: flex;}
+		.mobilelayout_l2{width: 50%;float: left;padding-top: 4px;}
+		.mobilelayout_r2{width: 50%;float: right;display: inline-flex;margin: 0;}
+		.mobilelayout_r2 input[type="range"]{width: 70px;margin: 0;float: left;margin-top: -28px;}
+		.mobileinner-r1{margin-left: 8px;margin-top: -25px;}
+		.mobRight select, .mobpadd select, .mobpadd input{margin-right: 0;}
+		.rocketnewview span{padding-top: 10px;padding-left: 5px;}
+
+	}
+	@media only screen and (max-width: 480px) {	
+		.launcher-header{padding:10px}
+		.logoContent span{font-size: 14px;}
+		.launcher-header p FONT{font-size: 21px;}
+		.logoContent font img {width: 25px;margin: 0 3px 0px 3px;height: 25px;}
+		.hyper-content{line-height: 1.5 !important;}
+		.tdright{text-align: right;}
+		.tdright h8{text-align: right;}
+	}
+	.mobilelayout_r2{padding:0px 0;}
+	@media (-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) { 
+	select{background: url("dropdown@2x.png") no-repeat right;}
+}
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2) {
+	select {background-position-x: 96%;background-size: 12px;}
+}
+	/* {border: 1px solid #eeeff1;
+    border-collapse: separate;
+    border-spacing: 0 1em;} */
     </STYLE>
 
 <META name="GENERATOR" content="MSHTML 11.00.9600.17842"></HEAD> 
 <BODY>
 <DIV class="content">
-<P align="center"><FONT size="6">Launcher 🚀 Calculator</FONT>
-<FONT size="4"><label title="Software version number"> &emsp;&emsp;v26</FONT>
-        <BR>An open source orbital launch vehicle payload calculator by <a href="https://launcherspace.com">Launcher</a><BR>
-<FONT size="2"><a href="#" onclick="openAbout()">Background and usage</a> |  <a href="#" onclick="openLicense()">MIT License</a
-> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a></font><BR><center></p>
-<TABLE border="0">
-  <TBODY>
-  <TR>
-    <TD width="750" valign="top">
-      <TABLE border="0">
-	<TBODY>
-	<TR>
-	  <TD><FONT size="5" title="Choose a preset Rocket or create a New Project"><b>Rocket</b></FONT><br><SELECT id="Rocket" title="Rocket name"></SELECT> 
-	    <FONT size="3"><LABEL id="RocketDescription"></LABEL></FONT>										  		
-	    <TABLE border="1">
-	      <TBODY>
+	<div class="headerBG">
+		<ul class="launcher-header">
+			<li class="headerTitle">
+				<P class="logoContent"><FONT>Launcher <img src="rocketlogo.png"> Calculator</FONT>
+						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
+				<p class="hyper-content"><a href="#" onclick="openAbout()">Background and usage</a> |  <a href="#" onclick="openLicense()">MIT License</a
+				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a></p><center></p>
+			</li>
+			<li class="secondHeader">
+				<FONT size="5" title="Choose a preset Rocket or create a New Project">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
+	    <br><h6 id="RocketDescription"></h6>	
+			</li>
+			<li class="lastChild">
+				<FONT size="5" title="Payload mass is the main calculation result">Result</FONT>
+					  <id="Expand" title="Display more information"></SELECT>&emsp;&emsp;
+				   
+					  <TABLE class="headerTable" border="0">
+						<TBODY>
+							<TR>
+								<TD title="Payload mass calculated by an approximate method.">Payload mass (calculated)</TD>
+								<TD width="300" class="tdright"><h9 class="highlightprice"><b><span class="heighlightBG"><LABEL id="Payload_mass_calculated5"></LABEL> kg </span></TD></TR>
+						<TR>
+					  <TD title="The percentage ratio of payload mass to the initial rocket mass." width="600">Payload to Lift-off mass ratio</TD>
+					  <TD width="120" class="tdright"><h8><LABEL id="Payload_to_Lift_off_mass_ratio"></LABEL> % </TD></TR>
+						<TR class="Expanding">
+					  <TD title="Payload mass calculated at first iteration">Payload mass (1)</TD>
+					  <TD class="tdright"><h8><LABEL id="Payload_mass_calculated"></LABEL> kg</TD></TR>
+						<TR class="ProjectingH">
+					  <TD title="The percentage ratio of assumed payload mass to the calculated payload mass.">Payload change</TD>
+					  <TD class="tdright"><h8><LABEL id="Payload_change"></LABEL> % </TD></TR></TBODY></TABLE>
+			</li>
+		</ul>
 
-	      <TR class="Projecting">
-		<TD width="460" title="Choose an engine for the first stage">1st&ensp;engine <SELECT id="Engine1" title="First stage engine name"> &emsp;<INPUT id="First_stage_engine_thrust" style="width:82px" title="First stage engine thrust">kg</TD>
-		<TD width="220"><INPUT id="First_stage_engines_number" style="width:32px" title="Number of engines on the first stage"> Number</TD></TR>
+	</div>
 
-	      <TR>
-		<TD title="&#013;Changing the fuel or cycle in this menu only changes&#013;the maximum and minimum limits. To compare&#013;launchers with different fuels select 'Set averages'" width="460">1st&ensp;stage Fuel & Cycle &emsp;&emsp;&emsp;<SELECT id="Fuel"></SELECT></TD>
-		<TD title="Changing the cycle in this menu only changes&#013;the maximum and minimum limits. To compare&#013;launchers with different cycles select 'Set averages'" width="220"><SELECT id="Cycle"></SELECT> </TD></TR>
 
-	      <TR class="Projecting">
-		<TD width="460" title="Choose an engine for the second stage">2nd engine <SELECT id="Engine2" title="Second stage engine name"> &emsp;<INPUT id="Second_stage_engine_thrust" style="width:82px" title="Second stage engine thrust">kg</TD>
-		<TD width="220"><INPUT id="Second_stage_engines_number" style="width:32px" title="Number of engines on the second stage"> Number</TD></TR>
+<div class="tablecontent">	
+	
+<div class="tableRocketContent">
+	<TABLE border="0">
+		<TBODY>
+		<TR>
+		  <TD  valign="top">
+			<TABLE border="0">
+		  <TBODY>
+		  <TR>
+			<TD>									  		
+			  <TABLE border="1" class="borderTable">
+				<TBODY>
+	  
+				<TR class="Projecting">
+				  <div class="spacetitle padd2">
+					  <FONT size="5" title="Choose the Orbit you want to reach">Rocket</FONT>
+				</div>
+			  <TD width="460" title="Choose an engine for the first stage"><div class="engineText">1st&ensp;engine</div><SELECT class="right-select" id="Engine1" title="First stage engine name"> </TD>
+			  <TD width="220"><div class="rocketnewview"><INPUT type="text" class="inputstyle-1" id="First_stage_engine_thrust" title="First stage engine thrust"><span class='kgtext'>kg</span><INPUT id="First_stage_engines_number" type="text" class="number-text1" title="Number of engines on the first stage"><span>Number</span></div></TD>
+			</TR>
+	  
+				<TR>
+			  <TD class="mobLeft" title="&#013;Changing the fuel or cycle in this menu only changes&#013;the maximum and minimum limits. To compare&#013;launchers with different fuels select 'Set averages'" width="460"><div class="engineText">1st&ensp;stage Fuel & Cycle &emsp;&emsp;</div><SELECT  class="right-select" id="Fuel"></SELECT></TD>
+			  <TD class="mobRight" title="Changing the cycle in this menu only changes&#013;the maximum and minimum limits. To compare&#013;launchers with different cycles select 'Set averages'" width="220"><SELECT id="Cycle"></SELECT> </TD></TR>
+	  
+				<TR class="Projecting">
+			  <TD width="460" title="Choose an engine for the second stage"><div class="engineText">2nd engine </div><SELECT class="right-select" id="Engine2" title="Second stage engine name"> </TD>
+			  <TD width="220"><div class="rocketnewview"><INPUT id="Second_stage_engine_thrust" type="text" class="number-text1" title="Second stage engine thrust"><span class='kgtext'>kg</span><INPUT id="Second_stage_engines_number" type="text" class="number-text1" title="Number of engines on the second stage"><span>Number</span></div></TD></TR>
+	  
+				<TR>
+			  <TD class="mobLeft" title="Second stage rocket engine fuel and cycle"><div class="engineText">2nd stage Fuel & Cycle &emsp;&emsp;&ensp; </div><SELECT class="right-select" id="Fuel2" title="Second stage engine fuel"></SELECT></TD>
+			  <TD class="mobRight" title="Second stage rocket engine cycle"> <SELECT id="Cycle2"></SELECT> </TD></TR>
+	  
+				<TR class="f3stages">
+			  <TD class="mobLeft" title="Third stage rocket engine fuel"><div class="engineText">3rd stage Fuel & Cycle &emsp;&emsp;&emsp;</div><SELECT class="right-select" id="Fuel3"></SELECT></TD>
+			  <TD class="mobRight" title="Third stage rocket engine cycle"> <SELECT id="Cycle3"></SELECT> </TD></TR>
+	  
+				<TR>
+			  <TD title="Having more stages increases efficiency - but also increases the complexity and the cost of the rocket"><div class="engineText mobilelayout_l1 nopadd">Stages</div></TD>
+			  <TD class="mobpadd"><div class="mobilelayout_r1"><SELECT id="Stages" title="Number of stages"></SELECT> </div></TD></TR>
+				<TR>
+			  <TD title="Dimensionless ratio of engine thrust to weight of a rocket"><div class="mobilelayout_l1">Thrust-to-weight ratio</div></TD>
+			  <TD class="mobpadd"><div class="mobilelayout_r1"><INPUT id="Thrust_to_weight_ratio"  class="inputstyle-1" type="text"></div></TD></TR>
+				<TR>
+			  <TD title="The initial mass of a rocket"><div class="mobilelayout_l1">Lift-off mass</div></TD>
+			  <TD><div class="mobilelayout_r2"><h8><LABEL id="Lift_off_Mass"></LABEL> kg</div></TD></TR>
+				<TR class="ProjectingH">
+			  <TD title="The initial mass of a rocket excluding payload and fairing"><div class="mobilelayout_l1">Rocket mass (excluding Payload and Fairing)</div></TD>
+			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="Rocket_Mass"  class="inputstyle-1" type="text"><span>kg</span></div></TD></TR>
+				<TR>
+			  <TD title="The maximum diameter midsection of the rocket, which determines the aerodynamic drag.&#013;For modern rockets this is usually the fairing diameter."><div class="mobilelayout_l1">Max midsection diameter</div></TD>
+			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT class="inputstyle-1" type="text" id="Max_midsection_D"> <span>m</span></div></TD></TR>
+	  
+				<TR>
+			  <TD title="The fairing is a nose cone used to protect a spacecraft against the&#013;aerodynamic influence during launch through an atmosphere.&#013;The fairing is usually separated after the vehicle has traversed&#013;the densest part of the atmosphere."><div class="mobilelayout_l1">Fairing mass</div></TD>
+			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT class="inputstyle-1" type="text" id="Fairing_mass"> <span>kg</span></div></TD></TR>
+				<TR class="Expanding">
+			  <TD title="A predetermined velocity, which corresponds to a flight altitude&#013;where the separation of the fairing is permissible.&#013;This method is used to simplify the calculations."><div class="mobilelayout_l1">Fairing jettison velocity</div></TD>
+			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="Fairing_jettison_velocity" class="inputstyle-1" type="text"> <span>m/s</span></div></TD></TR>
+				<TR class="Expanding">
+			  <TD title="Delta velocity required to achieve actual fairing separation velocity&#013;taking into account losses."><div class="mobilelayout_l1">Fairing jettison delta-v</div></TD>
+			  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL 
+			  id="Fairing_jettison_delta_v"></LABEL> <span>m/s</span></h8></div></TD></TR>
+				<TR class="Electric">
+			  <TD title="Mass of the dropped batteries of the second stage to improve payload.&#013;It is estimated that it is 2/3 of the total battery mass."><div class="mobilelayout_l1">Jettisoned battery mass</div></TD>
+			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="Jettisoned_battery_mass" class="inputstyle-1" type="text"><span> kg</span></div></TD></TR>
+				<TR class="ProjectingH">
+			  <TD title="Estimated payload mass for the initial approximation at the beginning of the calculation"><div class="mobilelayout_l1">Assumed payload mass</div></TD>
+			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="Assumed_payload_mass" class="inputstyle-1" type="text"> <span>kg</span></div></TD></TR>
+				<TR>
+			  <TD title="The percentage ratio of the second and third stage mass to the rocket mass"><div class="mobilelayout_l1">2nd stage to Lift-off mass ratio</div></TD>
+			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="_2nd_Stage_mass_ratio" class="inputstyle-1" type="text"> <span>%</span></div></TD></TR>
+	  
+				<TR class="f3stages">
+			  <TD title="The percentage ratio of the third stage mass to the rocket mass"><div class="mobilelayout_l1">Transfer Orbit stage to Lift-off mass ratio</div></TD>
+			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="_3rd_Stage_mass_ratio" class="inputstyle-1" type="text"><span> %</span></div></TD></TR>
+				
+	  
+				<TR class="ProjectingH">
+			  <TD class="dummy-node" align="center"> </TD>
+			  <TD class="tdpadd1 right-content right-content01" title="Reasonable restrictions on the rocket characteristics"></SELECT>Limitations ON<INPUT id="Limitation" type="checkbox"></TD></TR>
+		
+				<TR>
+			  <TD class="tdpadd1" title="Moving the sliders to the right increases efficiency but is more difficult to achieve" align="center">Payload decrease <-- --> Payload increase </TD>
+			  <TD class="right-content" title="Using the averaged characteristics mode"></SELECT>Set averages<INPUT id="Set_averages" type="checkbox"></TD></TR>
+				<TR>
+	  
+			  <TD title="The percentage ratio of the rocket's dry mass (vehicle plus contents)&#013;to its wet mass (vehicle plus contents plus propellant).&#013;Mass ratio is a measure of the efficiency of a rocket."><div class="mobilelayout_l2">1st&ensp;stage Dry to Wet mass ratio</div></TD>
+			  <TD title="Easy to reach <-- --> Hard to reach"><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="_1st_Dry_to_Wet_mass_ratio_Range" 
+				type="range" min="1" max="100" value="50"><section class="mobileinner-r1">										    
+	  <INPUT id="_1st_Dry_to_Wet_mass_ratio" type="text"> <span>%</span></section></div></TD></TR>
+				<TR>
+			  <TD title="The percentage ratio of the rocket's dry mass (vehicle plus contents)&#013;to its wet mass (vehicle plus contents plus propellant).&#013;Mass ratio is a measure of the efficiency of a rocket."><div class="mobilelayout_l2">2nd stage Dry to Wet mass ratio</div></TD>
+			  <TD title="Easy to reach <-- --> Hard to reach"><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="_2nd_Dry_to_Wet_mass_ratio_Range" 
+				type="range" min="1" max="100" value="50"><section class="mobileinner-r1">										    
+	  <INPUT type="text" id="_2nd_Dry_to_Wet_mass_ratio"> <span>%</span></section></div></TD></TR>
+				<TR class="f3stages">
+			  <TD title="The percentage ratio of the rocket's dry mass (vehicle plus contents)&#013;to its wet mass (vehicle plus contents plus propellant).&#013;Mass ratio is a measure of the efficiency of a rocket."><div class="mobilelayout_l2">Transfer Orbit stage Dry to Wet mass ratio</div></TD>
+			  <TD title="Easy to reach <-- --> Hard to reach"><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="_3rd_Dry_to_Wet_mass_ratio_Range" 
+				type="range" min="1" max="100" value="50"><section class="mobileinner-r1">											    
+	  <INPUT type="text" id="_3rd_Dry_to_Wet_mass_ratio"> <span>%</span></section></div></TD></TR>
+				<TR>
+			  <TD title="Any unused propellant trapped in the propulsion system&#013;(rocket engine, plumbing, and tanks) at thrust cutoff.&#013;It is a factor contributing significantly to the total dead weight&#013;of a vehicle and restricting its maximum performance"><div class="mobilelayout_l2">Unused propellant of 1st&ensp;stage</div></TD>
+			  <TD title="Easy to reach <-- --> Hard to reach"><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="Unused_propellant_of_1st_Stage_Range" 
+				type="range" min="1" max="100" value="50"><section class="mobileinner-r1">										    
+	  <INPUT type="text" id="Unused_propellant_of_1st_Stage"> <span>%</span></section></div></TD></TR>
+				<TR>
+			  <TD title="Any unused propellant trapped in the propulsion system&#013;(rocket engine, plumbing, and tanks) at thrust cutoff.&#013;It is a factor contributing significantly to the total dead weight&#013;of a vehicle and restricting its maximum performance"><div class="mobilelayout_l2">Unused propellant of 2nd stage</div></TD>
+			  <TD title="Easy to reach <-- --> Hard to reach"><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="Unused_propellant_of_2nd_Stage_Range" 
+				type="range" min="1" max="100" value="50"><section class="mobileinner-r1">										    
+	  <INPUT type="text" id="Unused_propellant_of_2nd_Stage"> <span>%</span></section></div></TD></TR>
+				<TR class="f3stages">
+			  <TD title="Any unused propellant trapped in the propulsion system&#013;(rocket engine, plumbing, and tanks) at thrust cutoff.&#013;It is a factor contributing significantly to the total dead weight&#013;of a vehicle and restricting its maximum performance"><div class="mobilelayout_l2">Unused propellant of Transfer Orbit stage</div></TD>
+			  <TD title="Easy to reach <-- --> Hard to reach"><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="Unused_propellant_of_Transfer_Orbit_Stage_Range" 
+				type="range" min="1" max="100" value="50"><section class="mobileinner-r1">								    
+	  <INPUT type="text" id="Unused_propellant_of_Transfer_Orbit_Stage"> <span>%</span></section></div></TD></TR>
+				<TR>
+			  <TD title="The generated thrust divided by the propellant mass flow rate,&#013; resulting in units of time (seconds). Specific impulse is&#013;a measure of how effectively a jet engine uses fuel.&#013;At sea level, the thrust of a rocket engine is reduced due to&#013;the influence of atmospheric pressure."><div class="mobilelayout_l2">1st&ensp;stage Isp sea level or at the start altitude</div></TD>
+			  <TD title="Easy to reach <-- --> Hard to reach"><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="First_stage_isp_sea_level_Range" 
+				type="range" min="1" max="100" value="50"><section class="mobileinner-r1">									    
+	  <INPUT type="text" id="First_stage_isp_sea_level"> <span>s</span></section></div></TD></TR>
+				<TR>
+			  <TD title="The generated thrust divided by the propellant mass flow rate,&#013; resulting in units of time (seconds). Specific impulse is&#013;a measure of how effectively a jet engine uses fuel."><div class="mobilelayout_l2">1st&ensp;stage Isp vacuum</div></TD>
+			  <TD title="Easy to reach <-- --> Hard to reach"><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="First_stage_isp_vac_Range" type="range" 
+				min="1" max="100" value="50"><section class="mobileinner-r1">			
+	  <INPUT type="text" id="First_stage_isp_vac"> <span>s</span></section></div></TD></TR>
+				<TR>
+			  <TD title="The generated thrust divided by the propellant mass flow rate,&#013; resulting in units of time (seconds). Specific impulse is&#013;a measure of how effectively a jet engine uses fuel.&#013;The specific impulse of the upper stage engines is usually higher,&#013;since due to the absence of amospheric pressure a higher&#013;expansion ratio can be achieved (longer nozzle)."><div class="mobilelayout_l2">2nd stage Isp</div></TD>
+			  <TD title="Easy to reach <-- --> Hard to reach"><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="Second_stage_isp_vac_Range" 
+				type="range" min="1" max="100" value="50"><section class="mobileinner-r1">									    
+	  <INPUT type="text" id="Second_stage_isp_vac"> <span>s</span></section></div></TD></TR>
+				<TR class="f3stages">
+			  <TD title="The generated thrust divided by the propellant mass flow rate,&#013; resulting in units of time (seconds). Specific impulse is&#013;a measure of how effectively a jet engine uses fuel."><div class="mobilelayout_l2">Transfer Orbit stage Isp</div></TD>
+			  <TD title="Easy to reach <-- --> Hard to reach"><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="Transfer_Orbit_Stage_isp_Range" 
+				type="range" min="1" max="100" value="50"><section class="mobileinner-r1">						    
+	  <INPUT type="text" id="Transfer_Orbit_Stage_isp"> <span>s</span></section></div></TD></TR>
+				<TR class="ProjectingH">
+			  <TD title="Percentage change in the specific impulse of engines of all stages&#013;to demonstrate its effect on the rocket performance."><div class="mobilelayout_l2">Specific Impulse variation</div></TD>
+			  <TD><div class="mobilelayout_r2 layout_wt_content"><INPUT class="slider" id="Specific_Impulse_Variation_Range" 
+				type="range" min="90" max="110" value="100"><section class="mobileinner-r1">											    
+	  <INPUT type="text" id="Specific_Impulse_Variation"> <span>%</span></section></div></TD></TR></TBODY></TABLE></TD></TR>
+	  
+		  </TBODY></TABLE></TD>
+		  
+		  </TR></TBODY></TABLE>
+</div>
+<div class="tableResultContent">
+	<TABLE border="0">
+		<TBODY>
+			<TR>
+				<TD valign="top">
+					<TABLE border="0">
+				  <TBODY>
+				  <TR>
+					<TD>
+					<div class="spacetitle"><FONT class="leftTitle" size=5" title="Choose the Launch point">Spaceport</FONT><div class="spaceheder2cont"> <SELECT title="Spaceport name"
+					  id="StartingPoint"></SELECT>&ensp;<id="Air Launch" title="Launch of an existing rocket from an airplane"><font size="2">Air Launch</font><INPUT id="Air_Launch" type="checkbox"></div>
+					  </div>
+					  <TABLE border="1" class="borderTable">
+						<TBODY title="">
+						<TR>
+					  <TD title="Spaceport or (in case air launch) airplane altitude above sea level" width="460"><div class="mobilelayout_l1">Launch point Altitude</div></TD>
+					  <TD width="220"><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Starting_point_Altitude"> <span>km</span></div></TD></TR>
+						<TR>
+					  <TD  title="Speed added to rocket speed when starting from an airplane."><div class="mobilelayout_l1">Additional velocity (Air Launch)</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Additional_Speed"><span> m/s</span></div></TD></TR>
+						<TR>
+					  <TD title="An angle which ranges from 0 deg at the Equator to 90 deg (North or South)"><div class="mobilelayout_l1">Spaceport Latitude</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Spaceport_latitude"> <span>deg</span></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="An approximate azimuth calculated by spherical trigonometry."><div class="mobilelayout_l1">Auxiliary angle</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Intermediate_angle"></LABEL> <span>deg</span></h8></div></TD></TR>
+						<TR>
+					  <TD title="The angle between the north direction and the projection&#013;of the initial orbital plane onto the launch location."><div class="mobilelayout_l1">Launch Azimuth</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Launch_azimuth"></LABEL> <span>deg</span></h8></div></</TD></TR>
+						<TR>
+					  <TD title="The speed of the Earth surface due to the Earth's rotation&#013;at the latitude of the Spaceport."><div class="mobilelayout_l1">Earth rotation velocity</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Launch_point_speed"></LABEL> <span>m/s</span></h8></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="The imaginary satellite velocity at the starting point altitude, which is necessary&#013;for calculating the HohmannTransfer to Low Earth Orbit."><div class="mobilelayout_l1">Launch point altitude orb. velocity (imaginary)</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL 
+						id="Starting_point_Altitude_orbital_velocity"></LABEL> <span>m/s</span></h8></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="The absolute orbital speed of the satellite"><div class="mobilelayout_l1">Absolute orbital velocity</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Absolute_orbital_velocity"></LABEL> <span>m/s</span></h8></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="The orbital speed of the satellite relative to the Earth surface."><div class="mobilelayout_l1">Relative orbital velocity</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Orbital_velocity"></LABEL><span> m/s</span></h8></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="Increment of speed depending on the direction of launch relative to&#013;the direction of Earth's rotation."><div class="mobilelayout_l1">Orbital velocity gain due to the Earth rotation</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Orbital_velocity_increment_due_to_the_Earth_rotation"></LABEL><span> m/s</span></h8></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="Auxiliary delta-v for orbital maneuver calculation."><div class="mobilelayout_l1">Delta-v for circular orbit (ideal)</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL 
+						id="Vsp_for_circular_orbit"></LABEL> <span>m/s</span></h8></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="Auxiliary delta-v for losses calculation."><div class="mobilelayout_l1">Delta-v for LEO (losses calc.)</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL 
+						id="Vsp_for_LEO"></LABEL> <span>m/s</span></h8></div></TD></TR></TBODY></TABLE></TR>
+				  <TR >
+					<TD>
+						<div class="spacetitle topspace">
+							<FONT class="leftTitle" size="5" title="Choose the Orbit you want to reach">Orbit</FONT><div class="spaceheder2cont"> <SELECT id="Orbit" title="Orbit or Planet to reach"></SELECT>	 
+						  <FONT size="2"><LABEL id="OrbitDescription"></LABEL></div></FONT>
+					  </div>
+					  <TABLE border="1" class="borderTable">
+						<TBODY>
+						<TR>
+					  <TD title="The point of the orbit closest to Earth" width="460"><div class="mobilelayout_l1"><LABEL id="Reference"></LABEL> Orbit Perigee</div></TD>
+					  <TD width="220"><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Orbit_Perigee"> <span>km</span></div></TD></TR>
+						<TR>
+					  <TD title="The point of the orbit farthest from Earth"><div class="mobilelayout_l1">Orbit Apogee (0 means a circular orbit)</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Orbit_Apogee"> <span>km</span></div></TD></TR>
+						<TR class="fGEOI">
+					  <TD title="The angle between the Earth's equatorial plane and the satellite's orbital plane.&#013;The inclination of an orbit is always greater than the spaceport latitude."><div class="mobilelayout_l1">Orbit Inclination</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Orbit_Inclination"><span> deg</span></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="Orbital speed at perigee (maximum)"><div class="mobilelayout_l1">Perigee velocity</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Perigee_velocity"></LABEL> <span>m/s</span></h8></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="Orbital speed at apogee (minimum)"><div class="mobilelayout_l1">Apogee velocity</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Apogee_velocity"></LABEL><span> m/s</span></h8></div></TD></TR>
+					   <TR>
+					  <TD title="The time a given satellite takes to complete one orbit around Earth"><div class="mobilelayout_l1">Orbital Period</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Orbital_period"></LABEL><span> min</span></h8></div></TD></TR>
+						<TR class="fGEO">
+					  <TD title="Velocity increment needed to achieve zero inclination within a Geosynchronous orbit&#013;if the inclination of the Geosynchronous Transfer Orbit is not a zero.&#013;Usually this velocity increment is added at the apogee of the Geosynchronous Transfer Orbit."><div class="mobilelayout_l1">Delta-v for change orbit inclination to 0</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL 
+					  id="Vsp_for_inclination_change"></LABEL> <span>m/s</span></h8></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="Delta velocity needed for injection into target orbit without&#013;taking into account the effect of the Earth's rotation."><div class="mobilelayout_l1">Orbital (injection) velocity</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Injection_velocity"></LABEL><span> m/s</span></h8></div></TD></TR>
+						<TR>
+					  <TD title="Delta-v, as used in spacecraft flight dynamics, is a measure of the impulse per unit of &#013;spacecraft mass that is needed to perform a maneuver, such as launching from or landing&#013;on a planet or moon, or an in-space orbital maneuver. It is a scalar that has the units of speed.&#013;As used in this context, it is not the same as the physical change in velocity of the vehicle.&#013;The required delta-v to achieve a given orbit in this software is calculated according to the&#013;Hohmann Transfer formula for the energy-optimal two burn maneuver which provides &#013;very good accuracy. However, these formulas do not take into account the losses associated&#013;with the Earth&#039;s gravity and atmosphere."><div class="mobilelayout_l1">Delta-v for target orbit (ideal)</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL 
+					  id="Vsp_for_target_orbit"></LABEL><span> m/s</span></h8></div></TD></TR>
+						<TR>
+					  <TD title="Delta velocity for injection to trans-planet orbit from a 200km reference orbit"><div class="mobilelayout_l1">Extra velocity for flight to the planets</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Extra_speed_for_flight_to_the_planets"> <span>m/s</span></div></TD></TR></TBODY></TABLE></TD></TR >
+				  <TR>
+					<TD><div class="spacetitle topspace padd2">
+						<FONT size="5" title="Empirically determined delta-v losses for injection into LEO">Losses<BR></FONT>
+					</div>
+					  <TABLE border="1" class="borderTable">
+						<TBODY>
+						<TR class="Expanding">
+					  <TD title="An estimate of gravitational losses during the vertical phase of a flight&#013;which is used to determine the total gravitational losses."><div class="mobilelayout_l1">Gravity Losses at specific altitude</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Gravity_losses_at_specific_altitude"></LABEL><span> m/s</span></h8></div></TD></TR>
+						<TR>
+					  <TD title="A measure of the loss in the net performance of a rocket&#013;while it is thrusting in a gravitational field"><div class="mobilelayout_l1">Gravity Losses</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Gravity_losses"></LABEL> <span>m/s</span></h8></div></TD></TR>
+						<TR>
+					  <TD title="A measure of the loss in the net performance of a rocket due to the&#013;aerodynamic forces which are applied on both the body and the fins" width="460"><div class="mobilelayout_l1">Aerodynamic Losses</div></TD>
+					  <TD width="220"><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL 
+						id="Aerodynamic_losses"></LABEL><span> m/s</span></h8></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="Total losses including gravity, aerodynamic and control losses"><div class="mobilelayout_l1">Summary Losses</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Summary_losses"></LABEL> <span>m/s</span></h8></div></TD></TR>
+						<TR>
+					  <TD title="The percentage ratio of total losses to the delta velocity for Low Earth Orbit."><div class="mobilelayout_l1">Assumed Losses</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL id="Assumed_losses"></LABEL> <span>%&ensp;</span></h8></div></TD></TR>
+						<TR>
+					  <TD title="Delta-v needed to achieve a required calculated according to the Hohmann Transfer&#013;formula plus losses calculated according to the Y. Lobanovsky approximation method.&#013;This speed would have a rocket in the absence of external forces. However, the actual&#013;speed due to losses will be significantly lower."><div class="mobilelayout_l1">Delta-v with Losses</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h8><LABEL 
+						id="Vsp_with_losses"></LABEL> <span>m/s</span></h8></div></TD></TR></TBODY></TABLE></TD></TR>
+				  <TR>
+					<TD><div class="spacetitle topspace padd2"><FONT size="" title="The main characteristics of the Rocket">Output<BR></FONT></div> 
+					  <TABLE border="1" class="borderTable">
+						<TBODY>
+						<TR class="Expanding">
+					  <TD title="The integral specific impulse of the engines of the first stage.&#013;This way back pressure losses are taken into account."><div class="mobilelayout_l1">1st&ensp;stage average trajectory Isp</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="First_stage_average_trajectory_isp"></LABEL> <span>s</span></h9></div></TD></TR>
+						<TR>
+					  <TD class="tdpadd1" title="The increment of the rocket velocity due to the thrust of the first stage engines&#013;in the ideal case (the absence of external forces) calculated by the Tsiolkovsky formula." width="460"><div class="mobilelayout_l1">1st&ensp;stage delta-v</div></TD>
+					  <TD width="220"><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="First_stage_delta_v"></LABEL> <span>m/s</span></h9></div></TD></TR>
+						<TR class="Expanding">
+					  <TD class="tdpadd1" title="The total mass of the rocket at the shutdown of the first stage engines."><div class="mobilelayout_l1">1st&ensp;stage final mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="First_stage_final_mass"></LABEL><span> kg</span></h9></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="The total mass of the oxidizer and fuel of the first stage"><div class="mobilelayout_l1">1st&ensp;stage propellant mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="First_stage_propellant_mass"> <span>kg</span></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="The mass of the vehicle first stage plus contents."><div class="mobilelayout_l1">1st&ensp;stage dry mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="First_stage_dry_mass"><span> kg</span></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="Approximate engines run time&#013;This is usually less than the real time&#013;because it does not take into account&#013;the real thrust profile."><div class="mobilelayout_l1">1st&ensp;stage engines run time</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="First_stage_run_time"></LABEL> <span>s </span></h9></div></TD></TR>
+			  
+						<TR>
+					  <TD class="tdpadd1" title="The increment of the rocket velocity due to the thrust of the second stage engines&#013;in the ideal case (the absence of external forces) calculated by the Tsiolkovsky formula."><div class="mobilelayout_l1">2nd stage delta-v <LABEL id="Required"></LABEL></div> </TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="Second_stage_delta_v"></LABEL> <span>m/s</span></h9></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="The total mass of the rocket at the start of the second stage engines."><div class="mobilelayout_l1">2nd stage total (start) mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="Second_stage_total_Start_mass"></LABEL> <span>kg</span></h9></div></TD></TR>
+						<TR class="Expanding">
+					  <TD><div class="mobilelayout_l1">2nd stage total mass before fairing jettison</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="Second_stage_total_mass_before_fairing_jettison"></LABEL> <span>kg</span></h9></div></TD></TR>
+						<TR class="ExpandingB">
+					  <TD><div class="mobilelayout_l1">2nd stage total mass before battery jettison</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="Second_stage_total_mass_before_battery_jettison"></LABEL> <span>kg</span></h9></div></TD></TR>
+						<TR class="ExpandingB">
+					  <TD><div class="mobilelayout_l1">2nd stage delta-v before batt. jettison</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="Second_stage_delta_v_before_battery_jettison"></LABEL> <span>m/s</span></h9></div></TD></TR>
+						<TR class="Expanding">
+					  <TD class="tdpadd1" title="The total mass of the rocket at the shutdown of the second stage engines."><div class="mobilelayout_l1">2nd stage final mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="Second_stage_final_mass"></LABEL><span> kg</span></h9></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="The total mass of the oxidizer and fuel of the second stage"><div class="mobilelayout_l1">2nd stage propellant mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Second_stage_propellant_mass"><span> kg</span></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="The mass of the second stage plus contents."><div class="mobilelayout_l1">2nd stage dry mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Second_stage_dry_mass"> <span>kg</span></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="Approximate engine run time"><div class="mobilelayout_l1">2nd&ensp;stage engine run time</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="Second_stage_run_time"></LABEL> <span>s </span></h9></div></TD></TR>
+			  
+						<TR class="f3stages">
+					  <TD class="tdpadd1" title="The increment of the rocket velocity due to the thrust of the third stage engines&#013;in the ideal case (the absence of external forces) calculated by the Tsiolkovsky formula."><div class="mobilelayout_l1">Transfer Orbit stage delta-v (required)</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="Transfer_Orbit_stage_delta_v_required"></LABEL><span> m/s</span></h9></div></TD></TR>
+						<TR class="Expanding3">
+					  <TD class="tdpadd1" title="The total mass of the rocket at the start of the third stage engines."><div class="mobilelayout_l1">Transfer Orbit stage total (start) mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL 
+						id="Transfer_Orbit_stage_total_Start_mass"></LABEL> <span>kg</span></h9></div></TD></TR>
+						<TR class="Expanding3">
+					  <TD class="tdpadd1" title="The total mass of the rocket at the shutdown of the third stage engines."><div class="mobilelayout_l1">Transfer Orbit stage final mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL 
+						id="Transfer_Orbit_stage_final_mass"></LABEL><span> kg</span></h9></div></TD></TR>
+						<TR class="Expanding3">
+					  <TD title="The total mass of the oxidizer and fuel of the third stage"><div class="mobilelayout_l1">Transfer Orbit stage propellant mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Transfer_Orbit_stage_propellant_mass"><span> kg</span></div></TD></TR>
+						<TR class="Expanding3">
+					  <TD title="The mass of the third stage plus contents."><div class="mobilelayout_l1">Transfer Orbit stage dry mass</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Transfer_Orbit_stage_dry_mass"><span> kg</span></div></TD></TR>
+			  
+						<TR>
+					  <TD class="tdpadd1" title="The procedure error - it should not be equated with actual accuracy of the result."><div class="mobilelayout_l1">Calculation Error</div></TD>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><h9><LABEL id="Calculation_Error"></LABEL><span> m/s</span></h9></div></TD></TR>
+						  </TBODY></TABLE>
+						  </TD>
+						  </TR></TBODY></TABLE></TD>
+			</TR>
+		</TBODY>
+	</TABLE>
 
-	      <TR>
-		<TD title="Second stage rocket engine fuel and cycle">2nd stage Fuel & Cycle &emsp;&emsp;&ensp; <SELECT id="Fuel2" title="Second stage engine fuel"></SELECT></TD>
-		<TD title="Second stage rocket engine cycle"> <SELECT id="Cycle2"></SELECT> </TD></TR>
+</div>
+</div>
 
-	      <TR class="f3stages">
-		<TD title="Third stage rocket engine fuel">3rd stage Fuel & Cycle &emsp;&emsp;&emsp;<SELECT id="Fuel3"></SELECT></TD>
-		<TD title="Third stage rocket engine cycle"> <SELECT id="Cycle3"></SELECT> </TD></TR>
+<div class="adwacedContent">
+	<button isBool=0 id="Expand">Advanced...</button>
+	<!-- <font size="2">Expand</font><INPUT id="Expand" type="checkbox"> -->
+</div>
 
-	      <TR>
-		<TD title="Having more stages increases efficiency - but also increases the complexity and the cost of the rocket">Stages</TD>
-		<TD><SELECT id="Stages" title="Number of stages"></SELECT> </TD></TR>
-	      <TR>
-		<TD title="Dimensionless ratio of engine thrust to weight of a rocket">Thrust-to-weight ratio</TD>
-		<TD><INPUT id="Thrust_to_weight_ratio"></TD></TR>
-	      <TR>
-		<TD title="The initial mass of a rocket">Lift-off mass</TD>
-		<TD><h8><LABEL id="Lift_off_Mass"></LABEL> kg</TD></TR>
-	      <TR class="ProjectingH">
-		<TD title="The initial mass of a rocket excluding payload and fairing">Rocket mass (excluding Payload and Fairing)</TD>
-		<TD><INPUT id="Rocket_Mass" style="width:94px"> kg</TD></TR>
-	      <TR>
-		<TD title="The maximum diameter midsection of the rocket, which determines the aerodynamic drag.&#013;For modern rockets this is usually the fairing diameter.">Max midsection diameter</TD>
-		<TD><INPUT id="Max_midsection_D"> m</TD></TR>
+			<div id="myModal" class="modal">
 
-	      <TR>
-		<TD title="The fairing is a nose cone used to protect a spacecraft against the&#013;aerodynamic influence during launch through an atmosphere.&#013;The fairing is usually separated after the vehicle has traversed&#013;the densest part of the atmosphere.">Fairing mass</TD>
-		<TD><INPUT id="Fairing_mass"> kg</TD></TR>
-	      <TR class="Expanding">
-		<TD title="A predetermined velocity, which corresponds to a flight altitude&#013;where the separation of the fairing is permissible.&#013;This method is used to simplify the calculations.">Fairing jettison velocity</TD>
-		<TD><INPUT id="Fairing_jettison_velocity"> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="Delta velocity required to achieve actual fairing separation velocity&#013;taking into account losses.">Fairing jettison delta-v</TD>
-		<TD><LABEL 
-		id="Fairing_jettison_delta_v"></LABEL> m/s</TD></TR>
-	      <TR class="Electric">
-		<TD title="Mass of the dropped batteries of the second stage to improve payload.&#013;It is estimated that it is 2/3 of the total battery mass.">Jettisoned battery mass</TD>
-		<TD><INPUT id="Jettisoned_battery_mass"> kg</TD></TR>
-	      <TR class="ProjectingH">
-		<TD title="Estimated payload mass for the initial approximation at the beginning of the calculation">Assumed payload mass</TD>
-		<TD><INPUT id="Assumed_payload_mass"> kg</TD></TR>
-	      <TR>
-		<TD title="The percentage ratio of the second and third stage mass to the rocket mass">2nd stage to Lift-off mass ratio</TD>
-		<TD><INPUT id="_2nd_Stage_mass_ratio"> %</TD></TR>
-
-	      <TR class="f3stages">
-		<TD title="The percentage ratio of the third stage mass to the rocket mass">Transfer Orbit stage to Lift-off mass ratio</TD>
-		<TD><INPUT id="_3rd_Stage_mass_ratio"> %</TD></TR>
-	      <TR>
-
-	      <TR class="ProjectingH">
-		<TD title="Moving the sliders to the right increases efficiency but is more difficult to achieve" align="center">Payload decrease <-- --> Payload increase</TD>
-		<TD align="right" title="Reasonable restrictions on the rocket characteristics"></SELECT>Limitations ON<INPUT id="Limitation" type="checkbox"></TD></TR>
-	      <TR>
-
-	      <TR>
-		<TD title="Set all sliders to minimum or maximum values." align="center"><INPUT style="width:30px" id="Set_AllMin" type="checkbox">Set all to Min <-- --> Set all to Max<INPUT style="width:30px" id="Set_AllMax" type="checkbox"></TD>
-		<TD align="right" title="Using the averaged characteristics mode"></SELECT>Set averages<INPUT id="Set_averages" type="checkbox"></TD></TR>
-	      <TR>
-
-		<TD title="The percentage ratio of the rocket's dry mass (vehicle plus contents)&#013;to its wet mass (vehicle plus contents plus propellant).&#013;Mass ratio is a measure of the efficiency of a rocket.">1st&ensp;stage Dry to Wet mass ratio</TD>
-		<TD title="Easy to reach <-- --> Hard to reach"><INPUT class="slider" id="_1st_Dry_to_Wet_mass_ratio_Range" 
-		  type="range" min="1" max="100" value="50">											    
-<INPUT id="_1st_Dry_to_Wet_mass_ratio">%</TD></TR>
-	      <TR>
-		<TD title="The percentage ratio of the rocket's dry mass (vehicle plus contents)&#013;to its wet mass (vehicle plus contents plus propellant).&#013;Mass ratio is a measure of the efficiency of a rocket.">2nd stage Dry to Wet mass ratio</TD>
-		<TD title="Easy to reach <-- --> Hard to reach"><INPUT class="slider" id="_2nd_Dry_to_Wet_mass_ratio_Range" 
-		  type="range" min="1" max="100" value="50">											    
-<INPUT id="_2nd_Dry_to_Wet_mass_ratio">%</TD></TR>
-	      <TR class="f3stages">
-		<TD title="The percentage ratio of the rocket's dry mass (vehicle plus contents)&#013;to its wet mass (vehicle plus contents plus propellant).&#013;Mass ratio is a measure of the efficiency of a rocket.">Transfer Orbit stage Dry to Wet mass ratio</TD>
-		<TD title="Easy to reach <-- --> Hard to reach"><INPUT class="slider" id="_3rd_Dry_to_Wet_mass_ratio_Range" 
-		  type="range" min="1" max="100" value="50">											    
-<INPUT id="_3rd_Dry_to_Wet_mass_ratio">%</TD></TR>
-	      <TR>
-		<TD title="Any unused propellant trapped in the propulsion system&#013;(rocket engine, plumbing, and tanks) at thrust cutoff.&#013;It is a factor contributing significantly to the total dead weight&#013;of a vehicle and restricting its maximum performance">Unused propellant of 1st&ensp;stage</TD>
-		<TD title="Easy to reach <-- --> Hard to reach"><INPUT class="slider" id="Unused_propellant_of_1st_Stage_Range" 
-		  type="range" min="1" max="100" value="50">											    
-<INPUT id="Unused_propellant_of_1st_Stage">%</TD></TR>
-	      <TR>
-		<TD title="Any unused propellant trapped in the propulsion system&#013;(rocket engine, plumbing, and tanks) at thrust cutoff.&#013;It is a factor contributing significantly to the total dead weight&#013;of a vehicle and restricting its maximum performance">Unused propellant of 2nd stage</TD>
-		<TD title="Easy to reach <-- --> Hard to reach"><INPUT class="slider" id="Unused_propellant_of_2nd_Stage_Range" 
-		  type="range" min="1" max="100" value="50">											    
-<INPUT id="Unused_propellant_of_2nd_Stage">%</TD></TR>
-	      <TR class="f3stages">
-		<TD title="Any unused propellant trapped in the propulsion system&#013;(rocket engine, plumbing, and tanks) at thrust cutoff.&#013;It is a factor contributing significantly to the total dead weight&#013;of a vehicle and restricting its maximum performance">Unused propellant of Transfer Orbit stage</TD>
-		<TD title="Easy to reach <-- --> Hard to reach"><INPUT class="slider" id="Unused_propellant_of_Transfer_Orbit_Stage_Range" 
-		  type="range" min="1" max="100" value="50">											    
-<INPUT id="Unused_propellant_of_Transfer_Orbit_Stage">%</TD></TR>
-	      <TR>
-		<TD title="The generated thrust divided by the propellant mass flow rate,&#013; resulting in units of time (seconds). Specific impulse is&#013;a measure of how effectively a jet engine uses fuel.&#013;At sea level, the thrust of a rocket engine is reduced due to&#013;the influence of atmospheric pressure.">1st&ensp;stage Isp sea level or at the start altitude</TD>
-		<TD title="Easy to reach <-- --> Hard to reach"><INPUT class="slider" id="First_stage_isp_sea_level_Range" 
-		  type="range" min="1" max="100" value="50">											    
-<INPUT id="First_stage_isp_sea_level">s</TD></TR>
-	      <TR>
-		<TD title="The generated thrust divided by the propellant mass flow rate,&#013; resulting in units of time (seconds). Specific impulse is&#013;a measure of how effectively a jet engine uses fuel.">1st&ensp;stage Isp vacuum</TD>
-		<TD title="Easy to reach <-- --> Hard to reach"><INPUT class="slider" id="First_stage_isp_vac_Range" type="range" 
-		  min="1" max="100" value="50">					
-<INPUT id="First_stage_isp_vac">s</TD></TR>
-	      <TR>
-		<TD title="The generated thrust divided by the propellant mass flow rate,&#013; resulting in units of time (seconds). Specific impulse is&#013;a measure of how effectively a jet engine uses fuel.&#013;The specific impulse of the upper stage engines is usually higher,&#013;since due to the absence of amospheric pressure a higher&#013;expansion ratio can be achieved (longer nozzle).">2nd stage Isp</TD>
-		<TD title="Easy to reach <-- --> Hard to reach"><INPUT class="slider" id="Second_stage_isp_vac_Range" 
-		  type="range" min="1" max="100" value="50">											    
-<INPUT id="Second_stage_isp_vac">s</TD></TR>
-	      <TR class="f3stages">
-		<TD title="The generated thrust divided by the propellant mass flow rate,&#013; resulting in units of time (seconds). Specific impulse is&#013;a measure of how effectively a jet engine uses fuel.">Transfer Orbit stage Isp</TD>
-		<TD title="Easy to reach <-- --> Hard to reach"><INPUT class="slider" id="Transfer_Orbit_Stage_isp_Range" 
-		  type="range" min="1" max="100" value="50">											    
-<INPUT id="Transfer_Orbit_Stage_isp">s</TD></TR>
-	      <TR class="ProjectingH">
-		<TD title="Percentage change in the specific impulse of engines of all stages&#013;to demonstrate its effect on the rocket performance.">Specific Impulse variation</TD>
-		<TD><INPUT class="slider" id="Specific_Impulse_Variation_Range" 
-		  type="range" min="90" max="110" value="100">											    
-<INPUT id="Specific_Impulse_Variation">%</TD></TR></TBODY></TABLE></TD></TR>
-
-	<TR>
-	  <TD><FONT size="5" title="Payload mass is the main calculation result"><b>Result</b></FONT>
-	    <id="Expand" title="Display more information"></SELECT>&emsp;&emsp;Expand<INPUT id="Expand" type="checkbox">
-	 
-	    <TABLE border="1">
-	      <TBODY title="">
-	      <TR>
-		<TD title="The percentage ratio of payload mass to the initial rocket mass." width="460">Payload to Lift-off mass ratio</TD>
-		<TD width="220"><h8><LABEL id="Payload_to_Lift_off_mass_ratio"></LABEL> % </TD></TR>
-	      <TR>
-		<TD title="Payload mass calculated by an approximate method.">Payload mass (calculated)</TD>
-		<TD><h9><b><span style="background-color: #FFFF00"><LABEL id="Payload_mass_calculated"></LABEL> kg </span></TD></TR>
-      	      <TR>
-		<TD title="This is the complexity of the rocket development estimated on a 12-point scale.&#013;It takes into account only the technical complexity of achieving the performance&#013;objectives but not the the rocket scale.">Aggressivity index</TD>
-		<TD><h8><LABEL id="Aggressivity"></LABEL> pts</TD></TR>
-	      <TR class="ProjectingH">
-		<TD title="The percentage ratio of assumed payload mass to the calculated payload mass.">Payload change</TD>
-		<TD><h8><LABEL id="Payload_change"></LABEL> % </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></TD>
-    <TD valign="top">
-      <TABLE border="0">
-	<TBODY>
-	<TR>
-	  <TD><FONT size="5" title="Choose the Launch point"><b>Spaceport</b><BR></FONT> <SELECT title="Spaceport name"
-	    id="StartingPoint"></SELECT>&ensp;<id="Air Launch" title="Launch of an existing rocket from an airplane">Air Launch<INPUT style="width:30px" id="Air_Launch" type="checkbox">
-	 
-	    <TABLE border="1">
-	      <TBODY title="">
-	      <TR>
-		<TD title="Spaceport or (in case air launch) airplane altitude above sea level" width="460">Launch point Altitude</TD>
-		<TD width="220"><INPUT id="Starting_point_Altitude"> km</TD></TR>
-	      <TR>
-		<TD  title="Speed added to rocket speed when starting from an airplane.">Additional velocity (Air Launch)</TD>
-		<TD><INPUT id="Additional_Speed"> m/s</TD></TR>
-	      <TR>
-		<TD title="An angle which ranges from 0 deg at the Equator to 90 deg (North or South)">Spaceport Latitude</TD>
-		<TD><INPUT id="Spaceport_latitude"> deg</TD></TR>
-	      <TR class="Expanding">
-		<TD title="An approximate azimuth calculated by spherical trigonometry.">Auxiliary angle</TD>
-		<TD><h8><LABEL id="Intermediate_angle"></LABEL> deg</TD></TR>
-	      <TR>
-		<TD title="The angle between the north direction and the projection&#013;of the initial orbital plane onto the launch location.">Launch Azimuth</TD>
-		<TD><h8><LABEL id="Launch_azimuth"></LABEL> deg</TD></TR>
-	      <TR>
-		<TD title="The speed of the Earth surface due to the Earth's rotation&#013;at the latitude of the Spaceport.">Earth rotation velocity</TD>
-		<TD><h8><LABEL id="Launch_point_speed"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="The imaginary satellite velocity at the starting point altitude, which is necessary&#013;for calculating the HohmannTransfer to Low Earth Orbit.">Launch point altitude orb. velocity (imaginary)</TD>
-		<TD><h8><LABEL 
-		  id="Starting_point_Altitude_orbital_velocity"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="The absolute orbital speed of the satellite">Absolute orbital velocity</TD>
-		<TD><h8><LABEL id="Absolute_orbital_velocity"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="The orbital speed of the satellite relative to the Earth surface.">Relative orbital velocity</TD>
-		<TD><h8><LABEL id="Orbital_velocity"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="Increment of speed depending on the direction of launch relative to&#013;the direction of Earth's rotation.">Orbital velocity gain due to the Earth rotation</TD>
-		<TD><h8><LABEL id="Orbital_velocity_increment_due_to_the_Earth_rotation"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="Auxiliary delta-v for orbital maneuver calculation.">Delta-v for circular orbit (ideal)</TD>
-		<TD><h8><LABEL 
-		  id="Vsp_for_circular_orbit"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="Auxiliary delta-v for losses calculation.">Delta-v for LEO (losses calc.)</TD>
-		<TD><h8><LABEL 
-	      id="Vsp_for_LEO"></LABEL> m/s</TD></TR></TBODY></TABLE></TR>
-	<TR>
-	  <TD><FONT size="5" title="Choose the Orbit you want to reach"><b>Orbit</b><BR></FONT>	 <SELECT id="Orbit" title="Orbit or Planet to reach"></SELECT>	 
-	    <FONT size="3"><LABEL id="OrbitDescription"></LABEL></FONT>										  		
-	    <TABLE border="1">
-	      <TBODY>
-	      <TR>
-		<TD title="The point of the orbit closest to Earth" width="460"><LABEL id="Reference"></LABEL> Orbit Perigee</TD>
-		<TD width="220"><INPUT id="Orbit_Perigee"> km</TD></TR>
-	      <TR>
-		<TD title="The point of the orbit farthest from Earth">Orbit Apogee (0 means a circular orbit)</TD>
-		<TD><INPUT id="Orbit_Apogee"> km</TD></TR>
-	      <TR class="fGEOI">
-		<TD title="The angle between the Earth's equatorial plane and the satellite's orbital plane.&#013;The inclination of an orbit is always greater than the spaceport latitude.&#013;Decreasing the orbit inclination requires a special maneuver and leads&#013;to a significant enegry expenditure.">Orbit Inclination</TD>
-		<TD><INPUT id="Orbit_Inclination"> deg</TD></TR>
-	      <TR class="Expanding">
-		<TD title="Orbital speed at perigee (maximum)">Perigee velocity</TD>
-		<TD><h8><LABEL id="Perigee_velocity"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="Orbital speed at apogee (minimum)">Apogee velocity</TD>
-		<TD><h8><LABEL id="Apogee_velocity"></LABEL> m/s</TD></TR>
-	     <TR>
-		<TD title="The time a given satellite takes to complete one orbit around Earth">Orbital Period</TD>
-		<TD><h8><LABEL id="Orbital_period"></LABEL> min</TD></TR>
-	      <TR class="fGEO">
-		<TD title="Velocity increment needed to achieve zero inclination within a Geosynchronous orbit&#013;if the inclination of the Geosynchronous Transfer Orbit is not a zero.&#013;Usually this velocity increment is added at the apogee of the Geosynchronous Transfer Orbit.">Delta-v for change orbit inclination to 0</TD>
-		<TD><h8><LABEL 
-		id="Vsp_for_inclination_change"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="Delta velocity needed for injection into target orbit without&#013;taking into account the effect of the Earth's rotation.">Orbital (injection) velocity</TD>
-		<TD><h8><LABEL id="Injection_velocity"></LABEL> m/s</TD></TR>
-	      <TR>
-		<TD title="Delta-v, as used in spacecraft flight dynamics, is a measure of the impulse per unit of &#013;spacecraft mass that is needed to perform a maneuver, such as launching from or landing&#013;on a planet or moon, or an in-space orbital maneuver. It is a scalar that has the units of speed.&#013;As used in this context, it is not the same as the physical change in velocity of the vehicle.&#013;The required delta-v to achieve a given orbit in this software is calculated according to the&#013;Hohmann Transfer formula for the energy-optimal two burn maneuver which provides &#013;very good accuracy. However, these formulas do not take into account the losses associated&#013;with the Earth&#039;s gravity and atmosphere.">Delta-v for target orbit (ideal)</TD>
-		<TD><h8><LABEL 
-		id="Vsp_for_target_orbit"></LABEL> m/s</TD></TR>
-	      <TR>
-		<TD title="Delta velocity for injection to trans-planet orbit from a 200km reference orbit">Extra velocity for flight to the planets</TD>
-		<TD><INPUT id="Extra_speed_for_flight_to_the_planets"> m/s</TD></TR></TBODY></TABLE></TD></TR>
-	<TR>
-	  <TD><FONT size="5" title="Empirically determined delta-v losses for injection into LEO"><b>Losses</b><BR></FONT>	 
-	    <TABLE border="1">
-	      <TBODY>
-	      <TR class="Expanding">
-		<TD title="An estimate of gravitational losses during the vertical phase of a flight&#013;which is used to determine the total gravitational losses.">Gravity Losses at specific altitude</TD>
-		<TD><h8><LABEL id="Gravity_losses_at_specific_altitude"></LABEL> m/s</TD></TR>
-	      <TR>
-		<TD title="A measure of the loss in the net performance of a rocket&#013;while it is thrusting in a gravitational field">Gravity Losses</TD>
-		<TD><h8><LABEL id="Gravity_losses"></LABEL> m/s</TD></TR>
-	      <TR>
-		<TD title="A measure of the loss in the net performance of a rocket due to the&#013;aerodynamic forces which are applied on both the body and the fins" width="460">Aerodynamic Losses</TD>
-		<TD width="220"><h8><LABEL 
-	      id="Aerodynamic_losses"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="Total losses including gravity, aerodynamic and control losses">Summary Losses</TD>
-		<TD><h8><LABEL id="Summary_losses"></LABEL> m/s</TD></TR>
-	      <TR>
-		<TD title="The percentage ratio of total losses to the delta velocity for Low Earth Orbit.">Assumed Losses</TD>
-		<TD><h8><LABEL id="Assumed_losses"></LABEL> %&ensp;</TD></TR>
-	      <TR>
-		<TD title="Delta-v needed to achieve a required calculated according to the Hohmann Transfer&#013;formula plus losses calculated according to the Y. Lobanovsky approximation method.&#013;This speed would have a rocket in the absence of external forces. However, the actual&#013;speed due to losses will be significantly lower.">Delta-v with Losses</TD>
-		<TD><h8><LABEL 
-	      id="Vsp_with_losses"></LABEL> m/s</TD></TR></TBODY></TABLE></TD></TR>
-	<TR>
-	  <TD><FONT size="5" title="The main characteristics of the Rocket"><b>Output</b><BR></FONT>	 
-	    <TABLE border="1">
-	      <TBODY>
-	      <TR class="Expanding">
-		<TD title="The integral specific impulse of the engines of the first stage.&#013;This way back pressure losses are taken into account.">1st&ensp;stage average trajectory Isp</TD>
-		<TD><h9><LABEL id="First_stage_average_trajectory_isp"></LABEL> s &emsp;</TD></TR>
-	      <TR>
-		<TD  title="The increment of the rocket velocity due to the thrust of the first stage engines&#013;in the ideal case (the absence of external forces) calculated by the Tsiolkovsky formula." width="460">1st&ensp;stage delta-v</TD>
-		<TD width="220"><h9><LABEL id="First_stage_delta_v"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="The total mass of the rocket at the shutdown of the first stage engines.">1st&ensp;stage final mass</TD>
-		<TD><h9><LABEL id="First_stage_final_mass"></LABEL> kg</TD></TR>
-	      <TR class="Expanding">
-		<TD title="The total mass of the oxidizer and fuel of the first stage">1st&ensp;stage propellant mass</TD>
-		<TD><INPUT id="First_stage_propellant_mass" style="width:106px"> kg</TD></TR>
-	      <TR class="Expanding">
-		<TD title="The mass of the vehicle first stage plus contents.">1st&ensp;stage dry mass</TD>
-		<TD><INPUT id="First_stage_dry_mass" style="width:106px"> kg</TD></TR>
-	      <TR class="Expanding">
-		<TD title="Approximate engines run time&#013;This is usually less than the real time&#013;because it does not take into account&#013;the real thrust profile.">1st&ensp;stage engines run time</TD>
-		<TD><h9><LABEL id="First_stage_run_time"></LABEL> s &emsp;</TD></TR>
-
-	      <TR>
-		<TD title="The increment of the rocket velocity due to the thrust of the second stage engines&#013;in the ideal case (the absence of external forces) calculated by the Tsiolkovsky formula.">2nd stage delta-v <LABEL id="Required"></LABEL> </TD>
-		<TD><h9><LABEL id="Second_stage_delta_v"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="The total mass of the rocket at the start of the second stage engines.">2nd stage total (start) mass</TD>
-		<TD><h9><LABEL id="Second_stage_total_Start_mass"></LABEL> kg</TD></TR>
-	      <TR class="Expanding">
-		<TD>2nd stage total mass before fairing jettison</TD>
-		<TD><h9><LABEL id="Second_stage_total_mass_before_fairing_jettison"></LABEL> kg</TD></TR>
-	      <TR class="ExpandingB">
-		<TD>2nd stage total mass before battery jettison</TD>
-		<TD><h9><LABEL id="Second_stage_total_mass_before_battery_jettison"></LABEL> kg</TD></TR>
-	      <TR class="ExpandingB">
-		<TD>2nd stage delta-v before batt. jettison</TD>
-		<TD><h9><LABEL id="Second_stage_delta_v_before_battery_jettison"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding">
-		<TD title="The total mass of the rocket at the shutdown of the second stage engines.">2nd stage final mass</TD>
-		<TD><h9><LABEL id="Second_stage_final_mass"></LABEL> kg</TD></TR>
-	      <TR class="Expanding">
-		<TD title="The total mass of the oxidizer and fuel of the second stage">2nd stage propellant mass</TD>
-		<TD><INPUT id="Second_stage_propellant_mass" style="width:106px"> kg</TD></TR>
-	      <TR class="Expanding">
-		<TD title="The mass of the second stage plus contents.">2nd stage dry mass</TD>
-		<TD><INPUT id="Second_stage_dry_mass" style="width:106px"> kg</TD></TR>
-	      <TR class="Expanding">
-		<TD title="Approximate engine run time">2nd&ensp;stage engine run time</TD>
-		<TD><h9><LABEL id="Second_stage_run_time"></LABEL> s &emsp;</TD></TR>
-
-	      <TR class="f3stages">
-		<TD title="The increment of the rocket velocity due to the thrust of the third stage engines&#013;in the ideal case (the absence of external forces) calculated by the Tsiolkovsky formula.">Transfer Orbit stage delta-v (required)</TD>
-		<TD><h9><LABEL id="Transfer_Orbit_stage_delta_v_required"></LABEL> m/s</TD></TR>
-	      <TR class="Expanding3">
-		<TD title="The total mass of the rocket at the start of the third stage engines.">Transfer Orbit stage total (start) mass</TD>
-		<TD><h9><LABEL 
-		  id="Transfer_Orbit_stage_total_Start_mass"></LABEL> kg</TD></TR>
-	      <TR class="Expanding3">
-		<TD title="The total mass of the rocket at the shutdown of the third stage engines.">Transfer Orbit stage final mass</TD>
-		<TD><h9><LABEL 
-	      id="Transfer_Orbit_stage_final_mass"></LABEL> kg</TD></TR>
-	      <TR class="Expanding3">
-		<TD title="The total mass of the oxidizer and fuel of the third stage">Transfer Orbit stage propellant mass</TD>
-		<TD><INPUT id="Transfer_Orbit_stage_propellant_mass" style="width:106px"> kg</TD></TR>
-	      <TR class="Expanding3">
-		<TD title="The mass of the third stage plus contents.">Transfer Orbit stage dry mass</TD>
-		<TD><INPUT id="Transfer_Orbit_stage_dry_mass" style="width:106px"> kg</TD></TR>
-
-	      <TR>
-		<TD title="The procedure error - it should not be equated with actual accuracy of the result.">Calculation Error</TD>
-		<TD><h9><LABEL id="Calculation_Error"></LABEL> m/s</TD></TR>
+				<!-- Modal content -->
+				<div class="modal-content">
+					<section class="model-header">
+						<h5 id="modelTitle"></h5>
+						<span onclick="closeModel()" class="close">&times;</span>
+					</section>
+				  <div id="modelContentGroup">
+					  <section id="popupContent">
+						Content is Loading...
+					  </section>
+					</div>
+				</div>
+			  
+			  </div>
 <SCRIPT>
 	var elStartingPoint = document.querySelector('#StartingPoint');
 	var elAir_Launch = document.querySelector('#Air_Launch');
@@ -531,7 +919,7 @@
 	var elCalculation_Error = document.querySelector('#Calculation_Error');
 
 	var elPayload_mass_calculated  = document.querySelector('#Payload_mass_calculated');
-	var elAggressivity = document.querySelector('#Aggressivity');
+	var elPayload_mass_calculated5 = document.querySelector('#Payload_mass_calculated5');
 	var elPayload_change = document.querySelector('#Payload_change');
 	var elExpand = document.querySelector('#Expand');
 	var elsExpanding = document.querySelectorAll('.content tr[class="Expanding"]');
@@ -543,8 +931,6 @@
 	var elsGEOI = document.querySelectorAll('.content tr[class="fGEOI"]');
 	var elLimitation = document.querySelector('#Limitation');
 	var elSet_averages = document.querySelector('#Set_averages');
-	var elSet_AllMin = document.querySelector('#Set_AllMin');
-	var elSet_AllMax = document.querySelector('#Set_AllMax');
 	var elProjecting = document.querySelectorAll('.content tr[class="Projecting"]');
 	var elProjectingH = document.querySelectorAll('.content tr[class="ProjectingH"]');
 
@@ -555,7 +941,6 @@
 	var Irremovable_Gravity_Losses;
 	var Vsp_for_target_orbit;
 	var Payload_mass;
-	var Aggressivity = 0.;
 
 	window.onload = onPageLoad;
 	window.onunload = onPageUnload;
@@ -620,20 +1005,17 @@
 			       [13, 13, 20, 0, 0,   0, 290, 320, 320, 320]]; //Solid
 	
 	var s_fuel_data_min = [[5,  4.,  10, 1, 0.5, 0.5, 283, 310, 332, 332],  //Lox/Ker 
-			       [6.2,5.2,  10, 1, 0.5, 0.5, 297, 327, 345, 345],  //Lox/Meth
-			       [10, 8.0, 10, 1, 0.5, 0.5, 363, 399, 434, 434],  //Lox/LH2 
+			       [6,  5.,  10, 1, 0.5, 0.5, 297, 327, 345, 345],  //Lox/Meth
+			       [10, 8.2, 10, 1, 0.5, 0.5, 363, 399, 434, 434],  //Lox/LH2 
 			       [8,  7.,  10, 0, 0.,  0.,  239, 266, 266, 266],  //Mono    
 			       [8,  7.,  10, 0, 0.,  0.,  257, 283, 283, 283]]; //Solid   
-
-	var ScoreCalcWeight = [[1., 1., 0. , 1., 1., 0. , 1., 0.25, 1., 0. ],  // 2 stages 
-			       [1., 1., 0.5, 1., 1., 0.5, 1., 0.25, 1., 0.5]]; // 3 stages
 	
 	var s_rocket_count = 27;
-	var s_rocket_data =  [["New Project",			1.20,   32475, 1.7,  150, 3500,  0,  775,   24.86,   0.,     8.,   10.,     20,    2., 2.,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Cape Canaveral",	"LEO", 0, "Designed Rocket - engine based"],
+	var s_rocket_data =  [["Custom Rocket...",			1.20,   32475, 1.7,  150, 3500,  0,  775,   24.86,   0.,     8.,   10.,     20,    2., 2.,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Cape Canaveral",	"LEO", 0, "Designed Rocket - engine based"],
 			     ["NASA Saturn V",			1.165,2909200,10.1, 8000, 3500,  0, 48600,  21.284,  4.228,  5.677,  8.081, 10.976,2.6, 2.0, 2,   263.0, 304,   421, 421, 0,1, 2,1, 2,1,    "Cape Canaveral",	"Moon",0, "Apollo lunar program launcher"],
-			     ["Launcher Rocket-1",		1.19,   32600, 1.7,  150, 3500,  0,  750,   25.00,   0.0,    8.5,    9.87,   20,    2,   2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"LEO", 0, "4 E2 engines at the 1st stage (project)"],
+			     ["Launcher Rocket-1",		1.19,   32600, 1.7,  150, 3500,  0,  750,   25.00,   0.0,    7.9,    10.,   20,    2,   2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"LEO", 0, "4 E2 engines at the 1st stage (project)"],
 			     ["Launcher XL",			1.2,    73540, 2.1,  400, 3500,  0, 1500,   13.65,   2.,     8.0,    10.,   20,    2,   2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"SSO", 0, "9 E2 engines at the 1st stage (project)"],
-			     ["Launcher Light",			1.15,    8500, 1.1,   30, 3500,  0,  150,    12.3,   3.,      9.5,   12.,   17,    2.,  2.,  1,   290.5, 327,   312, 312, 0,0, 0,3, 0,3,    "Wallops",	"LEO", 0, "1 E2 engine at the 1st stage, pres fed 2nd stage"],
+			     ["Launcher Light",			1.15,    8500, 1.1,   30, 3500,  0,  150,    12.3,   3.,      9.5,   12.,   19,    2.,  2.,  1,   290.5, 327,   318, 318, 0,0, 0,3, 0,3,    "Wallops",	"LEO", 0, "1 E2 engine at the 1st stage, pres fed 2nd stage"],
 			     ["Launcher Nano",			1.5,      500,0.45,    0, 3500,  0,    1,   24.00,   4.,    23.00, 23.00,   15,    3,   3,   3,   225.0, 270,   315, 300, 0,3, 0,3, 0,3,    "Wallops",	"LEO", 0, "The smallest orbital launcher (project)"],
 			     ["Yuzhnoye Zenit-2",		1.605, 443730, 4.15,1800, 3500,  0,13470,   20.551,  0.,     7.93,  9.15,   20,    1.2, 1.2, 0.8, 309.0, 336,   349, 352, 0,0, 0,0, 0,0,    "Baikonur",		"LEO", 0, "Yuzhnoye Ukraine"],
 			     ["Yuzhnoye Zenit-3SL",		1.57,  463220, 4.15,1850, 3500,  0, 3170,   23.499, 4.251,   7.78,  9.15,   14.42, 1.2, 1.2, 0.8, 309.5, 337.2, 350, 361, 0,0, 0,0, 0,0,    "Sea Launch (Equator)",	"GEO", 0, "Yuzhnoye Ukraine"],
@@ -641,15 +1023,15 @@
 			     ["ULA Atlas V 401",		1.15,  328770, 4.2, 2900, 4500,  0, 9800,    7.05,   0.,     7.04,   10.1,  20,    3,   3,   0.8, 311.9, 338.4, 450, 300, 0,0, 2,0, 2,0,    "Cape Canaveral",	"ISS", 0, "United Launch Alliance"],
 			     ["Orbital (NG now) Antares 100",	1.19,  274735, 3.9,  970, 4500,  0, 4600,    5.10,   0.,     7.17,   8.69,  20,    3,   0,   0.8, 297.,  331.,  301, 300, 0,0, 4,1, 4,1,    "Wallops",		"LEO", 0, "Orbital Sciences Corporation (Aj-26)"],
 			     ["Northrop Grumman Antares 230",	1.32,  287000, 3.9,  970, 4500,  0, 6500,    9.103,  0.,     7.845,  7.985, 20,    3,   0,   0.8, 311.9, 339.2, 304, 300, 0,0, 4,1, 4,1,    "Wallops",		"LEO", 0, "Northrop Grumman (RD-181)"],
-			     ["Northrop Grumman Pegasus",	3.18,   18280, 1.27, 100, 3500,  0,  443,   23.31,   2.39,  13.34,  10.39,  13.48, 0,   0,   0,   270.0, 295,   289, 287, 4,1, 4,1, 4,1,    "Vandenberg",	"LEO", 1, "Northrop Grumman Air Launch"],
-			     ["SpaceX Falcon 1e",		1.19,   46955, 1.7,  145, 3500,  0,  650,   10.41,   0.00,   6.13,  11.07,  20.00, 3,   3,   1,   263.0, 304,   317, 300, 0,1, 0,3, 0,3,    "Omelek Island",	"LEO", 0, "First SpaceX Launcher"],
+			     ["Northrop Grumman Pegasus",	3.18,   18280, 1.27, 100, 3500,  0,  443,   23.31,   2.39,  13.34,  10.39,  13.48, 0,   0,   0,   270.0, 295,   289, 287, 4,1, 4,1, 4,1,    "Vandenberg",		"LEO", 1, "Northrop Grumman Air Launch"],
+			     ["SpaceX Falcon 1e",		1.19,   46955, 1.7,  145, 3500,  0,  650,   10.41,   0.00,   6.13,  11.07,  20.00, 3,   3,   1,   263.0, 304,   317, 300, 0,1, 0,3, 0,3,    "Omelek Island",		"LEO", 0, "First SpaceX Launcher"],
 			     ["SpaceX Falcon 9 V1.0",		1.22,  308000,3.66, 1000, 3500,  0, 8500,   16.56,   0.00,   6.74,   5.96,  20.00, 2.0, 2.0, 1,   266.0, 304,   336, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "SpaceX"],
 			     ["SpaceX Falcon 9 V1.1",		1.19,  490600, 5.2, 1900, 3500,  0, 13150,  14.656,  0.00,   5.493,  5.425, 20.00, 3.0, 3.0, 1,   282.0, 311,   342, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "SpaceX"],
 			     ["SpaceX Falcon 9 FT",		1.41,  524554, 5.2, 1700, 3500,  0, 22800,  20.93,   0.00,   5.14,   4.04,  20.00, 1.0, 1.0, 1,   286.0, 321,   348, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "Heavy SpaceX Launcher"],
-			     ["SpaceX Starship",		1.41, 5150000, 9.0,    0, 3500,  0,150000,  25.9,    0.00,   14.0,   9.1,   10.,   1.5, 1.5, 1,   330.0, 356,   380, 380, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, "SpaceX (project)"],
+			     ["SpaceX Starship",		1.41, 5150000, 9.0,    0, 3500,  0,150000,  25.9,    0.00,   14.0,   9.1,	10., 1.5, 1.5,  1,   330.0, 356,   380, 440, 1,0, 1,0, 1,0,    "SpaceX Boca Chica",		"LEO", 0, "SpaceX (project)"],
 			     ["Rocket Lab Electron",		1.32,   12355, 1.2,   44, 3500, 50,   150,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   256.0, 303,   333, 250, 0,2, 0,2, 3,3,    "Rocket Lab LC-1",	"SSO", 0, "Rocketlab"],
-			     ["Blue Origin New Glenn 2st",	1.22, 1380000, 7.0, 4000, 3500,  0, 45000,  19.564,  0.00,   9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 1,0,    "Cape Canaveral",	"LEO", 0, "Blue Origin 2-Stages (Superceded) (project)"],
-			     ["Blue Origin New Glenn 3st",	1.20, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",	"Mars",0, "Blue Origin 3-Stages (Superceded) (project)"],
+			     ["Blue Origin New Glenn 2st",	1.22, 1380000, 7.0, 4000, 3500,  0, 45000,  19.564,  0.00,   9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 1,0,    "Cape Canaveral",		"LEO", 0, "Blue Origin 2-Stages (Superceded) (project)"],
+			     ["Blue Origin New Glenn 3st",	1.20, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",		"Mars",0, "Blue Origin 3-Stages (Superceded) (project)"],
 			     ["Virgin Orbit Launcher One",	1.44,   22900, 1.6,  100, 3500,  0,   300,  11.13,   0.00,   9.00,   9.00,  20.00, 3,   3,   1,   290.0, 308,   328, 300, 0,1, 0,1, 0,1,    "Mojave",		"SSO", 1, "Virgin Orbit (project)"],
 			     ["Relativity Terran 1 ",		1.2,    55500, 2.7,  400, 3500,   0, 1250,  17.50,   0.00,   9.00,   9.00,  20.00, 2,   2,   1,   267.0, 310,   360, 300, 1,1, 1,1, 1,1,    "Cape Canaveral",	"LEO", 0, "Relativity (project)"],
 			     ["Astra Rocket-3",			1.4,    10400, 1.32,   30, 3500,  0,   100,  11.0,    0.00,  10.00,   9.00,  20.00, 2,   2,   1,   234.0, 284,   315, 300, 0,2, 0,3, 3,3,    "Kodiak",		"LEO", 0, "Astra (project)"],
@@ -694,32 +1076,38 @@
 			     ["SpaceX Raptor vac",	230000,	  0.0, 380.,  1, 0, 3,"SpaceX Starship 2nd stage"],				
 				];
 	var s_desined_first = false;
+	
+	function closeModel(){
+		var modal = document.getElementById("myModal");
+		modal.style.display = "none";
+	}
 
 	function openAbout() {
-	mywindow = open('','new_window','width=700,height=660,top=150,left=150,status=0,menubar=0');
-	mywindow.document.open();
-	mywindow.document.write('<html><head><title>Help Window');
-	mywindow.document.write('</title></head><body>');
-	mywindow.document.write('<p>&emsp;This software is not designed to perform space launcher calculations because the method used is an approximation and is not accurate enough. The software also does not take into account the possibility of optimizing due to multiple burn maneuvers, which is especially effective for GTO and GEO orbits. It is only intended to assess the impact of the main rocket characteristics on the payload mass, and the resulting accuracy is about 10%. In addition it is assumed that the rocket design is conventional, meaning the body must be cylindrical with an aspect ratio of 20 to 30, the thrust-to-weight ratio of the first stage should be from 1.2 to 1.6, the mass ratio of the first to second stage should be from 1:0.05 to 1:0.25, and the fairing should jettison shortly after the second stage ignition upon reaching a predetermined velocity of 3500 m/s, which in general corresponds to a flight altitude of more than 95 km. To achieve high orbits, the upper stage engine must be capable of multiple restarts . When calculating possible orbits, it should also be taken into account that some space ports impose certain restrictions on the permissible inclinations of the orbits. This is usually due to an active trajectory leg passing over a populated area. For example, from the Canaveral spaceport, it is forbidden to to inject directly into SSO.</p>');
-	mywindow.document.write('<p>&emsp;The software allows users to compare the relative characteristics of launchers, but in contrast to common approach percentages are used here, which is easier for an amateur. If it is more convenient to use the absolute values of the rocket stages&#039; masses, then these values can be entered in the "Output" section once the "Expand" checkbox is selected next to "Result". Afterwards these values will be converted into relative values. Values can only be entered in cells marked with a border. The velocity losses are calculated according to the Y. Lobanovsky method described in the article: "Delta velocity prediction for injection into Low Earth Orbit." This software provides two options - calculation based on an existing launcher, which allows you to evaluate its level of performance, or the engines-based calculation, which allows you to evaluate the characteristics of a hypothetical space launcher that can be created by applying a certain number of existing engines. For the second calculation option, select "New Project" in the "Rocket" menu. To compare the effectiveness of different fuels and cycles, it is convenient to use the averaged characteristics mode, "Set averages." The software has reasonable restrictions on the various characteristics of the rocket. If you want to go beyond these limits, you can remove this restriction by deselecting "Limitation ON." To display more information select "Expand" mode for "Result".</p>');
-	mywindow.document.write('<p>&emsp;All of the rockets characteristics are obtained from the Internet. They are averaged and may differ from the specific case of launch. Since many of the specifications of the majority of projected launchers have not been published, they are assumed by the author based on his experience to ensure the declared payload. Some of these specifications may turn out to be practically impossible, since most companies use very aggressive predictions. </p>');
-		mywindow.document.write('Igor Nikishchenko, Author and Chief Designer, Launcher');
-	mywindow.document.write('</body></html>');
-	mywindow.document.close();
+		var modal = document.getElementById("myModal");
+		modal.style.display = "block";
+		var popupContent1 = '<p>&emsp;This software is not designed to perform space launcher calculations because the method used is an approximation and is not accurate enough. The software also does not take into account the possibility of optimizing due to multiple burn maneuvers, which is especially effective for GTO and GEO orbits. It is only intended to assess the impact of the main rocket characteristics on the payload mass, and the resulting accuracy is about 10%. In addition it is assumed that the rocket design is conventional, meaning the body must be cylindrical with an aspect ratio of 20 to 30, the thrust-to-weight ratio of the first stage should be from 1.2 to 1.6, the mass ratio of the first to second stage should be from 1:0.05 to 1:0.25, and the fairing should jettison shortly after the second stage ignition upon reaching a predetermined velocity of 3500 m/s, which in general corresponds to a flight altitude of more than 95 km. To achieve high orbits, the upper stage engine must be capable of multiple restarts . When calculating possible orbits, it should also be taken into account that some space ports impose certain restrictions on the permissible inclinations of the orbits. This is usually due to an active trajectory leg passing over a populated area. For example, from the Canaveral spaceport, it is forbidden to to inject directly into SSO.</p>';
+		var popupContent2 = '<p>&emsp;The software allows users to compare the relative characteristics of launchers, but in contrast to common approach percentages are used here, which is easier for an amateur. If it is more convenient to use the absolute values of the rocket stages&#039; masses, then these values can be entered in the "Output" section once the "Expand" checkbox is selected next to "Result". Afterwards these values will be converted into relative values. Values can only be entered in cells marked with a border. The velocity losses are calculated according to the Y. Lobanovsky method described in the article: "Delta velocity prediction for injection into Low Earth Orbit." This software provides two options - calculation based on an existing launcher, which allows you to evaluate its level of performance, or the engines-based calculation, which allows you to evaluate the characteristics of a hypothetical space launcher that can be created by applying a certain number of existing engines. For the second calculation option, select "New Project" in the "Rocket" menu. To compare the effectiveness of different fuels and cycles, it is convenient to use the averaged characteristics mode, "Set averages." The software has reasonable restrictions on the various characteristics of the rocket. If you want to go beyond these limits, you can remove this restriction by deselecting "Limitation ON." To display more information select "Expand" mode for "Result".</p>';
+		var popupContent3 = '<p>&emsp;All of the rockets characteristics are obtained from the Internet. They are averaged and may differ from the specific case of launch. Since many of the specifications of the majority of projected launchers have not been published, they are assumed by the author based on his experience to ensure the declared payload. Some of these specifications may turn out to be practically impossible, since most companies use very aggressive predictions. </p>';
+		var popupContent4 = 'Igor Nikishchenko, Author and Chief Designer, Launcher'
+		var modelContent = popupContent1 + popupContent2 + popupContent3 + popupContent4;
+		var strModel = document.getElementById("popupContent");
+		strModel.innerHTML = modelContent;
+		var modelTitle = document.getElementById("modelTitle");
+		modelTitle.innerHTML = "Background and usage";
 	}
 
 	function openLicense() {
-	mywindow = open('','new_window','width=700,height=360,top=150,left=150,status=0,menubar=0');
-	mywindow.document.open();
-	mywindow.document.write('<html><head><title>MIT License');
-	mywindow.document.write('</title></head><body>');
-	mywindow.document.write('<p>MIT License</p>');
-	mywindow.document.write('<p>Copyright (c) 2020 Launcher Inc.</p>');
-	mywindow.document.write('<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>');
-	mywindow.document.write('<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>');
-	mywindow.document.write('<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, AUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>');
-	mywindow.document.write('</body></html>');
-	mywindow.document.close();
+		var modal = document.getElementById("myModal");
+		modal.style.display = "block";
+		var popupContent1 = '<p>MIT License</p><p>Copyright (c) 2020 Launcher Inc.</p>';
+		var popupContent2 = '<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>';
+		var popupContent3 = '<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>';
+		var popupContent4 = '<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, AUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>';
+		var modelContent = popupContent1 + popupContent2 + popupContent3 + popupContent4;
+		var strModel = document.getElementById("popupContent");
+		strModel.innerHTML = modelContent;
+		var modelTitle = document.getElementById("modelTitle");
+		modelTitle.innerHTML = "MIT License";
 	}
 
 	function Rad2Deg(radians)
@@ -874,7 +1262,6 @@
 			var Second_stage_propellant_mass = Second_stage_wet_mass*(1.-v2nd_Dry_to_Wet_mass_ratio/100.);
 			var Second_stage_dry_mass = Second_stage_wet_mass - Second_stage_propellant_mass;
 			var Transfer_Orbit_stage_dry_mass = v3rd_Stage_mass_ratio == 0 ? 0 : ((Rocket_Mass*v3rd_Stage_mass_ratio/100.)*v3rd_Dry_to_Wet_mass_ratio/100.);
-//			var Transfer_Orbit_stage_propellant_mass = Transfer_Orbit_stage_dry_mass*(100./v3rd_Dry_to_Wet_mass_ratio)-Transfer_Orbit_stage_dry_mass ;		     	
 			var Transfer_Orbit_stage_propellant_mass = (Rocket_Mass*v3rd_Stage_mass_ratio/100.) - Transfer_Orbit_stage_dry_mass;		     	
 		} else
 		{
@@ -952,10 +1339,18 @@
 			}
 
 		//=== Result ===
-			var Assumed_payload_mass_base = parseFloat(elAssumed_payload_mass.value);
-			elPayload_mass_calculated.textContent = Payload_mass_calculated.toFixed(1);
-			var Payload_change = Payload_mass_calculated/Assumed_payload_mass_base;
-			elPayload_change.textContent = (Payload_change * 100.).toFixed(1);	
+			if (itt == 1)
+			{
+				elPayload_mass_calculated.textContent = Payload_mass_calculated.toFixed(1);
+			} else if (itt == 5)
+			{
+				var Assumed_payload_mass_base = parseFloat(elAssumed_payload_mass.value);
+				var strComma = Math.round(Payload_mass_calculated);
+				if(!!strComma) strComma = strComma.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+				elPayload_mass_calculated5.textContent = strComma;
+				var Payload_change = Payload_mass_calculated/Assumed_payload_mass_base;
+				elPayload_change.textContent = (Payload_change * 100.).toFixed(1);	
+			}
 			Assumed_payload_mass = Payload_mass_calculated;
 //			if(elRocket.selectedIndex == 0)elAssumed_payload_mass.value = Assumed_payload_mass;
 			Payload_mass = Payload_mass_calculated;
@@ -1019,8 +1414,7 @@
 	function Calculate_Rel()
 	{
 		Absolute_Mass = 0;
-		Calculate();
-		updateFuel();
+		Calculate();		
 	}
 
        	function CalculationError()
@@ -1053,7 +1447,7 @@
 		var Second_stage_dry_mass = parseFloat(elSecond_stage_dry_mass.value);
 		var Transfer_Orbit_stage_propellant_mass = parseFloat(elTransfer_Orbit_stage_propellant_mass.value);
 		var Transfer_Orbit_stage_dry_mass = parseFloat(elTransfer_Orbit_stage_dry_mass.value);
-		var Payload_mass = parseFloat(elPayload_mass_calculated.textContent);
+		var Payload_mass = parseFloat(elPayload_mass_calculated5.textContent);
                 var Summary_Mass = First_stage_propellant_mass + First_stage_dry_mass
 			+ Second_stage_propellant_mass + Second_stage_dry_mass
 			+ Transfer_Orbit_stage_propellant_mass + Transfer_Orbit_stage_dry_mass
@@ -1091,15 +1485,15 @@
 		if (elOrbit.selectedIndex == 4)
 		{
 			for (var i = 0; i < elsGEO.length; i++)
-				elsGEO[i].removeAttribute("hidden");
+				elsGEO[i].removeAttribute("style");
 			for (var i = 0; i < elsGEOI.length; i++)
-				elsGEOI[i].setAttribute("hidden","true");
+				elsGEOI[i].setAttribute("style","display:none");
 		} else
 		{
 			for (var i = 0; i < elsGEO.length; i++)
-				elsGEO[i].setAttribute("hidden","true");
+				elsGEO[i].setAttribute("style","display:none");
 			for (var i = 0; i < elsGEOI.length; i++)
-				elsGEOI[i].removeAttribute("hidden");
+				elsGEOI[i].removeAttribute("style");
 		}
 		elOrbitDescription.textContent = s_orbit_data[elOrbit.selectedIndex][5];
 		if (elOrbit.selectedIndex > 4)
@@ -1176,8 +1570,7 @@
 		if(index == 0)ThrustToWeight_corr = 0.8*(elThrust_to_weight_ratio.value-1.2);
 		if(index == 1)ThrustToWeight_corr = 0.8*(Thrust_To_Weight_2st-1.1);
 
-		if(cycle == 0) orsc_corr = 0.5; //Staged Combustion
-		if(cycle == 2) orsc_corr = 0.5; //Electric
+		if(cycle == 0) orsc_corr = 0.5;
 		if(fuel == 4) {cycle_corr = 1.; orsc_corr = 0.;}
 		var val_min = (s_fuel_data_min[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 		var val_max = (s_fuel_data_max[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
@@ -1207,7 +1600,6 @@
 			range.value = (val_min + val_max - input_value) * 100.;
 		else
 			range.value = input_value * 100.;
-	    CalculateScore();
 	}
 
 	function updateCycle()
@@ -1300,7 +1692,6 @@
 			}
 		Calculate();
 		f3stagesChange();
-		CalculateScore();
 	}
 
 	function updateEngine1()
@@ -1413,7 +1804,6 @@
 			s_slider_edit[index].value = ((vmin + vmax - s_slider[index].value) / 100.).toFixed(2);
 		} else
 			s_slider_edit[index].value = s_slider[index].value / 100.;
-                CalculateScore();
 		Calculate();
 		CalculationError();		
 	}
@@ -1443,7 +1833,6 @@
 			s_slider[index].value = val_min + val_max - s_slider_edit[index].value * 100.;
 		} else
 			s_slider[index].value =  s_slider_edit[index].value * 100.;
-                CalculateScore();
 	}
 
 	function updateSliderEdit0(index)
@@ -1574,8 +1963,6 @@
 	{
 		Absolute_Mass = 0;
 		elSet_averages.checked = false;
-		elSet_AllMin.checked = false;
-		elSet_AllMax.checked = false;
 		if (elRocket.selectedIndex == 0)
 		{ 
 			elLimitation.checked = false;
@@ -1672,18 +2059,18 @@
 		if (elRocket.selectedIndex == 0)
 		{
 			for (var i = 0; i < elProjecting.length; i++)
-				elProjecting[i].removeAttribute("hidden");
+				elProjecting[i].removeAttribute("style");
 			for (var i = 0; i < elProjectingH.length; i++)
-				elProjectingH[i].setAttribute("hidden","true");
+				elProjectingH[i].setAttribute("style","display:none");
 			SetAverages(0,6);
 			updateWeight();
 			
 		} else
 		{
 			for (var i = 0; i < elProjecting.length; i++)
-				elProjecting[i].setAttribute("hidden","true");
+				elProjecting[i].setAttribute("style","display:none");
 			for (var i = 0; i < elProjectingH.length; i++)
-				elProjectingH[i].removeAttribute("hidden");
+				elProjectingH[i].removeAttribute("style");
 			DelAverages();
 		}
 	}
@@ -1697,24 +2084,28 @@
 	function ExpandChange()
 	{
 
-		if (elExpand.checked)
+		if (elExpand.checked || elExpand.getAttribute("isbool") == "1")
 		{
+			elExpand.setAttribute('isBool',0);
+			elExpand.innerHTML = "Show Less";
 			for (var i = 0; i < elsExpanding.length; i++)
-				elsExpanding[i].removeAttribute("hidden");
+				elsExpanding[i].removeAttribute("style");
 			if(parseFloat(elJettisoned_battery_mass.value) > 0)
 			for (var i = 0; i < elsExpandingB.length; i++)
-				elsExpandingB[i].removeAttribute("hidden");
+				elsExpandingB[i].removeAttribute("style");
 			if(elStages.selectedIndex == 1)
 			for (var i = 0; i < elsExpanding3.length; i++)
-				elsExpanding3[i].removeAttribute("hidden");
+				elsExpanding3[i].removeAttribute("style");
 		} else
 		{
+			elExpand.setAttribute('isBool',1);
+			elExpand.innerHTML = "Advanced...";
 			for (var i = 0; i < elsExpanding.length; i++)
-				elsExpanding[i].setAttribute("hidden","true");
+				elsExpanding[i].setAttribute("style","display:none");
 			for (var i = 0; i < elsExpandingB.length; i++)
-				elsExpandingB[i].setAttribute("hidden","true");
+				elsExpandingB[i].setAttribute("style","display:none");
 			for (var i = 0; i < elsExpanding3.length; i++)
-				elsExpanding3[i].setAttribute("hidden","true");
+				elsExpanding3[i].setAttribute("style","display:none");
 		}
 	}
 
@@ -1723,16 +2114,16 @@
 		if (el3rd_Stage_mass_ratio.value == 0)
 		{
 			for (var i = 0; i < els3stages.length; i++)
-				els3stages[i].setAttribute("hidden","true");
+				els3stages[i].setAttribute("style","display:none");
 			for (var i = 0; i < elsExpanding3.length; i++)
-				elsExpanding3[i].setAttribute("hidden","true");
+				elsExpanding3[i].setAttribute("style","display:none");
 		} else
 		{
 			for (var i = 0; i < els3stages.length; i++)
-				els3stages[i].removeAttribute("hidden");
+				els3stages[i].removeAttribute("style");
 			if (elExpand.checked)
 			for (var i = 0; i < elsExpanding3.length; i++)
-				elsExpanding3[i].removeAttribute("hidden");
+				elsExpanding3[i].removeAttribute("style");
 		}
 	}
 
@@ -1768,14 +2159,14 @@
 		if (elCycle2.selectedIndex == 2)
 		{
 			for (var i = 0; i < elsElectric.length; i++)
-				elsElectric[i].removeAttribute("hidden");
+				elsElectric[i].removeAttribute("style");
 
 		} else
 		{
 			for (var i = 0; i < elsElectric.length; i++)
 				{
 				elJettisoned_battery_mass.value = 0.;
-				elsElectric[i].setAttribute("hidden","true");
+				elsElectric[i].setAttribute("style","display:none");
 				}
 		}
 
@@ -1843,7 +2234,6 @@
 		    Calculate();
 		}
 		CalculationError();		
-		CalculateScore();
 	}
 
 	function SetLimitation()
@@ -1936,8 +2326,6 @@
 	{
 		if (elSet_averages.checked)
 		{
-		elSet_AllMin.checked = false;
-		elSet_AllMax.checked = false;
 		SetAverages(0,10);
 		Calculate();
 		}
@@ -1957,96 +2345,11 @@
 		elSpecific_Impulse_Variation.value = 100.;
 		updateSliderEdit0(10);
 	}
-
+	
 	function DelAverages()
 	{
 		DelLimitation();
 		LimitationChange();
-	}
-
-	function Set_AllMinChange()
-	{
-		if (elSet_AllMin.checked)
-		{
-		elSet_averages.checked = false;
-		elSet_AllMax.checked = false;
-		SetAllMin();
-		Calculate();
-		}
-		else
-		{
-		if (elRocket.selectedIndex > 0) DelAverages();
-		}
-	}
-
-	function SetAllMin()
-	{
-		for (var i = 0; i < 10; ++i)
-			{
-			s_slider[i].value = parseFloat(s_slider[i].min);
-			updateSlider(i);
-			}
-		elSpecific_Impulse_Variation.value = 100.;
-		updateSliderEdit0(10);
-	}
-
-	function Set_AllMaxChange()
-	{
-		if (elSet_AllMax.checked)
-		{
-		elSet_averages.checked = false;
-		elSet_AllMin.checked = false;
-		SetAllMax();
-		Calculate();
-		}
-		else
-		{
-		if (elRocket.selectedIndex > 0) DelAverages();
-		}
-	}
-
-	function SetAllMax()
-	{
-		for (var i = 0; i < 10; ++i)
-			{
-			s_slider[i].value = parseFloat(s_slider[i].max);
-			updateSlider(i);
-			}
-		elSpecific_Impulse_Variation.value = 100.;
-		updateSliderEdit0(10);
-	}
-
-	function CalculateScore()
-	{
-		Aggressivity = 1.;
-		// if Pressure Fed
-		if(elCycle.selectedIndex == 3) Aggressivity = Aggressivity - 1.25*0.5;
-		if(elCycle2.selectedIndex == 3) Aggressivity = Aggressivity - 1.25*0.5;
-		if(elStages.selectedIndex == 1 & elCycle3.selectedIndex == 3) Aggressivity = Aggressivity - 0.5*0.5;
-		// if Lox/Methane
-		if(elFuel.selectedIndex == 2) Aggressivity = Aggressivity + 1.25*0.3;
-		if(elFuel2.selectedIndex == 2) Aggressivity = Aggressivity + 1.25*0.3;
-		if(elStages.selectedIndex == 1 & elFuel3.selectedIndex == 2) Aggressivity = Aggressivity + 0.5*0.3;
-		// if Lox/LH2
-		if(elFuel.selectedIndex == 2) Aggressivity = Aggressivity + 1.25*0.8;
-		if(elFuel2.selectedIndex == 2) Aggressivity = Aggressivity + 1.25*0.8;
-		if(elStages.selectedIndex == 1 & elFuel3.selectedIndex == 2) Aggressivity = Aggressivity + 0.5*0.8;
-
-		for (var i = 0; i < 6; ++i)
-			{
-			if (i < 3 & parseFloat(s_slider_edit[i].value) == 0.) Aggressivity = 1/0;
-			if (parseFloat(s_slider[i].max) > 0.) Aggressivity = Aggressivity + 1.25*ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(Math.max(1e-3,1.-(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
-			}
-		if (elStages.selectedIndex == 1)
-		{
-		for (var i = 6; i < 10; ++i)
-			{
-			if (i == 0) Aggressivity = 0;
-			Aggressivity = Aggressivity + 0.5*ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(Math.max(1e-3,(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
-			}
-		}
-		if (Aggressivity < 0)Aggressivity = 0.;
-		elAggressivity.textContent = Aggressivity.toFixed(1);
 	}
 
 	function MassRecalculate()
@@ -2303,7 +2606,7 @@
 		updateEngine2();
 
 		elExpand.checked = false;
-		elExpand.addEventListener('change', ExpandChange);
+		elExpand.addEventListener('click', ExpandChange);
 		ExpandChange();
 		f3stagesChange();
 		elAir_Launch.checked = false;
@@ -2314,12 +2617,6 @@
 
 		elSet_averages.checked = false;
 		elSet_averages.addEventListener('change', Set_averagesChange);
-
-		elSet_AllMin.checked = false;
-		elSet_AllMin.addEventListener('change', Set_AllMinChange);
-
-		elSet_AllMax.checked = false;
-		elSet_AllMax.addEventListener('change', Set_AllMaxChange);
 		
 		updateRocket();
 		updateStartingPoint();
