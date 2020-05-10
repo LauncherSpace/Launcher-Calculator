@@ -474,10 +474,10 @@ input[type=range]:focus::-ms-fill-upper {
 			  <TD title="The initial mass of a rocket"><div class="mobilelayout_l1">Lift-off mass</div></TD>
 			  <TD><div class="mobilelayout_r2"><h8><LABEL id="Lift_off_Mass"></LABEL> kg</div></TD></TR>
 				<TR class="ProjectingH">
-			  <TD title="The initial mass of a rocket excluding payload and fairing"><div class="mobilelayout_l1">Rocket mass (excluding Payload and Fairing)</div></TD>
+			  <TD title="The initial mass of a rocket excluding payload and fairing"><div class="mobilelayout_l1">Rocket mass (Lift off excluding Payload and Fairing)</div></TD>
 			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="Rocket_Mass"  class="inputstyle-1" type="text"><span>kg</span></div></TD></TR>
 				<TR>
-			  <TD title="The maximum diameter midsection of the rocket, which determines the aerodynamic drag.&#013;For modern rockets this is usually the fairing diameter."><div class="mobilelayout_l1">Max midsection diameter</div></TD>
+			  <TD title="The maximum diameter midsection of the rocket, which determines the aerodynamic drag.&#013;For modern rockets this is usually the fairing diameter."><div class="mobilelayout_l1">Max Rocket Body Diameter</div></TD>
 			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT class="inputstyle-1" type="text" id="Max_midsection_D"> <span>m</span></div></TD></TR>
 	  
 				<TR>
@@ -505,7 +505,7 @@ input[type=range]:focus::-ms-fill-upper {
 			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="_3rd_Stage_mass_ratio" class="inputstyle-1" type="text"><span> %</span></div></TD></TR>
 	  
 				<TR class="ProjectingH">
-			  <TD class="tdpadd1" title="Moving the sliders to the right increases efficiency but is more difficult to achieve" align="center">Payload decrease <-- --> Payload increase </TD>
+			  <TD class="tdpadd1" title="Moving the sliders to the right increases efficiency but is more difficult to achieve" align="center">Decrease Payload <-- --> Increase Payload</TD>
 			  <TD class="tdpadd1 right-content right-content01" title="Reasonable restrictions on the rocket characteristics"></SELECT>Limitations ON<INPUT id="Limitation" type="checkbox"></TD></TR>
 		
 				<TR>
@@ -954,7 +954,7 @@ input[type=range]:focus::-ms-fill-upper {
 				  ["Wallops",   	34.94, -75.47,    0,  34.94,"Wallops Island USA"],
 				  ["Kodiak",	   	57.43, -152.33,   0,  57.43,"Kodiak Island Alaska"],
 				  ["Mojave",	   	35.0,  -118,      0,  35.,  "California USA"],
-				  ["Rocket Lab LC-1",  -39.26,  177.86, 0.1,  39.25,"New Zealand's Mahia Peninsula"],
+				  ["RocketLab LC-1",  -39.26,  177.86, 0.1,  39.25,"New Zealand's Mahia Peninsula"],
 				  ["Omelek Island",    	  9.3,  167.73,   0,   9.3, "Republic of the Marshall Islands"],
 				  ["Puerto Rico",    	18.26,   65.61,   0,  18.26,"USA (access to all orbital inclinations)"],
 				  ["BO Corn Ranch",	31.42,-104.76, 1.23, 31.42,"Blue Origin spaceport USA"],
@@ -1035,7 +1035,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["SpaceX Falcon 9 V1.1",		1.19,  490600, 5.2, 1900, 3500,  0, 13150,  14.656,  0.00,   5.493,  5.425, 20.00, 3.0, 3.0, 1,   282.0, 311,   342, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "SpaceX"],
 			     ["SpaceX Falcon 9 FT",		1.41,  524554, 5.2, 1700, 3500,  0, 22800,  20.93,   0.00,   5.14,   4.04,  20.00, 1.0, 1.0, 1,   286.0, 321,   348, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "Heavy SpaceX Launcher"],
 			     ["SpaceX Starship",		1.41, 5150000, 9.0,    0, 3500,  0,150000,  25.9,    0.00,   14.0,   9.1,   10.,   1.5, 1.5, 1,   330.0, 356,   380, 380, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, "SpaceX (project)"],
-			     ["Rocket Lab Electron",		1.32,   12355, 1.2,   44, 3500, 50,   150,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   256.0, 303,   333, 250, 0,2, 0,2, 3,3,    "Rocket Lab LC-1",	"SSO", 0, "Rocketlab"],
+			     ["RocketLab Electron",		1.32,   12355, 1.2,   44, 3500, 50,   150,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   256.0, 303,   333, 250, 0,2, 0,2, 3,3,    "RocketLab LC-1",	"SSO", 0, "Rocketlab"],
 			     ["Blue Origin New Glenn 2st",	1.22, 1380000, 7.0, 4000, 3500,  0, 45000,  19.564,  0.00,   9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 1,0,    "Cape Canaveral",	"LEO", 0, "Blue Origin 2-Stages (Superceded) (project)"],
 			     ["Blue Origin New Glenn 3st",	1.20, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",	"Mars",0, "Blue Origin 3-Stages (Superceded) (project)"],
 			     ["Virgin Orbit Launcher One",	1.44,   22900, 1.6,  100, 3500,  0,   300,  11.13,   0.00,   9.00,   9.00,  20.00, 3,   3,   1,   290.0, 308,   328, 300, 0,1, 0,1, 0,1,    "Mojave",		"SSO", 1, "Virgin Orbit (project)"],
@@ -1050,7 +1050,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["Launcher E-2 vac",	12600.,	  0.0, 365., 0, 0, 1,"Launcher 2nd stage"],				
 			     ["Ursa Ripley",		15900., 262.0, 308., 0, 0, 1,"URSA Major ORSC engine for 1st stage"],				
 			     ["Ursa Hadley",		2900.,	  0.0, 345., 0, 0, 1,"URSA Major ORSC engine for 2nd stage"],
-			     ["RL Rutherford",		1800.,	256.0, 303., 0, 2, 9,"Rocket Lab Electron 1st stage"],				
+			     ["RL Rutherford",		1800.,	256.0, 303., 0, 2, 9,"RocketLab Electron 1st stage"],				
 			     ["RL Rutherford vac", 	2500.,	  0.0, 333.,  0, 2, 1,"Rocketlab Electron 2nd stage"],
 			     ["Virgin Newton III",	33600.,	290.0, 308.,  0, 1, 1,"Virgin Orbit Launcherone 1st stage"],				
 			     ["Virgin Newton IV", 	2200.,	  0.0, 328.,  0, 1, 1,"Virgin Orbit Launcherone 2nd stage"],				
