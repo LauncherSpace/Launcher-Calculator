@@ -1350,11 +1350,14 @@ input[type=range]:focus::-ms-fill-upper {
 		//=== Result ===
 			var Assumed_payload_mass_base = parseFloat(elAssumed_payload_mass.value);
 	
-		elPayload_mass_calculated.textContent = Payload_mass_calculated.toFixed(1);
+			elPayload_mass_calculated.textContent = Payload_mass_calculated.toFixed(1);
 			var Payload_change = Payload_mass_calculated/Assumed_payload_mass_base;
-			var strComma = Math.round(Payload_mass_calculated);
-			if(!!strComma) strComma = strComma.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-			elPayload_mass_calculated.textContent = strComma;
+			if(Payload_mass_calculated > 100.)
+			 {
+				var strComma = Math.round(Payload_mass_calculated);
+				if(!!strComma) strComma = strComma.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+				elPayload_mass_calculated.textContent = strComma;
+			 }
 			elPayload_change.textContent = (Payload_change * 100.).toFixed(1);	
 			Assumed_payload_mass = Payload_mass_calculated;
 //			if(elRocket.selectedIndex == 0)elAssumed_payload_mass.value = Assumed_payload_mass;
