@@ -406,7 +406,6 @@ input[type=range]:focus::-ms-fill-upper {
 			</li>
 			<li class="lastChild">
 				<FONT size="5" title="Payload mass is the main calculation result">Result</FONT>
-					  <id="Expand" title="Display more information"></SELECT>&emsp;&emsp;
 				   
 					  <TABLE class="headerTable" border="0">
 						<TBODY>
@@ -776,8 +775,7 @@ input[type=range]:focus::-ms-fill-upper {
 </div>
 
 <div class="adwacedContent">
-	<button isBool=0 id="Expand">Advanced...</button>
-	<!-- <font size="2">Expand</font><INPUT id="Expand" type="checkbox"> -->
+	<button isBool=0 id="Expand" >Advanced...</button>
 </div>
 
 			<div id="myModal" class="modal">
@@ -2104,6 +2102,7 @@ input[type=range]:focus::-ms-fill-upper {
 		{
 			elExpand.setAttribute('isBool',0);
 			elExpand.innerHTML = "Show Less";
+			elExpand.title = "Desplay less information";
 			for (var i = 0; i < elsExpanding.length; i++)
 				elsExpanding[i].removeAttribute("style");
 			if(parseFloat(elJettisoned_battery_mass.value) > 0)
@@ -2116,6 +2115,7 @@ input[type=range]:focus::-ms-fill-upper {
 		{
 			elExpand.setAttribute('isBool',1);
 			elExpand.innerHTML = "Advanced...";
+			elExpand.title = "Display more information";
 			for (var i = 0; i < elsExpanding.length; i++)
 				elsExpanding[i].setAttribute("style","display:none");
 			for (var i = 0; i < elsExpandingB.length; i++)
