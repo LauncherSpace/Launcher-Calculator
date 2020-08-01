@@ -408,12 +408,12 @@ input[type=range]:focus::-ms-fill-upper {
 			<li class="lastChild">
 				<FONT size="5" title="Payload mass is the main calculation result">Result</FONT>
 				   
-					  <TABLE class="headerTable" border="0">
+	 					<TABLE class="headerTable" border="0">
 						<TBODY>
-							<TR>
+							<TR class="NegativePayload">
 								<TD title="Payload mass calculated by an approximate method.">Payload mass (calculated)</TD>
-								<TD width="300" class="tdright"><h9 class="highlightprice"><b><span class="heighlightBG"><LABEL id="Payload_mass_calculated"></LABEL> kg </span></TD></TR>
-						<TR>
+								<TD width="300" class="tdright"><h9 class="highlightprice"><b><span class="heighlightBG"><LABEL id="Payload_mass_calculated"></LABEL> kg </span></TD>
+						<TR class="NegativePayload">
 					  <TD title="The percentage ratio of payload mass to the initial rocket mass." width="600">Payload to Lift-off mass ratio</TD>
 					  <TD width="120" class="tdright"><h8><LABEL id="Payload_to_Lift_off_mass_ratio"></LABEL> % </TD></TR>
 						<TR class="ProjectingH">
@@ -736,7 +736,7 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Second_stage_delta_v_before_battery_jettison"></LABEL> <span>m/s</span></h9></div></TD></TR>
 						<TR class="Expanding">
 					  <TD class="tdpadd1" title="The total mass of the rocket at the shutdown of the second stage engines."><div class="mobilelayout_l1">2nd stage final mass</div></TD>
-					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Second_stage_final_mass"></LABEL><span>kg&ensp;</span></h9></div></TD></TR>
+					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Second_stage_final_mass"></LABEL> <span>kg&ensp;</span></h9></div></TD></TR>
 						<TR class="Expanding">
 					  <TD title="The total mass of the oxidizer and fuel of the second stage"><div class="mobilelayout_l1">2nd stage propellant mass</div></TD>
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Second_stage_propellant_mass"><span>kg&ensp;</span></div></TD></TR>
@@ -760,7 +760,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<TR class="Expanding3">
 					  <TD class="tdpadd1" title="The total mass of the rocket at the shutdown of the third stage engines."><div class="mobilelayout_l1">Transfer Orbit stage final mass</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL 
-						id="Transfer_Orbit_stage_final_mass"></LABEL><span>kg&ensp;</span></h9></div></TD></TR>
+						id="Transfer_Orbit_stage_final_mass"></LABEL> <span>kg&ensp;</span></h9></div></TD></TR>
 						<TR class="Expanding3">
 					  <TD title="The total mass of the oxidizer and fuel of the third stage"><div class="mobilelayout_l1">Transfer Orbit stage propellant mass</div></TD>
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Transfer_Orbit_stage_propellant_mass"><span>kg&ensp;</span></div></TD></TR>
@@ -946,6 +946,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var elSet_AllMax = document.querySelector('#Set_AllMax');
 	var elProjecting = document.querySelectorAll('.content tr[class="Projecting"]');
 	var elProjectingH = document.querySelectorAll('.content tr[class="ProjectingH"]');
+	var elNegativePayload = document.querySelectorAll('.content tr[class="NegativePayload"]');
 
 	var elReference = document.querySelector('#Reference');
 	var elRequired = document.querySelector('#Required');
@@ -1394,6 +1395,17 @@ input[type=range]:focus::-ms-fill-upper {
 				if(!!strComma) strComma = strComma.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 				elPayload_mass_calculated.textContent = strComma;
 			 }
+
+			if (Payload_mass_calculated > 0)
+			{
+				for (var i = 0; i < elNegativePayload.length; i++)
+					elNegativePayload[i].style.color = "black";
+			} else
+			{
+				for (var i = 0; i < elNegativePayload.length; i++)
+					elNegativePayload[i].style.color = "red";
+			}
+
 			elPayload_change.textContent = (Payload_change * 100.).toFixed(1);	
 			Assumed_payload_mass = Payload_mass_calculated;
 //			if(elRocket.selectedIndex == 0)elAssumed_payload_mass.value = Assumed_payload_mass;
@@ -1542,11 +1554,11 @@ input[type=range]:focus::-ms-fill-upper {
 			for (var i = 0; i < elsGEO.length; i++)
 				elsGEO[i].removeAttribute("style");
 			for (var i = 0; i < elsGEOI.length; i++)
-				elsGEOI[i].setAttribute("style","display:none");
+				elsGEOI[i].style.display = "none";
 		} else
 		{
 			for (var i = 0; i < elsGEO.length; i++)
-				elsGEO[i].setAttribute("style","display:none");
+				elsGEO[i].style.display = "none";
 			for (var i = 0; i < elsGEOI.length; i++)
 				elsGEOI[i].removeAttribute("style");
 		}
@@ -1725,6 +1737,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 	function updateStages()
 	{
+		Abs_Calculation.checked = false;
 		var stages = elStages.selectedIndex;
 		if (stages == 0) 
 			{ 
@@ -2128,14 +2141,14 @@ input[type=range]:focus::-ms-fill-upper {
 			for (var i = 0; i < elProjecting.length; i++)
 				elProjecting[i].removeAttribute("style");
 			for (var i = 0; i < elProjectingH.length; i++)
-				elProjectingH[i].setAttribute("style","display:none");
+				elProjectingH[i].style.display = "none";
 			SetAverages(0,6);
 			updateWeight();
 			
 		} else
 		{
 			for (var i = 0; i < elProjecting.length; i++)
-				elProjecting[i].setAttribute("style","display:none");
+				elProjecting[i].style.display = "none";
 			for (var i = 0; i < elProjectingH.length; i++)
 				elProjectingH[i].removeAttribute("style");
 			DelAverages();
@@ -2172,11 +2185,11 @@ input[type=range]:focus::-ms-fill-upper {
 			elExpand.innerHTML = "Advanced...";
 			elExpand.title = "Display more information";
 			for (var i = 0; i < elsExpanding.length; i++)
-				elsExpanding[i].setAttribute("style","display:none");
+				elsExpanding[i].style.display = "none";
 			for (var i = 0; i < elsExpandingB.length; i++)
-				elsExpandingB[i].setAttribute("style","display:none");
+				elsExpandingB[i].style.display = "none";
 			for (var i = 0; i < elsExpanding3.length; i++)
-				elsExpanding3[i].setAttribute("style","display:none");
+				elsExpanding3[i].style.display = "none";
 		}
 
 	}
@@ -2186,9 +2199,9 @@ input[type=range]:focus::-ms-fill-upper {
 		if (el3rd_Stage_mass_ratio.value == 0)
 		{
 			for (var i = 0; i < els3stages.length; i++)
-				els3stages[i].setAttribute("style","display:none");
+				els3stages[i].style.display = "none";
 			for (var i = 0; i < elsExpanding3.length; i++)
-				elsExpanding3[i].setAttribute("style","display:none");
+				elsExpanding3[i].style.display = "none";
 		} else
 		{
 			for (var i = 0; i < els3stages.length; i++)
@@ -2238,7 +2251,7 @@ input[type=range]:focus::-ms-fill-upper {
 			for (var i = 0; i < elsElectric.length; i++)
 				{
 				elJettisoned_battery_mass.value = 0.;
-				elsElectric[i].setAttribute("style","display:none");
+				elsElectric[i].style.display = "none";
 				}
 		}
 
