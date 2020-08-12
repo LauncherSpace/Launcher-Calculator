@@ -2530,14 +2530,13 @@ input[type=range]:focus::-ms-fill-upper {
 			if (i < 3 & parseFloat(s_slider_edit[i].value) == 0.) Aggressivity = 1/0;
 			if (parseFloat(s_slider[i].max) > 0.) Aggressivity = Aggressivity + 1.25*ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(Math.max(1e-3,1.-(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
 			}
-		if (elStages.selectedIndex == 1)
-		{
-		for (var i = 6; i < 10; ++i)
+		var i_end = 9;
+		if (elStages.selectedIndex == 1) i_end = 10;
+		for (var i = 6; i < i_end; ++i)
 			{
 			if (i == 0) Aggressivity = 0;
 			Aggressivity = Aggressivity + 0.5*ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(Math.max(1e-3,(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
 			}
-		}
 		if (Aggressivity < 0)Aggressivity = 0.;
 		elAggressivity.textContent = Aggressivity.toFixed(1);
 	}
