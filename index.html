@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE HTML>                                                         
 <!DOCTYPE html PUBLIC "" ""><HTML lang="en">
 <HEAD>
 <META content="IE=11.0000"http-equiv="X-UA-Compatible">     
@@ -399,7 +399,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-f9e0ce3730d4">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
 				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a>
-				<label title="Software version number"> &emsp;v31</FONT></p><center></p>
+				<label title="Software version number"> &emsp;v32</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
 				<FONT size="5" title="Choose a preset Rocket or create a Custom one">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
@@ -980,10 +980,11 @@ input[type=range]:focus::-ms-fill-upper {
 				  ["Tanegashima (Japan)", 30.4,  131.7, 0.1, 30.4, "Japan"]];
 
 
-	var s_orbit_count = 8;
+	var s_orbit_count = 9;
 	var s_orbit_data = [["LEO",  200,     0,-1,  0,"Low Earth orbit"],
 			   ["ISS",   409,   418,51.6,0,"International Space Station orbit"],
 			   ["SSO",   500,     0, 98, 0,"Sun-synchronous orbit"],
+			   ["MEO",   20200,   0, 55, 0,"Medium Earth orbit (GPS satellites)"],
 			   ["GTO",   200, 35786, -1, 0,"Geosynchronous transfer orbit"],
 			   ["GEO",   35786,   0, -1, 0,"Geosynchronous equatorial orbit"],
 			   ["Moon",  200,     0, -1, 3100,"Trans-Lunar injection orbit"],
@@ -1188,7 +1189,7 @@ input[type=range]:focus::-ms-fill-upper {
 			2.*Math.PI/Math.sqrt(398600.5)*Math.pow(6371+.5*(Orbit_Perigee+Orbit_Apogee), 3./2.)/60.;
 		elOrbital_period.textContent = Orbital_period.toFixed(2);
 
-		var Vsp_for_inclination_change = (elOrbit.selectedIndex == 4) ?
+		var Vsp_for_inclination_change = (elOrbit.selectedIndex == 5) ?
 //			2*1597.*Math.sin(Math.abs(Deg2Rad(Orbit_Inclination)/2.)) :
 			-3.215E-3*Math.pow(Orbit_Inclination,3) + .5134*Math.pow(Orbit_Inclination,2) + .571*Orbit_Inclination :
 			0.;
@@ -1551,7 +1552,7 @@ input[type=range]:focus::-ms-fill-upper {
 			
 		elExtra_speed_for_flight_to_the_planets.value = s_orbit_data[elOrbit.selectedIndex][4];
 
-		if (elOrbit.selectedIndex == 4)
+		if (elOrbit.selectedIndex == 5)
 		{
 			for (var i = 0; i < elsGEO.length; i++)
 				elsGEO[i].removeAttribute("style");
@@ -1565,7 +1566,7 @@ input[type=range]:focus::-ms-fill-upper {
 				elsGEOI[i].removeAttribute("style");
 		}
 		elOrbitDescription.textContent = s_orbit_data[elOrbit.selectedIndex][5];
-		if (elOrbit.selectedIndex > 4)
+		if (elOrbit.selectedIndex > 5)
 			elReference.textContent = "Reference "; 
 		 else
 			elReference.textContent = "";
@@ -1885,6 +1886,7 @@ input[type=range]:focus::-ms-fill-upper {
 	function updateSlider0(index)
 	{
 		s_slider_edit[index].value = s_slider[index].value;
+                CalculateScore();
 		Calculate();
 	}
 	
@@ -2428,6 +2430,7 @@ input[type=range]:focus::-ms-fill-upper {
 	{
 		if (elSet_averages.checked)
 		{
+		Abs_Calculation.checked = false;
 		elSet_AllMin.checked = false;
 		elSet_AllMax.checked = false;
 		SetAverages(0,10);
@@ -2460,6 +2463,7 @@ input[type=range]:focus::-ms-fill-upper {
 	{
 		if (elSet_AllMin.checked)
 		{
+		Abs_Calculation.checked = false;
 		elSet_averages.checked = false;
 		elSet_AllMax.checked = false;
 		SetAllMin();
@@ -2486,6 +2490,7 @@ input[type=range]:focus::-ms-fill-upper {
 	{
 		if (elSet_AllMax.checked)
 		{
+		Abs_Calculation.checked = false;
 		elSet_averages.checked = false;
 		elSet_AllMin.checked = false;
 		SetAllMax();
@@ -2535,7 +2540,7 @@ input[type=range]:focus::-ms-fill-upper {
 		for (var i = 6; i < i_end; ++i)
 			{
 			if (i == 0) Aggressivity = 0;
-			Aggressivity = Aggressivity + 0.5*ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(Math.max(1e-3,(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
+			Aggressivity = Aggressivity + 0.5*ScoreCalcWeight[elStages.selectedIndex][i]*Math.pow(Math.max(1e-3,(parseFloat(s_slider_edit[i].value)*100.*parseFloat(s_slider_edit[10].value)/100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
 			}
 		if (Aggressivity < 0)Aggressivity = 0.;
 		elAggressivity.textContent = Aggressivity.toFixed(1);
