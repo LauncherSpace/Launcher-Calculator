@@ -399,7 +399,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-f9e0ce3730d4">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
 				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a>
-				<label title="Software version number"> &emsp;v32</FONT></p><center></p>
+				<label title="Software version number"> &emsp;v33</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
 				<FONT size="5" title="Choose a preset Rocket or create a Custom one">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
@@ -951,7 +951,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var elReference = document.querySelector('#Reference');
 	var elRequired = document.querySelector('#Required');
 //	Abs_Calculation.checked = false;
-	var Irremovable_Gravity_Losses;
+//	var Irremovable_Gravity_Losses;
 	var Vsp_for_target_orbit;
 	var Payload_mass;
 	var AirLaunch_Thrust_gain = 1.;
@@ -1217,12 +1217,12 @@ input[type=range]:focus::-ms-fill-upper {
 		if(Launch_azimuth > Launch_azimuth_) Launch_azimuth = -Launch_azimuth;
 		elLaunch_azimuth.textContent = Launch_azimuth.toFixed(2);
 
-		Absolute_orbital_velocity0 = Absolute_orbital_velocity;
-		if (Absolute_orbital_velocity0 < 7788.5)Absolute_orbital_velocity0 = 7788.5;
-		var Vsp_for_circular_orbit0 = Starting_point_Altitude_orbital_velocity
-				+Starting_point_Altitude_orbital_velocity*(Starting_point_Altitude_orbital_velocity/Math.sqrt(.5*(Starting_point_Altitude_orbital_velocity*Starting_point_Altitude_orbital_velocity+Absolute_orbital_velocity0*Absolute_orbital_velocity0))-1.)
-				+Absolute_orbital_velocity0*(1.-Absolute_orbital_velocity0/Math.sqrt(.5*(Starting_point_Altitude_orbital_velocity*Starting_point_Altitude_orbital_velocity+Absolute_orbital_velocity0*Absolute_orbital_velocity0)));
-		Irremovable_Gravity_Losses = - 242.5 + Vsp_for_circular_orbit0 - Absolute_orbital_velocity0;
+//		Absolute_orbital_velocity0 = Absolute_orbital_velocity;
+//		if (Absolute_orbital_velocity0 < 7788.5)Absolute_orbital_velocity0 = 7788.5;
+//		var Vsp_for_circular_orbit0 = Starting_point_Altitude_orbital_velocity
+//				+Starting_point_Altitude_orbital_velocity*(Starting_point_Altitude_orbital_velocity/Math.sqrt(.5*(Starting_point_Altitude_orbital_velocity*Starting_point_Altitude_orbital_velocity+Absolute_orbital_velocity0*Absolute_orbital_velocity0))-1.)
+//				+Absolute_orbital_velocity0*(1.-Absolute_orbital_velocity0/Math.sqrt(.5*(Starting_point_Altitude_orbital_velocity*Starting_point_Altitude_orbital_velocity+Absolute_orbital_velocity0*Absolute_orbital_velocity0)));
+//		Irremovable_Gravity_Losses = - 242.5 + Vsp_for_circular_orbit0 - Absolute_orbital_velocity0;
 
 		var Vsp_for_circular_orbit = Starting_point_Altitude_orbital_velocity
 				+Starting_point_Altitude_orbital_velocity*(Starting_point_Altitude_orbital_velocity/Math.sqrt(.5*(Starting_point_Altitude_orbital_velocity*Starting_point_Altitude_orbital_velocity+Absolute_orbital_velocity*Absolute_orbital_velocity))-1.)
@@ -1335,7 +1335,7 @@ input[type=range]:focus::-ms-fill-upper {
 		var Gravity_losses_Time_Correction = 0.178*((9140-First_stage_delta_v0)/First_stage_delta_v0)*(0.0013*Math.pow(Ascent_Time,2)+0.0882*Ascent_Time-396)
 
 		Gravity_losses = Gravity_losses+Gravity_losses_Time_Correction;
-		var Gravity_lossesPr = Gravity_losses + Irremovable_Gravity_Losses;
+//		var Gravity_lossesPr = Gravity_losses + Irremovable_Gravity_Losses;
 
 		//=== Recursion ===
 		for (itt = 1; itt <= 5; ++itt)
@@ -1419,11 +1419,11 @@ input[type=range]:focus::-ms-fill-upper {
 		var Payload_to_Lift_off_mass_ratio = Payload_mass / Lift_off_Mass;
 		elPayload_to_Lift_off_mass_ratio.textContent = (Payload_to_Lift_off_mass_ratio * 100.).toFixed(2);
 		elGravity_losses_at_specific_altitude.textContent = Gravity_losses_at_specific_altitude.toFixed(1);
-		elGravity_losses.textContent = Gravity_lossesPr.toFixed(1);
+		elGravity_losses.textContent = Gravity_losses.toFixed(1);
 		elAerodynamic_losses.textContent = Aerodynamic_losses.toFixed(1);
-		var Summary_lossesPr = Gravity_lossesPr + Aerodynamic_losses + 145.;
-		elSummary_losses.textContent = Summary_lossesPr.toFixed(1);
-		var Assumed_losses = Summary_lossesPr/Vsp_for_LEO;
+//		var Summary_lossesPr = Gravity_lossesPr + Aerodynamic_losses + 145.;
+		elSummary_losses.textContent = Summary_losses.toFixed(1);
+		var Assumed_losses = Summary_losses/Vsp_for_LEO;
 		elAssumed_losses.textContent = (Assumed_losses*100.).toFixed(2);
 		elVsp_with_losses.textContent = Vsp_with_losses.toFixed(1);
 		elFirst_stage_average_trajectory_isp.textContent = First_stage_average_trajectory_isp.toFixed(1);
@@ -1467,7 +1467,13 @@ input[type=range]:focus::-ms-fill-upper {
 		if (elLimitation.checked) SetLimitation();
 		CalculateTargetVelocity();
 		CalculateTargetMass();
-		if(Abs_Calculation.checked) MassRecalculate();
+		if(Abs_Calculation.checked) 
+		{ 
+			MassRecalculate();
+			CalculateTargetMass();
+			MassRecalculate();
+			CalculateTargetMass();
+		}
 			if (el3rd_Stage_mass_ratio.value == 0)
 				elRequired.textContent = "(required)"; 
 			 else
