@@ -399,7 +399,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-f9e0ce3730d4">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
 				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a>
-				<label title="Software version number"> &emsp;v33</FONT></p><center></p>
+				<label title="Software version number"> &emsp;v34</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
 				<FONT size="5" title="Choose a preset Rocket or create a Custom one">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
@@ -1271,12 +1271,12 @@ input[type=range]:focus::-ms-fill-upper {
 		var Specific_Impulse_Variation = parseFloat(elSpecific_Impulse_Variation.value);
 		var First_stage_engine_thrust = parseFloat(elFirst_stage_engine_thrust.value);
 		var First_stage_engines_number = parseFloat(elFirst_stage_engines_number.value);
-		var First_stage_isp_vac = parseFloat(elFirst_stage_isp_vac.value)*Specific_Impulse_Variation/100.;
-		var First_stage_isp_sea_level = parseFloat(elFirst_stage_isp_sea_level.value)*Specific_Impulse_Variation/100.;
+		var First_stage_isp_vac = parseFloat(elFirst_stage_isp_vac.value);
+		var First_stage_isp_sea_level = parseFloat(elFirst_stage_isp_sea_level.value);
 		var Second_stage_engine_thrust = parseFloat(elSecond_stage_engine_thrust.value);
 		var Second_stage_engines_number = parseFloat(elSecond_stage_engines_number.value);
-		var Second_stage_isp_vac = parseFloat(elSecond_stage_isp_vac.value)*Specific_Impulse_Variation/100.;
-		var Transfer_Orbit_Stage_isp = parseFloat(elTransfer_Orbit_Stage_isp.value)*Specific_Impulse_Variation/100.;
+		var Second_stage_isp_vac = parseFloat(elSecond_stage_isp_vac.value);
+		var Transfer_Orbit_Stage_isp = parseFloat(elTransfer_Orbit_Stage_isp.value);
 		var v3rd_Dry_to_Wet_mass_ratio = parseFloat(el3rd_Dry_to_Wet_mass_ratio.value);
 		var Unused_propellant_of_Transfer_Orbit_Stage = parseFloat(elUnused_propellant_of_Transfer_Orbit_Stage.value);
 		var Jettisoned_battery_mass = parseFloat(elJettisoned_battery_mass.value);
@@ -1979,7 +1979,14 @@ input[type=range]:focus::-ms-fill-upper {
 
 	function updateSpecific_Impulse_Variation_Range()
 	{
+		var SIV_old = elSpecific_Impulse_Variation.value
 		updateSlider0(10);
+		elFirst_stage_isp_sea_level.value =(elFirst_stage_isp_sea_level.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
+		elFirst_stage_isp_vac.value = (elFirst_stage_isp_vac.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
+		elSecond_stage_isp_vac.value = (elSecond_stage_isp_vac.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
+		elTransfer_Orbit_Stage_isp.value = (elTransfer_Orbit_Stage_isp.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
+		for (var i = 6; i < 10; ++i) updateSliderEdit(i);
+		Calculate();
 	}
 
 	function update1st_Dry_to_Wet_mass_ratio()
@@ -2034,7 +2041,14 @@ input[type=range]:focus::-ms-fill-upper {
 	
 	function updateSpecific_Impulse_Variation()
 	{
+		var SIV_old = s_slider[10].value;
 		updateSliderEdit0(10);
+		elFirst_stage_isp_sea_level.value =(elFirst_stage_isp_sea_level.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
+		elFirst_stage_isp_vac.value = (elFirst_stage_isp_vac.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
+		elSecond_stage_isp_vac.value = (elSecond_stage_isp_vac.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
+		elTransfer_Orbit_Stage_isp.value = (elTransfer_Orbit_Stage_isp.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
+		for (var i = 6; i < 10; ++i) updateSliderEdit(i);
+		Calculate();
 	}
 				
 	function updateOrbitAndCalc()
@@ -2094,10 +2108,10 @@ input[type=range]:focus::-ms-fill-upper {
 		elSpecific_Impulse_Variation.value = 100.;
 		updateSliderEdit0(10);
 		
-		elFirst_stage_isp_sea_level.value =s_rocket_data[elRocket.selectedIndex][17]*elSpecific_Impulse_Variation.value/100.;
-		elFirst_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][18]*elSpecific_Impulse_Variation.value/100.;
-		elSecond_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][19]*elSpecific_Impulse_Variation.value/100.;
-		elTransfer_Orbit_Stage_isp.value = s_rocket_data[elRocket.selectedIndex][20]*elSpecific_Impulse_Variation.value/100.;
+		elFirst_stage_isp_sea_level.value =s_rocket_data[elRocket.selectedIndex][17];
+		elFirst_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][18];
+		elSecond_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][19];
+		elTransfer_Orbit_Stage_isp.value = s_rocket_data[elRocket.selectedIndex][20];
 		
 		var spacePort = s_rocket_data[elRocket.selectedIndex][27];
 		for (var i=0; i < s_start_point_count; ++i)
@@ -2340,6 +2354,8 @@ input[type=range]:focus::-ms-fill-upper {
 		else
 		{
 		    DelLimitation();
+		    elSpecific_Impulse_Variation.value = 100.;
+		    updateSliderEdit0(10);
 		    updateFuel();
 		    Calculate();
 		}
