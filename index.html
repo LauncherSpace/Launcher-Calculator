@@ -1618,6 +1618,11 @@ input[type=range]:focus::-ms-fill-upper {
 		if (Orbit_Apogee < Orbit_Perigee)
 		elOrbit_Apogee.value = Orbit_Perigee.toFixed(0);
 		}
+		if (elOrbit.selectedIndex > 5)
+		{
+		  elOrbit_Perigee.value = 200.; 
+		  elOrbit_Apogee.value = 0.; 
+		}
 		Calculate();
 	}
 
