@@ -1984,6 +1984,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 	function updateSpecific_Impulse_Variation_Range()
 	{
+		Abs_Calculation.checked = false;
 		var SIV_old = elSpecific_Impulse_Variation.value
 		updateSlider0(10);
 		elFirst_stage_isp_sea_level.value =(elFirst_stage_isp_sea_level.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
@@ -2046,6 +2047,7 @@ input[type=range]:focus::-ms-fill-upper {
 	
 	function updateSpecific_Impulse_Variation()
 	{
+		Abs_Calculation.checked = false;
 		var SIV_old = s_slider[10].value;
 		updateSliderEdit0(10);
 		elFirst_stage_isp_sea_level.value =(elFirst_stage_isp_sea_level.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
