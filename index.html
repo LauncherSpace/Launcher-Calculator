@@ -956,6 +956,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var Payload_mass;
 	var AirLaunch_Thrust_gain = 1.;
 	var Aggressivity = 0.;
+	var Specific_Impulse_Variation_old = 100.;
 
 	window.onload = onPageLoad;
 	window.onunload = onPageUnload;
@@ -2048,7 +2049,8 @@ input[type=range]:focus::-ms-fill-upper {
 	function updateSpecific_Impulse_Variation()
 	{
 		Abs_Calculation.checked = false;
-		var SIV_old = s_slider[10].value;
+		var SIV_old = Specific_Impulse_Variation_old;
+		Specific_Impulse_Variation_old = elSpecific_Impulse_Variation.value;
 		updateSliderEdit0(10);
 		elFirst_stage_isp_sea_level.value =(elFirst_stage_isp_sea_level.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
 		elFirst_stage_isp_vac.value = (elFirst_stage_isp_vac.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
