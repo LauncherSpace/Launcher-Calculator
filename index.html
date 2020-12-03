@@ -399,7 +399,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-f9e0ce3730d4">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
 				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a>
-				<label title="Software version number"> &emsp;v34</FONT></p><center></p>
+				<label title="Software version number"> &emsp;v35</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
 				<FONT size="5" title="Choose a preset Rocket or create a Custom one">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
@@ -442,7 +442,7 @@ input[type=range]:focus::-ms-fill-upper {
 			  <TABLE border="1" class="borderTable">
 			<TBODY>
 	  
-			  <div class="borderTable"> <FONT size=5" title="Basic rocket data"><b>&ensp;Rocket</FONT><div class="right-content"><div class="spaceheder2cont" title="When choosing this item, the stages mass and engines thrust are considered &#013;unchangeable (it is good for Payload calculation of the existing rocket), &#013;otherwise the relative characteristics will be used that is better for the new &#013;launchers designing &#013;This option may switch automatically if you change the parameter &#013;corresponding to a specific calculation type."><font size="2">Fixed design</font><INPUT id="Abs_Calculation" type="checkbox"></div></TD></TR>
+			  <div class="borderTable"> <FONT size=5" title="Basic rocket data"><b>&ensp;Rocket</FONT><div class="right-content"><div class="spaceheder2cont" title="When choosing this item, the stages mass and engines thrust are considered &#013;unchangeable (it is good for Payload calculation of the existing rocket), &#013;otherwise the relative characteristics will be used that is better for the new &#013;launchers designing &#013;This option may switch automatically if you change the parameter &#013;corresponding to a specific calculation type."><font size="2">Fixed design</font><INPUT id="Abs_Calculation" type="checkbox"><div class="spaceheder2cont" title="Returnable and Reusable first stage of SpaceX type. &#013;It should be borne in mind that Reusability requires &#013;certain capabilities for the first stage Engines, &#013;which are difficult to achieve of the most existing &#013;Launchers."><font size="2">Reusability</font><INPUT id="Reusable" type="checkbox"></div></TD></TR>
 
 				<TR class="Projecting">
 			  <TD width="460" title="Choose an engine for the first stage"><div class="engineText">1st&ensp;engine</div><SELECT class="right-select" id="Engine1" title="First stage engine name. &#013;If you select a new engine for the first time, the software will automatically &#013;assign a second-stage engine and the number of engines corresponding to &#013;an existing launch vehicle. For example - choosing F-1 you will get Saturn-V."> </TD>
@@ -803,6 +803,7 @@ input[type=range]:focus::-ms-fill-upper {
 			  </div>
 <SCRIPT>
 	var elStartingPoint = document.querySelector('#StartingPoint');
+	var elReusable = document.querySelector('#Reusable');
 	var elAir_Launch = document.querySelector('#Air_Launch');
 	var elStarting_point_Altitude = document.querySelector('#Starting_point_Altitude');
 	var elAdditional_Speed = document.querySelector('#Additional_Speed');
@@ -1652,12 +1653,15 @@ input[type=range]:focus::-ms-fill-upper {
 		}
 		else
 		{
+		var Reus_corr = 0.;
+		if(index == 3 && Reusable.checked == true) Reus_corr = 15.;
+
 		cycle_corr = 1.;
 		if(index > 5) cycle_corr = s_cycle_data[cycle][index-6];
 		if(fuel == 3) cycle_corr = 1.;
 		if(fuel == 4) cycle_corr = 1.;
-		var val_min = s_fuel_data_min[fuel][index]*cycle_corr;
-		var val_max = s_fuel_data_max[fuel][index]*cycle_corr;
+		var val_min = s_fuel_data_min[fuel][index]*cycle_corr + Reus_corr;
+		var val_max = s_fuel_data_max[fuel][index]*cycle_corr + Reus_corr;
 		}
 
 		var input_value = parseFloat(input_field.value);
@@ -2068,6 +2072,7 @@ input[type=range]:focus::-ms-fill-upper {
 	
 	function updateRocket()
 	{
+		elReusable.checked = false;
 		Abs_Calculation.checked = false;
 		elSet_averages.checked = false;
 		elSet_AllMin.checked = false;
@@ -2289,6 +2294,18 @@ input[type=range]:focus::-ms-fill-upper {
 				}
 		}
 
+	}
+
+	function ReusabilityChange(Checked)
+	{
+		if (Reusable.checked == false)
+		elUnused_propellant_of_1st_Stage.value = s_rocket_data[elRocket.selectedIndex][14];
+		else
+		elUnused_propellant_of_1st_Stage.value = s_rocket_data[elRocket.selectedIndex][14]+15.;
+		RangeMinMax(s_slider[3], s_slider_edit[3], 0, 0, 3);
+
+		Calculate();
+		CalculateScore();
 	}
 	
 	function AirLaunchChange(Checked)
@@ -2549,6 +2566,7 @@ input[type=range]:focus::-ms-fill-upper {
 	{
 		Aggressivity = 1.;
 		if(elAir_Launch.checked) Aggressivity = Aggressivity + 1.;
+		if(elReusable.checked) Aggressivity = Aggressivity + 1.;
 		// if Pressure Fed
 		if(elCycle.selectedIndex == 3) Aggressivity = Aggressivity - 1.25*0.5;
 		if(elCycle2.selectedIndex == 3) Aggressivity = Aggressivity - 1.25*0.5;
@@ -2849,6 +2867,9 @@ input[type=range]:focus::-ms-fill-upper {
 		f3stagesChange();
 		elAbs_Calculation.checked = true;
 //		elSAbs_Calculation.addEventListener('change', Abs_CalculationChange);
+
+		elReusable.checked = false;
+		elReusable.addEventListener('change', ReusabilityChange);
 
 		elAir_Launch.checked = false;
 		elAir_Launch.addEventListener('change', AirLaunchChangeAndCalc);
