@@ -399,7 +399,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-f9e0ce3730d4">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
 				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a>
-				<label title="Software version number"> &emsp;v35</FONT></p><center></p>
+				<label title="Software version number"> &emsp;v33</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
 				<FONT size="5" title="Choose a preset Rocket or create a Custom one">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
@@ -442,11 +442,11 @@ input[type=range]:focus::-ms-fill-upper {
 			  <TABLE border="1" class="borderTable">
 			<TBODY>
 	  
-			  <div class="borderTable"> <FONT size=5" title="Basic rocket data"><b>&ensp;Rocket</FONT><div class="right-content"><div class="spaceheder2cont" title="When choosing this item, the stages mass and engines thrust are considered &#013;unchangeable (it is good for Payload calculation of the existing rocket), &#013;otherwise the relative characteristics will be used that is better for the new &#013;launchers designing &#013;This option may switch automatically if you change the parameter &#013;corresponding to a specific calculation type."><font size="2">Fixed design</font><INPUT id="Abs_Calculation" type="checkbox"><div class="spaceheder2cont" title="Returnable and Reusable first stage of SpaceX type. &#013;It should be borne in mind that Reusability requires &#013;certain capabilities for the first stage Engines, &#013;which are difficult to achieve of the most existing &#013;Launchers."><font size="2">Reusability</font><INPUT id="Reusable" type="checkbox"></div></TD></TR>
+			  <div class="borderTable"> <FONT size=5" title="Basic rocket data"><b>&ensp;Rocket</FONT><div class="right-content"><div class="spaceheder2cont" title="When choosing this item, the stages mass and engines thrust are considered &#013;unchangeable (it is good for Payload calculation of the existing rocket), &#013;otherwise the relative characteristics will be used that is better for the new &#013;launchers designing &#013;This option may switch automatically if you change the parameter &#013;corresponding to a specific calculation type."><font size="2">Fixed design</font><INPUT id="Abs_Calculation" type="checkbox"></div></TD></TR>
 
 				<TR class="Projecting">
 			  <TD width="460" title="Choose an engine for the first stage"><div class="engineText">1st&ensp;engine</div><SELECT class="right-select" id="Engine1" title="First stage engine name. &#013;If you select a new engine for the first time, the software will automatically &#013;assign a second-stage engine and the number of engines corresponding to &#013;an existing launch vehicle. For example - choosing F-1 you will get Saturn-V."> </TD>
-			  <TD width="220"><div class="rocketnewview"><INPUT type="text" class="inputstyle-1" id="First_stage_engine_thrust" title="First stage engine thrust"><span class='kgtext'>kgf</span><INPUT id="First_stage_engines_number" type="text" class="number-text1" title="Number of engines on the first stage"><span>Number</span></div></TD></TR>
+			  <TD width="220"><div class="rocketnewview"><INPUT type="text" class="inputstyle-1" id="First_stage_engine_thrust" title="First stage engine thrust"><span class='kgtext'>kg</span><INPUT id="First_stage_engines_number" type="text" class="number-text1" title="Number of engines on the first stage"><span>Number</span></div></TD></TR>
 	  
 				<TR>
 			  <TD class="mobLeft" title="&#013;Changing the fuel or cycle in this menu only changes&#013;the maximum and minimum limits. To compare&#013;launchers with different fuels select 'Set averages'" width="460"><div class="engineText">1st&ensp;stage Fuel & Cycle &emsp;&emsp;</div><SELECT  class="right-select" id="Fuel"></SELECT></TD>
@@ -454,7 +454,7 @@ input[type=range]:focus::-ms-fill-upper {
 	  
 				<TR class="Projecting">
 			  <TD width="460" title="Choose an engine for the second stage"><div class="engineText">2nd engine </div><SELECT class="right-select" id="Engine2" title="Second stage engine name"> </TD>
-			  <TD width="220"><div class="rocketnewview"><INPUT id="Second_stage_engine_thrust" type="text" class="number-text1" title="Second stage engine thrust"><span class='kgtext'>kgf</span><INPUT id="Second_stage_engines_number" type="text" class="number-text1" title="Number of engines on the second stage"><span>Number</span></div></TD></TR>
+			  <TD width="220"><div class="rocketnewview"><INPUT id="Second_stage_engine_thrust" type="text" class="number-text1" title="Second stage engine thrust"><span class='kgtext'>kg</span><INPUT id="Second_stage_engines_number" type="text" class="number-text1" title="Number of engines on the second stage"><span>Number</span></div></TD></TR>
 	  
 				<TR>
 			  <TD class="mobLeft" title="Second stage rocket engine fuel and cycle"><div class="engineText">2nd stage Fuel & Cycle &emsp;&emsp;&ensp; </div><SELECT class="right-select" id="Fuel2" title="Second stage engine fuel"></SELECT></TD>
@@ -714,7 +714,7 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="First_stage_dry_mass"><span> kg</span></div></TD></TR>
 						<TR class="Expanding">
 					  <TD title="The total thrust of the first stage engines."><div class="mobilelayout_l1">1st&ensp;stage total thrust</div></TD>
-					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="First_stage_total_thrust"><span> kgf</span></div></TD></TR>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="First_stage_total_thrust"><span> kg</span></div></TD></TR>
 						<TR class="Expanding">
 					  <TD title="Approximate engines run time&#013;This is usually less than the real time&#013;because it does not take into account&#013;the real thrust profile."><div class="mobilelayout_l1">1st&ensp;stage engines run time</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="First_stage_run_time"></LABEL> <span>s&emsp;</span></h9></div></TD></TR>
@@ -745,7 +745,7 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Second_stage_dry_mass"> <span>kg&ensp;</span></div></TD></TR>
 						<TR class="Expanding">
 					  <TD title="The total thrust of the second stage engines."><div class="mobilelayout_l1">2nd stage total thrust</div></TD>
-					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Second_stage_total_thrust"><span>kgf&ensp;</span></div></TD></TR>
+					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Second_stage_total_thrust"><span>kg&ensp;</span></div></TD></TR>
 						<TR class="Expanding">
 					  <TD title="Approximate engine run time"><div class="mobilelayout_l1">2nd&ensp;stage engine run time</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Second_stage_run_time"></LABEL> <span>s&emsp;</span></h9></div></TD></TR>
@@ -803,7 +803,6 @@ input[type=range]:focus::-ms-fill-upper {
 			  </div>
 <SCRIPT>
 	var elStartingPoint = document.querySelector('#StartingPoint');
-	var elReusable = document.querySelector('#Reusable');
 	var elAir_Launch = document.querySelector('#Air_Launch');
 	var elStarting_point_Altitude = document.querySelector('#Starting_point_Altitude');
 	var elAdditional_Speed = document.querySelector('#Additional_Speed');
@@ -957,7 +956,6 @@ input[type=range]:focus::-ms-fill-upper {
 	var Payload_mass;
 	var AirLaunch_Thrust_gain = 1.;
 	var Aggressivity = 0.;
-	var Specific_Impulse_Variation_old = 100.;
 
 	window.onload = onPageLoad;
 	window.onunload = onPageUnload;
@@ -1057,7 +1055,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["Blue Origin New Glenn 3st",	1.20, 0.83, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",	"Mars",0, "Blue Origin 3-Stages (Superceded) (project)"],
 			     ["Virgin Orbit Launcher One",	1.31, 0.65,  25500, 1.8,  100, 3500,  0,   300,   12.0,   0.00,   9.50,   9.00,  20.00, 3,   3,   1,   290.0, 308,   328, 300, 0,1, 0,1, 0,1,    "Mojave",		"SSO", 1, "Virgin Orbit (project)"],
 			     ["Relativity Terran 1 ",		1.2,  0.75,  55500, 2.7,  400, 3500,   0, 1250,  17.50,   0.00,   9.00,   9.00,  20.00, 2,   2,   1,   267.0, 310,   360, 300, 1,1, 1,1, 1,1,    "Cape Canaveral",	"LEO", 0, "Relativity (project)"],
-			     ["Astra Rocket-3",			1.4,  1.1,   10400, 1.32,   30, 3500,  0,   100,  11.0,    0.00, 10.00,   9.00,  20.00, 2.5,  2,   1,   234.0, 284,   315, 300, 0,2, 0,3, 3,3,    "Kodiak",		"LEO", 0, "Astra (project)"],
+			     ["Astra Rocket-3",			1.4,  0.53,  10000, 1.32, 100, 3500,   0,   100,   4.0,    0.00, 10.00,   9.00,  20.00, 2.5,  2,   1,   234.0, 284,   315, 300, 0,2, 0,3, 3,3,    "Kodiak",		"LEO", 0, "Astra (project)"],
 			     ["Firefly Alpha",			1.25, 0.6,   52670, 2.21,  330, 3500,  0,  1000,  20.0,    0.00,   7.00,   6.00,  20.00, 3,   2,   1,   265.0, 295.6, 322, 300, 0,1, 0,1, 0,1,    "Vandenberg",	"LEO", 0, "Firefly (project)"],
 			     ["ABL RS1 (In-house engines)",	1.2,  0.7,   40000, 1.83,  450, 3500,  0,  1350,  16.,	   0.00,   7.00,   6.00,  20.00, 2.,  1,   1,   265.0, 295.6, 322, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "ABL Space Systems (project)"],
 			     ["ABL RS1 (Ursa engines)",		1.2,  0.69,  25260, 1.83,  300, 3500,  0,   900,  11.75,   0.00,   4.00,   4.00,  20.00, 1,  .5,   1,   262.0, 308,   345, 300, 0,0, 0,0, 0,0,    "Cape Canaveral",	"LEO", 0, "with URSA Major Tech engines (project)"]
@@ -1273,12 +1271,12 @@ input[type=range]:focus::-ms-fill-upper {
 		var Specific_Impulse_Variation = parseFloat(elSpecific_Impulse_Variation.value);
 		var First_stage_engine_thrust = parseFloat(elFirst_stage_engine_thrust.value);
 		var First_stage_engines_number = parseFloat(elFirst_stage_engines_number.value);
-		var First_stage_isp_vac = parseFloat(elFirst_stage_isp_vac.value);
-		var First_stage_isp_sea_level = parseFloat(elFirst_stage_isp_sea_level.value);
+		var First_stage_isp_vac = parseFloat(elFirst_stage_isp_vac.value)*Specific_Impulse_Variation/100.;
+		var First_stage_isp_sea_level = parseFloat(elFirst_stage_isp_sea_level.value)*Specific_Impulse_Variation/100.;
 		var Second_stage_engine_thrust = parseFloat(elSecond_stage_engine_thrust.value);
 		var Second_stage_engines_number = parseFloat(elSecond_stage_engines_number.value);
-		var Second_stage_isp_vac = parseFloat(elSecond_stage_isp_vac.value);
-		var Transfer_Orbit_Stage_isp = parseFloat(elTransfer_Orbit_Stage_isp.value);
+		var Second_stage_isp_vac = parseFloat(elSecond_stage_isp_vac.value)*Specific_Impulse_Variation/100.;
+		var Transfer_Orbit_Stage_isp = parseFloat(elTransfer_Orbit_Stage_isp.value)*Specific_Impulse_Variation/100.;
 		var v3rd_Dry_to_Wet_mass_ratio = parseFloat(el3rd_Dry_to_Wet_mass_ratio.value);
 		var Unused_propellant_of_Transfer_Orbit_Stage = parseFloat(elUnused_propellant_of_Transfer_Orbit_Stage.value);
 		var Jettisoned_battery_mass = parseFloat(elJettisoned_battery_mass.value);
@@ -1620,11 +1618,6 @@ input[type=range]:focus::-ms-fill-upper {
 		if (Orbit_Apogee < Orbit_Perigee)
 		elOrbit_Apogee.value = Orbit_Perigee.toFixed(0);
 		}
-		if (elOrbit.selectedIndex > 5)
-		{
-		  elOrbit_Perigee.value = 200.; 
-		  elOrbit_Apogee.value = 0.; 
-		}
 		Calculate();
 	}
 
@@ -1653,15 +1646,12 @@ input[type=range]:focus::-ms-fill-upper {
 		}
 		else
 		{
-		var Reus_corr = 0.;
-		if(index == 3 && Reusable.checked == true) Reus_corr = 15.;
-
 		cycle_corr = 1.;
 		if(index > 5) cycle_corr = s_cycle_data[cycle][index-6];
 		if(fuel == 3) cycle_corr = 1.;
 		if(fuel == 4) cycle_corr = 1.;
-		var val_min = s_fuel_data_min[fuel][index]*cycle_corr + Reus_corr;
-		var val_max = s_fuel_data_max[fuel][index]*cycle_corr + Reus_corr;
+		var val_min = s_fuel_data_min[fuel][index]*cycle_corr;
+		var val_max = s_fuel_data_max[fuel][index]*cycle_corr;
 		}
 
 		var input_value = parseFloat(input_field.value);
@@ -1989,15 +1979,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 	function updateSpecific_Impulse_Variation_Range()
 	{
-		Abs_Calculation.checked = false;
-		var SIV_old = elSpecific_Impulse_Variation.value
 		updateSlider0(10);
-		elFirst_stage_isp_sea_level.value =(elFirst_stage_isp_sea_level.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
-		elFirst_stage_isp_vac.value = (elFirst_stage_isp_vac.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
-		elSecond_stage_isp_vac.value = (elSecond_stage_isp_vac.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
-		elTransfer_Orbit_Stage_isp.value = (elTransfer_Orbit_Stage_isp.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
-		for (var i = 6; i < 10; ++i) updateSliderEdit(i);
-		Calculate();
 	}
 
 	function update1st_Dry_to_Wet_mass_ratio()
@@ -2052,16 +2034,7 @@ input[type=range]:focus::-ms-fill-upper {
 	
 	function updateSpecific_Impulse_Variation()
 	{
-		Abs_Calculation.checked = false;
-		var SIV_old = Specific_Impulse_Variation_old;
-		Specific_Impulse_Variation_old = elSpecific_Impulse_Variation.value;
 		updateSliderEdit0(10);
-		elFirst_stage_isp_sea_level.value =(elFirst_stage_isp_sea_level.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
-		elFirst_stage_isp_vac.value = (elFirst_stage_isp_vac.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
-		elSecond_stage_isp_vac.value = (elSecond_stage_isp_vac.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
-		elTransfer_Orbit_Stage_isp.value = (elTransfer_Orbit_Stage_isp.value*elSpecific_Impulse_Variation.value/SIV_old).toFixed(2);
-		for (var i = 6; i < 10; ++i) updateSliderEdit(i);
-		Calculate();
 	}
 				
 	function updateOrbitAndCalc()
@@ -2072,7 +2045,6 @@ input[type=range]:focus::-ms-fill-upper {
 	
 	function updateRocket()
 	{
-		elReusable.checked = false;
 		Abs_Calculation.checked = false;
 		elSet_averages.checked = false;
 		elSet_AllMin.checked = false;
@@ -2122,10 +2094,10 @@ input[type=range]:focus::-ms-fill-upper {
 		elSpecific_Impulse_Variation.value = 100.;
 		updateSliderEdit0(10);
 		
-		elFirst_stage_isp_sea_level.value =s_rocket_data[elRocket.selectedIndex][17];
-		elFirst_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][18];
-		elSecond_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][19];
-		elTransfer_Orbit_Stage_isp.value = s_rocket_data[elRocket.selectedIndex][20];
+		elFirst_stage_isp_sea_level.value =s_rocket_data[elRocket.selectedIndex][17]*elSpecific_Impulse_Variation.value/100.;
+		elFirst_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][18]*elSpecific_Impulse_Variation.value/100.;
+		elSecond_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][19]*elSpecific_Impulse_Variation.value/100.;
+		elTransfer_Orbit_Stage_isp.value = s_rocket_data[elRocket.selectedIndex][20]*elSpecific_Impulse_Variation.value/100.;
 		
 		var spacePort = s_rocket_data[elRocket.selectedIndex][27];
 		for (var i=0; i < s_start_point_count; ++i)
@@ -2295,18 +2267,6 @@ input[type=range]:focus::-ms-fill-upper {
 		}
 
 	}
-
-	function ReusabilityChange(Checked)
-	{
-		if (Reusable.checked == false)
-		elUnused_propellant_of_1st_Stage.value = s_rocket_data[elRocket.selectedIndex][14];
-		else
-		elUnused_propellant_of_1st_Stage.value = s_rocket_data[elRocket.selectedIndex][14]+15.;
-		RangeMinMax(s_slider[3], s_slider_edit[3], 0, 0, 3);
-
-		Calculate();
-		CalculateScore();
-	}
 	
 	function AirLaunchChange(Checked)
 	{
@@ -2380,8 +2340,6 @@ input[type=range]:focus::-ms-fill-upper {
 		else
 		{
 		    DelLimitation();
-		    elSpecific_Impulse_Variation.value = 100.;
-		    updateSliderEdit0(10);
 		    updateFuel();
 		    Calculate();
 		}
@@ -2566,7 +2524,6 @@ input[type=range]:focus::-ms-fill-upper {
 	{
 		Aggressivity = 1.;
 		if(elAir_Launch.checked) Aggressivity = Aggressivity + 1.;
-		if(elReusable.checked) Aggressivity = Aggressivity + 1.;
 		// if Pressure Fed
 		if(elCycle.selectedIndex == 3) Aggressivity = Aggressivity - 1.25*0.5;
 		if(elCycle2.selectedIndex == 3) Aggressivity = Aggressivity - 1.25*0.5;
@@ -2867,9 +2824,6 @@ input[type=range]:focus::-ms-fill-upper {
 		f3stagesChange();
 		elAbs_Calculation.checked = true;
 //		elSAbs_Calculation.addEventListener('change', Abs_CalculationChange);
-
-		elReusable.checked = false;
-		elReusable.addEventListener('change', ReusabilityChange);
 
 		elAir_Launch.checked = false;
 		elAir_Launch.addEventListener('change', AirLaunchChangeAndCalc);
