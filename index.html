@@ -1882,6 +1882,7 @@ input[type=range]:focus::-ms-fill-upper {
 			elRocket_Mass.value = Rocket_Mass.toFixed(0);
 //			elLift_off_Mass.textContent = Lift_off_Mass.toFixed(0);
 			var Max_midsection_D = 4.1*Math.pow(Lift_off_Mass/460000.,1/3);
+			if (elFuel.selectedIndex == 2) Max_midsection_D = 6.*Math.pow(Lift_off_Mass/460000.,1/3);
 			elMax_midsection_D.value = Max_midsection_D.toFixed(1);
 			var SecStage_mass_ratio = 90.909 * elSecond_stage_engine_thrust.value * Second_stage_engines_number / Rocket_Mass;
 			var SecStage_mass_ratio2 =  2 * SecStage_mass_ratio;
