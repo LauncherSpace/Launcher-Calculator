@@ -2357,8 +2357,6 @@ input[type=range]:focus::-ms-fill-upper {
 			 First_stage_isp_sea_level = First_stage_isp_vac - (First_stage_isp_vac - First_stage_isp_sea_level)/Starting_point_Pressure_Old * Starting_point_Pressure;
 			 elFirst_stage_isp_sea_level.value = First_stage_isp_sea_level.toFixed(2);
                          AirLaunch_Thrust_gain = First_stage_isp_sea_level/First_stage_isp_sea_level_;
-//			 var Thrust_to_weight_ratio = parseFloat(elThrust_to_weight_ratio.value);
-//			 elThrust_to_weight_ratio.value = (Thrust_to_weight_ratio/First_stage_isp_sea_level_*First_stage_isp_sea_level).toFixed(3);
 			 var First_stage_total_thrust = parseFloat(elFirst_stage_total_thrust.value);
 			 elFirst_stage_total_thrust.value = (First_stage_total_thrust/First_stage_isp_sea_level_*First_stage_isp_sea_level).toFixed(3);
 
@@ -2378,8 +2376,6 @@ input[type=range]:focus::-ms-fill-upper {
 			First_stage_isp_sea_level_ = First_stage_isp_sea_level;
 			First_stage_isp_sea_level = First_stage_isp_vac - (First_stage_isp_vac - First_stage_isp_sea_level)/Starting_point_Pressure_Old * Starting_point_Pressure;
 			elFirst_stage_isp_sea_level.value = First_stage_isp_sea_level.toFixed(1);
-//			Thrust_to_weight_ratio = parseFloat(elThrust_to_weight_ratio.value);
-//			elThrust_to_weight_ratio.value = (Thrust_to_weight_ratio/First_stage_isp_sea_level_*First_stage_isp_sea_level).toFixed(3);
 			First_stage_total_thrust = parseFloat(elFirst_stage_total_thrust.value);
 			elFirst_stage_total_thrust.value = (First_stage_total_thrust/First_stage_isp_sea_level_*First_stage_isp_sea_level).toFixed(3);
 
@@ -2662,6 +2658,7 @@ input[type=range]:focus::-ms-fill-upper {
 		elLift_off_Mass.textContent = Lift_off_Mass.toFixed(0);
 
 		Thrust_to_weight_ratio = First_stage_total_thrust/Lift_off_Mass;
+		if (Thrust_to_weight_ratio < 1.05) Thrust_to_weight_ratio = 1.05;
 		elThrust_to_weight_ratio.value = Thrust_to_weight_ratio.toFixed(3);
 
 		Thrust_to_weight_ratio_2nd = Second_stage_total_thrust/(Lift_off_Mass - First_stage_propellant_mass - First_stage_dry_mass);
