@@ -635,10 +635,13 @@ input[type=range]:focus::-ms-fill-upper {
 					  </div>
 					  <TABLE border="1" class="borderTable">
 						<TBODY>
-						<TR>
-					  <TD title="The point of the orbit closest to Earth" width="460"><div class="mobilelayout_l1"><LABEL id="Reference"></LABEL> Orbit Perigee</div></TD>
+						<TR class="NearEarth">
+					  <TD title="The point of the orbit closest to Earth" width="460"><div class="mobilelayout_l1"></LABEL> Orbit Perigee</div></TD>
 					  <TD width="220"><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Orbit_Perigee"> <span>km</span></div></TD></TR>
-						<TR>
+						<TR class="Interplanetary">
+					  <TD title="Low Earth Orbit for lunar and interplanetary transfer"><div class="mobilelayout_l1">Reference Orbit</div></TD>
+					  <TD><div class="mobilelayout_r2"><h8><LABEL>200</LABEL><span> km&ensp;</span></h8></div></TD></TR>
+						<TR class="NearEarth">
 					  <TD title="The point of the orbit farthest from Earth"><div class="mobilelayout_l1">Orbit Apogee (0 means a circular orbit)</div></TD>
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Orbit_Apogee"> <span>km</span></div></TD></TR>
 						<TR class="fGEOI">
@@ -650,7 +653,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<TR class="Expanding">
 					  <TD title="Orbital speed at apogee (minimum)"><div class="mobilelayout_l1">Apogee velocity</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Apogee_velocity"></LABEL><span> m/s</span></h8></div></TD></TR>
-					   <TR>
+						<TR class="NearEarth">
 					  <TD title="The time a given satellite takes to complete one orbit around Earth"><div class="mobilelayout_l1">Orbital Period</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Orbital_period"></LABEL><span> min</span></h8></div></TD></TR>
 						<TR class="fGEO">
@@ -664,8 +667,8 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD title="Delta-v, as used in spacecraft flight dynamics, is a measure of the impulse per unit of &#013;spacecraft mass that is needed to perform a maneuver, such as launching from or landing&#013;on a planet or moon, or an in-space orbital maneuver. It is a scalar that has the units of speed. &#013;As used in this context, it is not the same as the physical change in velocity of the vehicle. &#013;The required delta-v to achieve a given orbit in this software is calculated according to the&#013;Hohmann Transfer formula for the energy-optimal two burn maneuver which provides &#013;very good accuracy. However, these formulas do not take into account the losses associated&#013;with the Earth&#039;s gravity and atmosphere."><div class="mobilelayout_l1">Delta-v for target orbit (ideal)</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL 
 					  id="Vsp_for_target_orbit"></LABEL><span> m/s</span></h8></div></TD></TR>
-						<TR>
-					  <TD title="Delta velocity for injection to trans-planet orbit from a 200km reference orbit"><div class="mobilelayout_l1">Extra velocity for flight to the planets</div></TD>
+						<TR class="Interplanetary">
+					  <TD title="Delta velocity for injection to trans-planet orbit from a 200km reference orbit"><div class="mobilelayout_l1">Extra velocity for interplanetary transfer</div></TD>
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Extra_speed_for_flight_to_the_planets"> <span>m/s</span></div></TD></TR></TBODY></TABLE></TD></TR >
 				  <TR>
 					<TD><div class="spacetitle topspace padd2">
@@ -949,6 +952,8 @@ input[type=range]:focus::-ms-fill-upper {
 	var elsElectric = document.querySelectorAll('.content tr[class="Electric"]');
 	var elsGEO = document.querySelectorAll('.content tr[class="fGEO"]');
 	var elsGEOI = document.querySelectorAll('.content tr[class="fGEOI"]');
+	var elNearEarth = document.querySelectorAll('.content tr[class="NearEarth"]');
+	var elInterplanetary = document.querySelectorAll('.content tr[class="Interplanetary"]');
 	var elLimitation = document.querySelector('#Limitation');
 	var elSet_averages = document.querySelector('#Set_averages');
 	var elSet_AllMin = document.querySelector('#Set_AllMin');
@@ -957,7 +962,6 @@ input[type=range]:focus::-ms-fill-upper {
 	var elProjectingH = document.querySelectorAll('.content tr[class="ProjectingH"]');
 	var elNegativePayload = document.querySelectorAll('.content tr[class="NegativePayload"]');
 
-	var elReference = document.querySelector('#Reference');
 	var elRequired = document.querySelector('#Required');
 //	Abs_Calculation.checked = false;
 //	var Irremovable_Gravity_Losses;
@@ -1577,6 +1581,8 @@ input[type=range]:focus::-ms-fill-upper {
 		elOrbit_Perigee.value = s_orbit_data[elOrbit.selectedIndex][1];
 		
 		elOrbit_Apogee.value = s_orbit_data[elOrbit.selectedIndex][2];
+
+		elOrbitDescription.textContent = s_orbit_data[elOrbit.selectedIndex][5];
 			
 		if (s_orbit_data[elOrbit.selectedIndex][3] < 0)
 			elOrbit_Inclination.value = s_start_point_data[elStartingPoint.selectedIndex][4];
@@ -1598,12 +1604,20 @@ input[type=range]:focus::-ms-fill-upper {
 			for (var i = 0; i < elsGEOI.length; i++)
 				elsGEOI[i].removeAttribute("style");
 		}
-		elOrbitDescription.textContent = s_orbit_data[elOrbit.selectedIndex][5];
-		if (elOrbit.selectedIndex > 5)
-			elReference.textContent = "Reference "; 
-		 else
-			elReference.textContent = "";
 
+		if (elOrbit.selectedIndex > 5)
+		{
+			for (var i = 0; i < elInterplanetary.length; i++)
+				elInterplanetary[i].removeAttribute("style");
+			for (var i = 0; i < elNearEarth.length; i++)
+				elNearEarth[i].style.display = "none";
+		} else
+		{                               
+			for (var i = 0; i < elInterplanetary.length; i++)
+				elInterplanetary[i].style.display = "none";
+			for (var i = 0; i < elNearEarth.length; i++)
+				elNearEarth[i].removeAttribute("style");
+		}
 	}
 
 	function LatitudeChange()
@@ -1643,11 +1657,6 @@ input[type=range]:focus::-ms-fill-upper {
 		var Orbit_Perigee = parseFloat(elOrbit_Perigee.value);
 		if (Orbit_Apogee < Orbit_Perigee)
 		elOrbit_Apogee.value = Orbit_Perigee.toFixed(0);
-		}
-		if (elOrbit.selectedIndex > 5)
-		{
-		  elOrbit_Perigee.value = 200.; 
-		  elOrbit_Apogee.value = 0.; 
 		}
 		Calculate();
 	}
