@@ -811,6 +811,7 @@ input[type=range]:focus::-ms-fill-upper {
 			  
 			  </div>
 <SCRIPT>
+	const params = new URLSearchParams(window.location.search);
 	var elStartingPoint = document.querySelector('#StartingPoint');
 	var elReusable = document.querySelector('#Reusable');
 	var elAir_Launch = document.querySelector('#Air_Launch');
@@ -972,6 +973,13 @@ input[type=range]:focus::-ms-fill-upper {
 	var Specific_Impulse_Variation_old = 100.;
 	var Reus_corr = 0;
 
+        var rocket = params.get('rocket'); // will return the value of the parameter rocket
+	if(rocket <= 0) rocket = 1;
+	if(rocket == "custom") rocket = 0;
+
+//	console.log(rocket) // 10
+//	elRocket.selectedIndex = rocket;
+
 	window.onload = onPageLoad;
 	window.onunload = onPageUnload;
 	
@@ -1073,7 +1081,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["SpaceX Falcon 9 FT",		1.41, 0.70, 524554, 5.2, 1700, 3500,  0, 22800,  20.93,   0.00,   5.14,   4.04,  20.00, 1.0, 1.0, 1,   286.0, 321,   348, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, "Advanced SpaceX Launcher"],
 			     ["SpaceX Starship",		1.41, 1.1, 5150000, 9.0,    0, 3500,  0,150000,  25.9,    0.00,   14.0,   9.1,   10.,   1.5, 1.5, 1,   330.0, 356,   380, 380, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, "SpaceX (project)"],
 			     ["Rocket Lab Electron",		1.32, 0.93,  12355, 1.2,   44, 3500, 50,   150,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   256.0, 303,   333, 250, 0,2, 0,2, 4,3,    "Rocket Lab LC-1",	"SSO", 0, "Rocket Lab"],
-			     ["Rocket Lab Electron New",	1.32, 0.93,  12580, 1.2,   44, 3500, 50,   200,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   263.0, 311,   343, 280, 0,2, 0,2, 4,3,    "Rocket Lab LC-1",	"SSO", 0, "Rocket Lab 2020 improved version"],
+			     ["Rocket Lab Electron improved",	1.32, 0.93,  12580, 1.2,   44, 3500, 50,   200,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   263.0, 311,   343, 280, 0,2, 0,2, 4,3,    "Rocket Lab LC-1",	"SSO", 0, "Rocket Lab 2020 improved version"],
 			     ["Rocket Lab Neutron",		1.32, 0.93, 400000, 4.5,  1800,3500, 2000, 8000, 20.16,   0.00,   9.31,  10.42,  18.00, 2.,  2.,  1,   263.0, 311,   343, 280, 0,2, 0,2, 4,3,    "Wallops",		"LEO", 0, "Rocket Lab new rocket (assumed electric cycle engines)"],
 			     ["Blue Origin New Glenn 2st",	1.22, 0.91, 1380000, 7.0, 4000, 3500,  0, 45000,  19.564,  0.00,   9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 1,0,    "Cape Canaveral",	"LEO", 0, "Blue Origin 2-Stages (Superceded) (project)"],
 			     ["Blue Origin New Glenn 3st",	1.20, 0.83, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",	"Mars",0, "Blue Origin 3-Stages (Superceded) (project)"],
@@ -2896,7 +2904,7 @@ input[type=range]:focus::-ms-fill-upper {
       		elTransfer_Orbit_stage_propellant_mass.addEventListener('change', MassRecalculateAndCalc);
 		elTransfer_Orbit_stage_dry_mass.addEventListener('change', MassRecalculateAndCalc);
 
-		elRocket.selectedIndex = 1;
+		elRocket.selectedIndex = rocket;
 		updateEngine1();
 		updateEngine2();
 
