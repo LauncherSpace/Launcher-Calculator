@@ -974,7 +974,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 	const params = new URLSearchParams(window.location.search);
         var rocket = params.get('rocket'); // will return the value of the parameter rocket
-	if(rocket == null) rocket = 1;
+	if(rocket == null) rocket = "NS1";
 
 	window.onload = onPageLoad;
 	window.onunload = onPageUnload;
@@ -1057,38 +1057,38 @@ input[type=range]:focus::-ms-fill-upper {
 			       [1., 1., 0.5, 1., 1., 0.5, 1., 0.25, 1., 0.5]]; // 3 stages
 	
 	var s_rocket_count = 32;
-	var s_rocket_data =  [["Custom Rocket...",		1.20, 1.1,   32475, 1.7,  150, 3500,  0,  775,   24.86,   0.,     8.,   10.,     20,    2., 2.,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Cape Canaveral",	"LEO", 0, 0, "Designed Rocket - engine based"],
-			     ["NASA Saturn V",			1.165,0.78,2909200,10.1, 8000, 3500,  0, 48600,  21.284,  4.228,  5.677,  8.081, 10.976,2.6, 2.0, 2,   263.0, 304,   421, 421, 0,1, 2,1, 2,1,    "Cape Canaveral",	"Moon",0, 0, "Apollo lunar program launcher"],
-			     ["Launcher Rocket-1",		1.19, 1.38,  32600, 1.7,  150, 3500,  0,  750,   25.00,   0.0,    8.5,    9.87,   20,  2.95, 2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"LEO", 0, 0, "Four E-2 engines on the 1st stage (project)"],
-			     ["Launcher Light",			1.15, 1.1,    8500, 1.1,   30, 3500,  0,  150,    12.3,   3.,      9.5,   12.,   17,    2.,  2.,  1,   290.5, 327,   312, 305, 0,0, 0,3, 3,3,    "Wallops",	"LEO", 0, 0, "One E-2 engine on the 1st stage, pres fed 2nd stage"],
-			     ["Launcher Medium",		1.19, 0.65,  33000, 1.7,  120, 3500,  0,  525,   14.00,   0.0,    8.5,    11.7,   20,    2.,  1,   1,   290.5, 327,  320, 320, 0,0, 0,3, 0,3,    "Wallops",	"LEO", 0, 0, "4 E-2 engines on the 1st stage, pres fed 2nd stage"],
-			     ["Launcher XL",			1.19, 0.88,  73540, 2.1,  550, 3500,  0, 2000,    16.0,   2.,     8.0,    10.,   20,    2,   2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"LEO", 0, 0, "Nine E-2 engines on the 1st stage (project)"],
-			     ["Launcher Nano",			1.5,  1.1,     500,0.45,    0, 3500,  0, 1.45,   24.00,   4.,    23.00, 23.00,   15,    3,   3,   3,   225.0, 270,   315, 300, 0,3, 0,3, 0,3,    "Wallops",	"LEO", 0, 0, "The smallest orbital launcher (project)"],
-			     ["Yuzhnoye Zenit-2",		1.605,0.95, 443730, 4.15,1800, 3500,  0,13470,   20.551,  0.,     7.93,  9.15,   20,    2., 1.2, 0.8, 309.0, 336,   349, 352, 0,0, 0,0, 0,0,    "Baikonur",		"LEO", 0, 0, "Yuzhnoye Ukraine"],
-			     ["Yuzhnoye Zenit-3SL",		1.57, 0.89, 463220, 4.15,1850, 3500,  0, 3170,   23.499, 4.251,   7.78,  9.15,   14.42, 2., 1.2, 0.8, 309.5, 337.2, 350, 361, 0,0, 0,0, 0,0,    "Sea Launch (Equator)",	"GEO", 0, 0, "Yuzhnoye Ukraine"],
-			     ["ULA Delta-IV Medium",		1.21, 0.30, 250570, 5.1, 2800, 4500,  0,11470,    9.64,   0.,    11.70, 11.79,   20,    2,   1.5, 0.8, 360.0, 412,   462, 300, 2,1, 2,1, 2,1,    "Cape Canaveral",	"LEO", 0, 0, "United Launch Alliance"],
-			     ["ULA Atlas V 401",		1.15, 0.29, 328770, 4.2, 2900, 4500,  0, 9800,    7.05,   0.,     7.04,   10.1,  20,    3,   2,   0.8, 311.9, 338.4, 450, 300, 0,0, 2,0, 2,0,    "Cape Canaveral",	"ISS", 0, 0, "United Launch Alliance"],
-			     ["Orbital (NG now) Antares 100",	1.19, 1.53, 274735, 3.9,  970, 4500,  0, 4600,    5.10,   0.,     7.17,   8.69,  20,    3,   0,   0.8, 297.,  331.,  301, 300, 0,0, 5,1, 5,1,    "Wallops",		"LEO", 0, 0, "Orbital Sciences Corporation (Aj-26)"],
-			     ["Northrop Grumman Antares 230",	1.32, 1.44, 287000, 3.9,  970, 4500,  0, 6500,    9.103,  0.,     7.845,  7.985, 20,    2.5, 0,   0.8, 311.9, 339.2, 304, 300, 0,0, 5,1, 5,1,    "Wallops",		"LEO", 0, 0, "Northrop Grumman (RD-181)"],
-			     ["Northrop Grumman Pegasus",	3.17, 2.59,  18300, 1.27, 150, 3500,  0,  450,   23.3,    4.87,  13.34,  10.39,  13.48, 0,   0,   0,   270.0, 295,   289, 287, 5,1, 5,1, 5,1,    "Vandenberg",	"LEO", 1, 0, "Northrop Grumman Air Launch"],
-			     ["SpaceX Falcon 1e",		1.19, 0.55,  46955, 1.7,  145, 3500,  0,  650,   10.41,   0.00,   6.13,  11.07,  20.00, 3,   3,   1,   263.0, 304,   317, 300, 0,1, 0,3, 0,3,    "Omelek Island",	"LEO", 0, 0, "First SpaceX Launcher"],
-			     ["SpaceX Falcon 9 V1.0",		1.22, 0.70, 308000,3.66, 1000, 3500,  0, 8500,   16.56,   0.00,   6.74,   5.96,  20.00, 2.0, 2.0, 1,   266.0, 304,   336, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "SpaceX"],
-			     ["SpaceX Falcon 9 V1.1",		1.19, 0.74, 490600, 5.2, 1900, 3500,  0, 13150,  14.656,  0.00,   5.493,  5.425, 20.00, 3.0, 3.0, 1,   282.0, 311,   342, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "SpaceX"],
-			     ["SpaceX Falcon 9 FT",		1.41, 0.70, 524554, 5.2, 1700, 3500,  0, 22800,  20.93,   0.00,   5.14,   4.04,  20.00, 1.0, 1.0, 1,   286.0, 321,   348, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "Advanced SpaceX Launcher"],
-			     ["SpaceX Starship",		1.41, 1.1, 5150000, 9.0,    0, 3500,  0,150000,  25.9,    0.00,   14.0,   9.1,   10.,   1.5, 1.5, 1,   330.0, 356,   380, 380, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, 0, "SpaceX (project)"],
-			     ["Rocket Lab Electron",		1.32, 0.93,  12355, 1.2,   44, 3500, 50,   150,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   256.0, 303,   333, 250, 0,2, 0,2, 4,3,    "Rocket Lab LC-1",	"SSO", 0, 0, "Rocket Lab"],
-			     ["Rocket Lab Electron improved",	1.32, 0.93,  12580, 1.2,   44, 3500, 50,   200,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   263.0, 311,   343, 280, 0,2, 0,2, 4,3,    "Rocket Lab LC-1",	"SSO", 0, 0, "Rocket Lab 2020 improved version"],
-			     ["Rocket Lab Neutron electric",	1.32, 0.93, 740000, 1.2,  1100,3500,2000, 8000,   26.,    2.50,   9.00,  10.00,  15.00, 1.5,  1.5,  1,   263.0, 311,  343, 305, 0,2, 0,2, 3,3,    "Rocket Lab LC-1",	"SSO", 0, 1, "Rocket Lab new rocket (Electric cycle engines)"],
-			     ["Rocket Lab Neutron",		1.2,  0.90, 430000, 4.5,  1100,3500,   0, 8000,   25.,    2.50,   7.00,   6.50,  15.00, 1.5, 1.5, 1,   270.0, 310,   343, 305, 0,1, 0,1, 3,3,    "Wallops",		"LEO", 0, 1, "Rocket Lab new rocket (Open cycle engines)"],
-			     ["Blue Origin New Glenn 2st",	1.22, 0.91, 1380000, 7.0, 4000, 3500,  0, 45000,  19.564,  0.00,   9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 1,0,    "Cape Canaveral",	"LEO", 0, 0, "Blue Origin 2-Stages (Superceded) (project)"],
-			     ["Blue Origin New Glenn 3st",	1.20, 0.83, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",	"Mars",0, 0, "Blue Origin 3-Stages (Superceded) (project)"],
-			     ["Virgin Orbit Launcher One",	1.31, 0.65,  25500, 1.8,  100, 3500,  0,   300,   12.0,   0.00,   9.50,   9.00,  20.00, 3,   3,   1,   290.0, 308,   328, 300, 0,1, 0,1, 0,1,    "Mojave",		"SSO", 1, 0, "Virgin Orbit (project)"],
-			     ["Relativity Terran 1 ",		1.2,  0.75,  55500, 2.7,  400, 3500,   0, 1250,  17.50,   0.00,   9.00,   9.00,  20.00, 2,   2,   1,   267.0, 310,   360, 300, 1,1, 1,1, 1,1,    "Cape Canaveral",	"LEO", 0, 0, "Relativity (project)"],
-			     ["Astra Rocket-3",			1.4,  0.53,  10000, 1.32, 100, 3500,   0,   100,   4.0,    0.00, 10.00,   9.00,  20.00, 2.5,  2,   1,   234.0, 284,   315, 300, 0,2, 0,3, 4,3,    "Kodiak",		"LEO", 0, 0, "Astra (project)"],
-			     ["Firefly Alpha",			1.25, 0.6,   52670, 2.21,  330, 3500,  0,  1000,  20.0,    0.00,   7.00,   6.00,  20.00, 3,   2,   1,   265.0, 295.6, 322, 300, 0,1, 0,1, 0,1,    "Vandenberg",	"LEO", 0, 0, "Firefly (project)"],
-			     ["ABL RS1 (In-house engines)",	1.2,  0.7,   40000, 1.83,  450, 3500,  0,  1350,  16.,	   0.00,   7.00,   6.00,  20.00, 2.,  1,   1,   265.0, 295.6, 322, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "ABL Space Systems (project)"],
-			     ["ABL RS1 (Ursa engines)",		1.2,  0.69,  25260, 1.83,  300, 3500,  0,   900,  11.75,   0.00,   4.00,   4.00,  20.00, 1,  .5,   1,   262.0, 308,   345, 300, 0,0, 0,0, 0,0,    "Cape Canaveral",	"LEO", 0, 0, "with URSA Major Tech engines (project)"],
-			     ["Skyrora XL ",			1.24, 0.9,   55300, 2.2,   215, 4000,  0,   315,  14.7,     1.0,    11.0,   11.0,  27.00, 3., 3.,  3.,   250.0, 285,   306, 305, 3,1, 3,1, 3,3,    "Stornoway (UK)",	"SSO", 0, 0, "Skyrora United Kingdom (project)"]
+	var s_rocket_data =  [["CST", "Custom Rocket...",		  1.20, 1.1,   32475, 1.7,  150, 3500,  0,  775,   24.86,   0.,     8.,   10.,     20,    2., 2.,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Cape Canaveral",	"LEO", 0, 0, "Designed Rocket - engine based"],
+			     ["NS1", "NASA Saturn V",		  1.165,0.78,2909200,10.1, 8000, 3500,  0, 48600,  21.284,  4.228,  5.677,  8.081, 10.976,2.6, 2.0, 2,   263.0, 304,   421, 421, 0,1, 2,1, 2,1,    "Cape Canaveral",	"Moon",0, 0, "Apollo lunar program launcher"],
+			     ["LA1", "Launcher Rocket-1",	  1.19, 1.38,  32600, 1.7,  150, 3500,  0,  750,   25.00,   0.0,    8.5,    9.87,   20,  2.95, 2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"LEO", 0, 0, "Four E-2 engines on the 1st stage (project)"],
+			     ["LA2", "Launcher Light",		  1.15, 1.1,    8500, 1.1,   30, 3500,  0,  150,    12.3,   3.,      9.5,   12.,   17,    2.,  2.,  1,   290.5, 327,   312, 305, 0,0, 0,3, 3,3,    "Wallops",	"LEO", 0, 0, "One E-2 engine on the 1st stage, pres fed 2nd stage"],
+			     ["LA3", "Launcher Medium",		  1.19, 0.65,  33000, 1.7,  120, 3500,  0,  525,   14.00,   0.0,    8.5,    11.7,   20,    2.,  1,   1,   290.5, 327,  320, 320, 0,0, 0,3, 0,3,    "Wallops",	"LEO", 0, 0, "4 E-2 engines on the 1st stage, pres fed 2nd stage"],
+			     ["LA4", "Launcher XL",		  1.19, 0.88,  73540, 2.1,  550, 3500,  0, 2000,    16.0,   2.,     8.0,    10.,   20,    2,   2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"LEO", 0, 0, "Nine E-2 engines on the 1st stage (project)"],
+			     ["LA5", "Launcher Nano",		  1.5,  1.1,     500,0.45,    0, 3500,  0, 1.45,   24.00,   4.,    23.00, 23.00,   15,    3,   3,   3,   225.0, 270,   315, 300, 0,3, 0,3, 0,3,    "Wallops",	"LEO", 0, 0, "The smallest orbital launcher (project)"],
+			     ["YZ1", "Yuzhnoye Zenit-2",		  1.605,0.95, 443730, 4.15,1800, 3500,  0,13470,   20.551,  0.,     7.93,  9.15,   20,    2., 1.2, 0.8, 309.0, 336,   349, 352, 0,0, 0,0, 0,0,    "Baikonur",		"LEO", 0, 0, "Yuzhnoye Ukraine"],
+			     ["YZ2", "Yuzhnoye Zenit-3SL",	  1.57, 0.89, 463220, 4.15,1850, 3500,  0, 3170,   23.499, 4.251,   7.78,  9.15,   14.42, 2., 1.2, 0.8, 309.5, 337.2, 350, 361, 0,0, 0,0, 0,0,    "Sea Launch (Equator)",	"GEO", 0, 0, "Yuzhnoye Ukraine"],
+			     ["UL1", "ULA Delta-IV Medium",	  1.21, 0.30, 250570, 5.1, 2800, 4500,  0,11470,    9.64,   0.,    11.70, 11.79,   20,    2,   1.5, 0.8, 360.0, 412,   462, 300, 2,1, 2,1, 2,1,    "Cape Canaveral",	"LEO", 0, 0, "United Launch Alliance"],
+			     ["UL2", "ULA Atlas V 401",		  1.15, 0.29, 328770, 4.2, 2900, 4500,  0, 9800,    7.05,   0.,     7.04,   10.1,  20,    3,   2,   0.8, 311.9, 338.4, 450, 300, 0,0, 2,0, 2,0,    "Cape Canaveral",	"ISS", 0, 0, "United Launch Alliance"],
+			     ["NG1", "Orbital (NG now) Antares 100",1.19, 1.53, 274735, 3.9,  970, 4500,  0, 4600,    5.10,   0.,     7.17,   8.69,  20,    3,   0,   0.8, 297.,  331.,  301, 300, 0,0, 5,1, 5,1,    "Wallops",		"LEO", 0, 0, "Orbital Sciences Corporation (Aj-26)"],
+			     ["NG2", "Northrop Grumman Antares 230",1.32, 1.44, 287000, 3.9,  970, 4500,  0, 6500,    9.103,  0.,     7.845,  7.985, 20,    2.5, 0,   0.8, 311.9, 339.2, 304, 300, 0,0, 5,1, 5,1,    "Wallops",		"LEO", 0, 0, "Northrop Grumman (RD-181)"],
+			     ["NG3", "Northrop Grumman Pegasus",	  3.17, 2.59,  18300, 1.27, 150, 3500,  0,  450,   23.3,    4.87,  13.34,  10.39,  13.48, 0,   0,   0,   270.0, 295,   289, 287, 5,1, 5,1, 5,1,    "Vandenberg",	"LEO", 1, 0, "Northrop Grumman Air Launch"],
+			     ["SX1", "SpaceX Falcon 1e",		  1.19, 0.55,  46955, 1.7,  145, 3500,  0,  650,   10.41,   0.00,   6.13,  11.07,  20.00, 3,   3,   1,   263.0, 304,   317, 300, 0,1, 0,3, 0,3,    "Omelek Island",	"LEO", 0, 0, "First SpaceX Launcher"],
+			     ["SX2", "SpaceX Falcon 9 V1.0",	  1.22, 0.70, 308000,3.66, 1000, 3500,  0, 8500,   16.56,   0.00,   6.74,   5.96,  20.00, 2.0, 2.0, 1,   266.0, 304,   336, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "SpaceX"],
+			     ["SX3", "SpaceX Falcon 9 V1.1",	  1.19, 0.74, 490600, 5.2, 1900, 3500,  0, 13150,  14.656,  0.00,   5.493,  5.425, 20.00, 3.0, 3.0, 1,   282.0, 311,   342, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "SpaceX"],
+			     ["SX4", "SpaceX Falcon 9 FT",	  1.41, 0.70, 524554, 5.2, 1700, 3500,  0, 22800,  20.93,   0.00,   5.14,   4.04,  20.00, 1.0, 1.0, 1,   286.0, 321,   348, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "Advanced SpaceX Launcher"],
+			     ["SX5", "SpaceX Starship",		  1.41, 1.1, 5150000, 9.0,    0, 3500,  0,150000,  25.9,    0.00,   14.0,   9.1,   10.,   1.5, 1.5, 1,   330.0, 356,   380, 380, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, 0, "SpaceX (project)"],
+			     ["RL1", "Rocket Lab Electron",	  1.32, 0.93,  12355, 1.2,   44, 3500, 50,   150,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   256.0, 303,   333, 250, 0,2, 0,2, 4,3,    "Rocket Lab LC-1",	"SSO", 0, 0, "Rocket Lab"],
+			     ["RL2", "Rocket Lab Electron improved",1.32, 0.93,  12580, 1.2,   44, 3500, 50,   200,  20.16,   1.83,   9.31,  10.42,  18.00, 2.,  2.,  1,   263.0, 311,   343, 280, 0,2, 0,2, 4,3,    "Rocket Lab LC-1",	"SSO", 0, 0, "Rocket Lab 2020 improved version"],
+			     ["RL3", "Rocket Lab Neutron electric",1.32, 0.93, 740000, 1.2,  1100,3500,2000, 8000,   26.,    2.50,   9.00,  10.00,  15.00, 1.5,  1.5,  1,   263.0, 311,  343, 305, 0,2, 0,2, 3,3,    "Rocket Lab LC-1",	"SSO", 0, 1, "Rocket Lab new rocket (Electric cycle engines)"],
+			     ["RL4", "Rocket Lab Neutron",	  1.2,  0.90, 430000, 4.5,  1100,3500,   0, 8000,   25.,    2.50,   7.00,   6.50,  15.00, 1.5, 1.5, 1,   270.0, 310,   343, 305, 0,1, 0,1, 3,3,    "Wallops",		"LEO", 0, 1, "Rocket Lab new rocket (Open cycle engines)"],
+			     ["BO1", "Blue Origin New Glenn 2st",  1.22, 0.91, 1380000, 7.0, 4000, 3500,  0, 45000,  19.564,  0.00,   9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 1,0,    "Cape Canaveral",	"LEO", 0, 0, "Blue Origin 2-Stages (Superceded) (project)"],
+			     ["BO2", "Blue Origin New Glenn 3st",  1.20, 0.83, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",	"Mars",0, 0, "Blue Origin 3-Stages (Superceded) (project)"],
+			     ["VO1", "Virgin Orbit Launcher One",  1.31, 0.65,  25500, 1.8,  100, 3500,  0,   300,   12.0,   0.00,   9.50,   9.00,  20.00, 3,   3,   1,   290.0, 308,   328, 300, 0,1, 0,1, 0,1,    "Mojave",		"SSO", 1, 0, "Virgin Orbit (project)"],
+			     ["RL1", "Relativity Terran 1 ",	  1.2,  0.75,  55500, 2.7,  400, 3500,   0, 1250,  17.50,   0.00,   9.00,   9.00,  20.00, 2,   2,   1,   267.0, 310,   360, 300, 1,1, 1,1, 1,1,    "Cape Canaveral",	"LEO", 0, 0, "Relativity (project)"],
+			     ["AS1", "Astra Rocket-3",		  1.4,  0.53,  10000, 1.32, 100, 3500,   0,   100,   4.0,    0.00, 10.00,   9.00,  20.00, 2.5,  2,   1,   234.0, 284,   315, 300, 0,2, 0,3, 4,3,    "Kodiak",		"LEO", 0, 0, "Astra (project)"],
+			     ["FR1", "Firefly Alpha",		  1.25, 0.6,   52670, 2.21,  330, 3500,  0,  1000,  20.0,    0.00,   7.00,   6.00,  20.00, 3,   2,   1,   265.0, 295.6, 322, 300, 0,1, 0,1, 0,1,    "Vandenberg",	"LEO", 0, 0, "Firefly (project)"],
+			     ["AB1", "ABL RS1 (In-house engines)", 1.2,  0.7,   40000, 1.83,  450, 3500,  0,  1350,  16.,	   0.00,   7.00,   6.00,  20.00, 2.,  1,   1,   265.0, 295.6, 322, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "ABL Space Systems (project)"],
+			     ["AB2", "ABL RS1 (Ursa engines)",	  1.2,  0.69,  25260, 1.83,  300, 3500,  0,   900,  11.75,   0.00,   4.00,   4.00,  20.00, 1,  .5,   1,   262.0, 308,   345, 300, 0,0, 0,0, 0,0,    "Cape Canaveral",	"LEO", 0, 0, "with URSA Major Tech engines (project)"],
+			     ["SK1", "Skyrora XL ",		  1.24, 0.9,   55300, 2.2,   215, 4000,  0,   315,  14.7,     1.0,    11.0,   11.0,  27.00, 3., 3.,  3.,   250.0, 285,   306, 305, 3,1, 3,1, 3,3,    "Stornoway (UK)",	"SSO", 0, 0, "Skyrora United Kingdom (project)"]
 				 ];
 	var s_engine_count = 34;
 	var s_engine_data = [["Launcher E-2",		10000.,	290.5, 327., 0, 0, 4,"Launcher 1st stage"],
@@ -1369,7 +1369,7 @@ input[type=range]:focus::-ms-fill-upper {
 //		var Gravity_lossesPr = Gravity_losses + Irremovable_Gravity_Losses;
 
 // Calculation of the fuel reserve for Reusability
-		var First_stage_Unused_propellant=s_rocket_data[elRocket.selectedIndex][14];
+		var First_stage_Unused_propellant=s_rocket_data[elRocket.selectedIndex][15];
 		var First_stage_landing_mass = First_stage_dry_mass + First_stage_Unused_propellant*First_stage_propellant_mass/100.;
 		Reus_corr = ((Math.exp(3800./(First_stage_isp_vac*9.80665))*First_stage_landing_mass-First_stage_landing_mass)/First_stage_propellant_mass*100.);
                 
@@ -1807,7 +1807,7 @@ input[type=range]:focus::-ms-fill-upper {
 				Calculate();
 			} else
 			{
-				el3rd_Stage_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][10] 
+				el3rd_Stage_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][11] 
 				if ( el3rd_Stage_mass_ratio.value == 0)
 					{
 						el3rd_Stage_mass_ratio.value = 3
@@ -2133,44 +2133,44 @@ input[type=range]:focus::-ms-fill-upper {
 		else
 			elLimitation.checked = false;
 
-		elThrust_to_weight_ratio.value = s_rocket_data[elRocket.selectedIndex][1];
-		elFirst_stage_total_thrust.value = ((s_rocket_data[elRocket.selectedIndex][3]+s_rocket_data[elRocket.selectedIndex][5]+s_rocket_data[elRocket.selectedIndex][8])*s_rocket_data[elRocket.selectedIndex][1]).toFixed(1);
+		elThrust_to_weight_ratio.value = s_rocket_data[elRocket.selectedIndex][2];
+		elFirst_stage_total_thrust.value = ((s_rocket_data[elRocket.selectedIndex][4]+s_rocket_data[elRocket.selectedIndex][6]+s_rocket_data[elRocket.selectedIndex][9])*s_rocket_data[elRocket.selectedIndex][2]).toFixed(1);
 
-		elThrust_to_weight_ratio_2nd.value = s_rocket_data[elRocket.selectedIndex][2];
-		elSecond_stage_total_thrust.value =((s_rocket_data[elRocket.selectedIndex][3]*s_rocket_data[elRocket.selectedIndex][9]+s_rocket_data[elRocket.selectedIndex][5]+s_rocket_data[elRocket.selectedIndex][8])*s_rocket_data[elRocket.selectedIndex][2]).toFixed(1); 
+		elThrust_to_weight_ratio_2nd.value = s_rocket_data[elRocket.selectedIndex][3];
+		elSecond_stage_total_thrust.value =((s_rocket_data[elRocket.selectedIndex][4]*s_rocket_data[elRocket.selectedIndex][10]+s_rocket_data[elRocket.selectedIndex][6]+s_rocket_data[elRocket.selectedIndex][9])*s_rocket_data[elRocket.selectedIndex][3]).toFixed(1); 
 
-		elLift_off_Mass.textContent = s_rocket_data[elRocket.selectedIndex][3] + s_rocket_data[elRocket.selectedIndex][5] + s_rocket_data[elRocket.selectedIndex][8];
-		elRocket_Mass.value = s_rocket_data[elRocket.selectedIndex][3];
-		elMax_midsection_D.value = s_rocket_data[elRocket.selectedIndex][4];
-		elFairing_mass.value = s_rocket_data[elRocket.selectedIndex][5];
-		elFairing_jettison_velocity.value = s_rocket_data[elRocket.selectedIndex][6];
-		elJettisoned_battery_mass.value = s_rocket_data[elRocket.selectedIndex][7];
-		elAssumed_payload_mass.value = s_rocket_data[elRocket.selectedIndex][8];
+		elLift_off_Mass.textContent = s_rocket_data[elRocket.selectedIndex][4] + s_rocket_data[elRocket.selectedIndex][6] + s_rocket_data[elRocket.selectedIndex][9];
+		elRocket_Mass.value = s_rocket_data[elRocket.selectedIndex][4];
+		elMax_midsection_D.value = s_rocket_data[elRocket.selectedIndex][5];
+		elFairing_mass.value = s_rocket_data[elRocket.selectedIndex][6];
+		elFairing_jettison_velocity.value = s_rocket_data[elRocket.selectedIndex][7];
+		elJettisoned_battery_mass.value = s_rocket_data[elRocket.selectedIndex][8];
+		elAssumed_payload_mass.value = s_rocket_data[elRocket.selectedIndex][9];
 		Payload_mass = parseFloat(elAssumed_payload_mass.value);
-		var v2nd_Stage_mass_rat = s_rocket_data[elRocket.selectedIndex][9];
-		var v3rd_Stage_mass_rat = s_rocket_data[elRocket.selectedIndex][10];
-		var Fairing = s_rocket_data[elRocket.selectedIndex][5];
-		var Payload = s_rocket_data[elRocket.selectedIndex][8]; 
+		var v2nd_Stage_mass_rat = s_rocket_data[elRocket.selectedIndex][10];
+		var v3rd_Stage_mass_rat = s_rocket_data[elRocket.selectedIndex][11];
+		var Fairing = s_rocket_data[elRocket.selectedIndex][6];
+		var Payload = s_rocket_data[elRocket.selectedIndex][9]; 
 
-		el2nd_Stage_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][9];
-		el3rd_Stage_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][10];
+		el2nd_Stage_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][10];
+		el3rd_Stage_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][11];
 	
-		el1st_Dry_to_Wet_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][11];
-		el2nd_Dry_to_Wet_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][12];
-		el3rd_Dry_to_Wet_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][13];
-		elUnused_propellant_of_1st_Stage.value = s_rocket_data[elRocket.selectedIndex][14];
-		elUnused_propellant_of_2nd_Stage.value = s_rocket_data[elRocket.selectedIndex][15];
-		elUnused_propellant_of_Transfer_Orbit_Stage.value = s_rocket_data[elRocket.selectedIndex][16];
+		el1st_Dry_to_Wet_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][12];
+		el2nd_Dry_to_Wet_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][13];
+		el3rd_Dry_to_Wet_mass_ratio.value = s_rocket_data[elRocket.selectedIndex][14];
+		elUnused_propellant_of_1st_Stage.value = s_rocket_data[elRocket.selectedIndex][15];
+		elUnused_propellant_of_2nd_Stage.value = s_rocket_data[elRocket.selectedIndex][16];
+		elUnused_propellant_of_Transfer_Orbit_Stage.value = s_rocket_data[elRocket.selectedIndex][17];
 
 		elSpecific_Impulse_Variation.value = 100.;
 		updateSliderEdit0(10);
 		
-		elFirst_stage_isp_sea_level.value =s_rocket_data[elRocket.selectedIndex][17];
-		elFirst_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][18];
-		elSecond_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][19];
-		elTransfer_Orbit_Stage_isp.value = s_rocket_data[elRocket.selectedIndex][20];
+		elFirst_stage_isp_sea_level.value =s_rocket_data[elRocket.selectedIndex][18];
+		elFirst_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][19];
+		elSecond_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][20];
+		elTransfer_Orbit_Stage_isp.value = s_rocket_data[elRocket.selectedIndex][21];
 		
-		var spacePort = s_rocket_data[elRocket.selectedIndex][27];
+		var spacePort = s_rocket_data[elRocket.selectedIndex][28];
 		for (var i=0; i < s_start_point_count; ++i)
 		{
 			if ( s_start_point_data[i][0] == spacePort )
@@ -2181,7 +2181,7 @@ input[type=range]:focus::-ms-fill-upper {
 			}
 		}
 		
-		var orbit = s_rocket_data[elRocket.selectedIndex][28];
+		var orbit = s_rocket_data[elRocket.selectedIndex][29];
 		for (var i=0; i < s_orbit_count; ++i)
 		{
 			if ( s_orbit_data[i][0] == orbit )
@@ -2192,22 +2192,22 @@ input[type=range]:focus::-ms-fill-upper {
 			}
 		}
 		
-		elFuel.selectedIndex = s_rocket_data[elRocket.selectedIndex][21];
-		elFuel2.selectedIndex = s_rocket_data[elRocket.selectedIndex][23];
-		elFuel3.selectedIndex = s_rocket_data[elRocket.selectedIndex][25];
-		elCycle.selectedIndex = s_rocket_data[elRocket.selectedIndex][22];
-		elCycle2.selectedIndex = s_rocket_data[elRocket.selectedIndex][24];
-		elCycle3.selectedIndex = s_rocket_data[elRocket.selectedIndex][26];
+		elFuel.selectedIndex = s_rocket_data[elRocket.selectedIndex][22];
+		elFuel2.selectedIndex = s_rocket_data[elRocket.selectedIndex][24];
+		elFuel3.selectedIndex = s_rocket_data[elRocket.selectedIndex][26];
+		elCycle.selectedIndex = s_rocket_data[elRocket.selectedIndex][23];
+		elCycle2.selectedIndex = s_rocket_data[elRocket.selectedIndex][25];
+		elCycle3.selectedIndex = s_rocket_data[elRocket.selectedIndex][27];
 
 		updateFuel();
 		SolidChange();
 		updateCycle();
 
 		if (elLimitation.checked) SetLimitation();
-		elAir_Launch.checked = s_rocket_data[elRocket.selectedIndex][29] != 0;
+		elAir_Launch.checked = s_rocket_data[elRocket.selectedIndex][30] != 0;
 		AirLaunchChange(0);
 
-		elRocketDescription.textContent = s_rocket_data[elRocket.selectedIndex][31];
+		elRocketDescription.textContent = s_rocket_data[elRocket.selectedIndex][32];
 
 		if ( el3rd_Stage_mass_ratio.value == 0 )
 		{
@@ -2237,7 +2237,7 @@ input[type=range]:focus::-ms-fill-upper {
 			DelAverages();
 		}
 
-		elReusable.checked = s_rocket_data[elRocket.selectedIndex][30] != 0;
+		elReusable.checked = s_rocket_data[elRocket.selectedIndex][31] != 0;
 		ReusabilityChange(0);
 
 	}
@@ -2245,8 +2245,8 @@ input[type=range]:focus::-ms-fill-upper {
 	function updateRocketAndCalc()
 	{
 		var myURL = new URL(location.href);
-		myURL.searchParams.set('rocket', elRocket.selectedIndex);
-		window.location.search = "?rocket=" + elRocket.selectedIndex; // page should reload
+		myURL.searchParams.set('rocket', s_rocket_data[elRocket.selectedIndex][0]);
+		window.location.search = "?rocket=" + s_rocket_data[elRocket.selectedIndex][0]; // page should reload
 		myUrl.reload;
 
 //		updateRocket();
@@ -2351,9 +2351,9 @@ input[type=range]:focus::-ms-fill-upper {
 	function ReusabilityChange(Checked)
 	{
 		if (Reusable.checked == false)
-		 elUnused_propellant_of_1st_Stage.value = s_rocket_data[elRocket.selectedIndex][14];
+		 elUnused_propellant_of_1st_Stage.value = s_rocket_data[elRocket.selectedIndex][15];
 		else
-                 elUnused_propellant_of_1st_Stage.value = (s_rocket_data[elRocket.selectedIndex][14]+Reus_corr).toFixed(2);
+                 elUnused_propellant_of_1st_Stage.value = (s_rocket_data[elRocket.selectedIndex][15]+Reus_corr).toFixed(2);
 
 		RangeMinMax(s_slider[3], s_slider_edit[3], 0, 0, 3);
 
@@ -2511,16 +2511,16 @@ input[type=range]:focus::-ms-fill-upper {
 		{
 		} else
 		{
-		s_slider_edit[0].value = s_rocket_data[elRocket.selectedIndex][11];
-		s_slider_edit[1].value = s_rocket_data[elRocket.selectedIndex][12];
-		s_slider_edit[2].value = s_rocket_data[elRocket.selectedIndex][13];
-		s_slider_edit[3].value = s_rocket_data[elRocket.selectedIndex][14];
-		s_slider_edit[4].value = s_rocket_data[elRocket.selectedIndex][15];
-		s_slider_edit[5].value = s_rocket_data[elRocket.selectedIndex][16];
-		s_slider_edit[6].value = s_rocket_data[elRocket.selectedIndex][17];
-		s_slider_edit[7].value = s_rocket_data[elRocket.selectedIndex][18];
-		s_slider_edit[8].value = s_rocket_data[elRocket.selectedIndex][19];
-		s_slider_edit[9].value = s_rocket_data[elRocket.selectedIndex][20];
+		s_slider_edit[0].value = s_rocket_data[elRocket.selectedIndex][12];
+		s_slider_edit[1].value = s_rocket_data[elRocket.selectedIndex][13];
+		s_slider_edit[2].value = s_rocket_data[elRocket.selectedIndex][14];
+		s_slider_edit[3].value = s_rocket_data[elRocket.selectedIndex][15];
+		s_slider_edit[4].value = s_rocket_data[elRocket.selectedIndex][16];
+		s_slider_edit[5].value = s_rocket_data[elRocket.selectedIndex][17];
+		s_slider_edit[6].value = s_rocket_data[elRocket.selectedIndex][18];
+		s_slider_edit[7].value = s_rocket_data[elRocket.selectedIndex][19];
+		s_slider_edit[8].value = s_rocket_data[elRocket.selectedIndex][20];
+		s_slider_edit[9].value = s_rocket_data[elRocket.selectedIndex][21];
 		}
 	}
 
@@ -2729,9 +2729,9 @@ input[type=range]:focus::-ms-fill-upper {
 		for (var i = 0; i<s_rocket_count; i++)
 		{
 			var opt = document.createElement('option');
-			opt.value = s_rocket_data[i][0];
-			opt.innerHTML = s_rocket_data[i][0];
-			opt.title=s_rocket_data[i][31];
+			opt.value = s_rocket_data[i][1];
+			opt.innerHTML = s_rocket_data[i][1];
+			opt.title=s_rocket_data[i][32];
 			elRocket.appendChild(opt);
 		}
 		elRocket.addEventListener('change', updateRocketAndCalc);
@@ -2910,7 +2910,17 @@ input[type=range]:focus::-ms-fill-upper {
       		elTransfer_Orbit_stage_propellant_mass.addEventListener('change', MassRecalculateAndCalc);
 		elTransfer_Orbit_stage_dry_mass.addEventListener('change', MassRecalculateAndCalc);
 
-		elRocket.selectedIndex = rocket;
+		elRocket.selectedIndex = 1;
+		for (var i=0; i < s_rocket_count; ++i)
+		{
+			if ( s_rocket_data[i][0] == rocket )
+			{
+				elRocket.selectedIndex = i;
+				break;
+			}
+		}
+
+//		elRocket.selectedIndex = rocket;
 
 		updateEngine1();
 		updateEngine2();
