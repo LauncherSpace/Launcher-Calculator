@@ -655,7 +655,10 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Apogee_velocity"></LABEL><span> m/s</span></h8></div></TD></TR>
 						<TR class="NearEarth">
 					  <TD title="The time a given satellite takes to complete one orbit around Earth"><div class="mobilelayout_l1">Orbital Period</div></TD>
-					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Orbital_period"></LABEL><span> min</span></h8></div></TD></TR>
+					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Orbital_period"></LABEL><span> s &emsp;</span></h8></div></TD></TR>
+						<TR class="Expanding">
+					  <TD title="Transfer time from lift off to the Orbit Apogee or to reach the Planet. &#013;Travel time to planets depends on the launch time and many other reasons, &#013;the given time is approximate and close to the practicable low."><div class="mobilelayout_l1">Transfer time</div></TD>
+					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Transfer_time"></LABEL><span> s &emsp;</span></h8></div></TD></TR>
 						<TR class="fGEO">
 					  <TD title="Velocity increment needed to achieve zero inclination within a Geosynchronous orbit&#013;if the inclination of the Geosynchronous Transfer Orbit is not a zero. &#013;Usually this velocity increment is added at the apogee of the Geosynchronous Transfer Orbit."><div class="mobilelayout_l1">Delta-v for change orbit inclination to 0</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL 
@@ -827,6 +830,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var elStarting_point_Altitude_orbital_velocity = document.querySelector('#Starting_point_Altitude_orbital_velocity');
 	var elAbsolute_orbital_velocity = document.querySelector('#Absolute_orbital_velocity');
 	var elOrbital_period = document.querySelector('#Orbital_period');
+	var elTransfer_time = document.querySelector('#Transfer_time');
 
 	var elApogee_velocity = document.querySelector('#Apogee_velocity');
 	var elPerigee_velocity = document.querySelector('#Perigee_velocity');
@@ -1001,15 +1005,15 @@ input[type=range]:focus::-ms-fill-upper {
 
 
 	var s_orbit_count = 9;
-	var s_orbit_data = [["LEO",  200,     0,-1,  0,"Low Earth orbit"],
-			   ["ISS",   409,   418,51.6,0,"International Space Station orbit"],
-			   ["SSO",   500,     0, 98, 0,"Sun-synchronous orbit"],
-			   ["MEO",   20200,   0, 55, 0,"Medium Earth orbit (GPS satellites)"],
-			   ["GTO",   200, 35786, -1, 0,"Geosynchronous transfer orbit"],
-			   ["GEO",   35786,   0, -1, 0,"Geosynchronous equatorial orbit"],
-			   ["Moon",  200,     0, -1, 3100,"Trans-Lunar injection orbit"],
-			   ["Mars",  200,     0, -1, 3613,"Trans-Mars injection orbit"],
-			   ["Venus", 200,     0, -1, 3506,"Trans-Venus injection orbit"]];
+	var s_orbit_data = [["LEO",  200,     0,-1,  0,		0,"Low Earth orbit"],
+			   ["ISS",   409,   418,51.6,0,		0,"International Space Station orbit"],
+			   ["SSO",   500,     0, 98, 0,		0,"Sun-synchronous orbit"],
+			   ["MEO",   20200,   0, 55, 0,		0,"Medium Earth orbit (GPS satellites)"],
+			   ["GTO",   200, 35786, -1, 0,		0,"Geosynchronous transfer orbit"],
+			   ["GEO",   35786,   0, -1, 0,		0,"Geosynchronous equatorial orbit"],
+			   ["Moon",  200,     0, -1, 3100  ,283107,"Trans-Lunar injection orbit"],
+			   ["Mars",  200,     0, -1, 3613,11059200,"Trans-Mars injection orbit"],
+			   ["Venus", 200,     0, -1, 3506, 8380800,"Trans-Venus injection orbit"]];
 							  
 	var s_stages_count = 2;
 	var s_stages_name = ["2", "3"];
@@ -1172,6 +1176,21 @@ input[type=range]:focus::-ms-fill-upper {
 		return degrees * (Math.PI/180.);
 	}
 
+	function Sec2Day(a)
+	{
+		d=Math.floor(a/86400);
+		a-=86400*d;
+		h=Math.floor(a/3600);
+		a-=3600*h;
+		m=Math.floor(a/60);if(m<10){m='0'+m};
+		s=(a-60*m).toFixed(0);if(s<10){s='0'+s};
+		if (d == 0)
+		{return h+":"+m+":"+s;}
+		else
+		{return d+"d "+h+":"+m+":"+s;}
+
+	}
+
 	function CalculateTargetVelocity()
 	{
 		var Starting_point_Altitude = parseFloat(elStarting_point_Altitude.value);
@@ -1216,9 +1235,9 @@ input[type=range]:focus::-ms-fill-upper {
 		elApogee_velocity.textContent = Apogee_velocity.toFixed(1);
 
 		var Orbital_period = (Orbit_Apogee == 0) ?
-			2.*Math.PI/Math.sqrt(398600.5)*Math.pow(6371+Orbit_Perigee, 3./2.)/60. :
-			2.*Math.PI/Math.sqrt(398600.5)*Math.pow(6371+.5*(Orbit_Perigee+Orbit_Apogee), 3./2.)/60.;
-		elOrbital_period.textContent = Orbital_period.toFixed(2);
+			2.*Math.PI/Math.sqrt(398600.5)*Math.pow(6371+Orbit_Perigee, 3./2.) :
+			2.*Math.PI/Math.sqrt(398600.5)*Math.pow(6371+.5*(Orbit_Perigee+Orbit_Apogee), 3./2.);
+		elOrbital_period.textContent = Sec2Day(Orbital_period);
 
 		var Vsp_for_inclination_change = (elOrbit.selectedIndex == 5) ?
 //			2*1597.*Math.sin(Math.abs(Deg2Rad(Orbit_Inclination)/2.)) :
@@ -1497,6 +1516,15 @@ input[type=range]:focus::-ms-fill-upper {
 //		elTransfer_Orbit_stage_run_time.textContent = (Transfer_Orbit_stage_propellant_mass/100.*(100.-Unused_propellant_of_Transfer_Orbit_Stage)/(Transfer_Orbit_stage_total_Start_mass*0.5/Transfer_Orbit_Stage_isp)).toFixed(0);
 		elSecond_stage_max_acc.textContent = (Second_stage_total_Start_mass/Second_stage_final_mass*Thrust_to_weight_ratio_2nd).toFixed(1);
 
+		var Orbit_Apogee = parseFloat(elOrbit_Apogee.value);
+		if (Orbit_Apogee == 0)Orbit_Apogee = parseFloat(elOrbit_Perigee.value);
+		var a = 0.5 * (200 + 2 * 6371. + Orbit_Apogee);
+		var transfertime = -2650 + 0.5 * 2.0 * Math.PI * Math.sqrt( a * a * a / 398600.4418 ) + parseFloat(elFirst_stage_run_time.textContent) + parseFloat(elSecond_stage_run_time.textContent);
+		if(elOrbit.selectedIndex < 6)		
+			{elTransfer_time.textContent = Sec2Day(transfertime);}
+		else
+			{elTransfer_time.textContent = Sec2Day(s_orbit_data[elOrbit.selectedIndex][5]);}
+
 	}
 
 	function Calculate()
@@ -1588,7 +1616,7 @@ input[type=range]:focus::-ms-fill-upper {
 		
 		elOrbit_Apogee.value = s_orbit_data[elOrbit.selectedIndex][2];
 
-		elOrbitDescription.textContent = s_orbit_data[elOrbit.selectedIndex][5];
+		elOrbitDescription.textContent = s_orbit_data[elOrbit.selectedIndex][6];
 			
 		if (s_orbit_data[elOrbit.selectedIndex][3] < 0)
 			elOrbit_Inclination.value = s_start_point_data[elStartingPoint.selectedIndex][4];
@@ -2741,7 +2769,7 @@ input[type=range]:focus::-ms-fill-upper {
 			var opt = document.createElement('option');
 			opt.value = s_orbit_data[i][0];
 			opt.innerHTML = s_orbit_data[i][0];
-			opt.title=s_orbit_data[i][5];
+			opt.title=s_orbit_data[i][6];
 			elOrbit.appendChild(opt);
 		}
 		elOrbit.addEventListener('change', updateOrbitAndCalc);
