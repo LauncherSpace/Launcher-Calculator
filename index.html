@@ -657,7 +657,7 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD title="The time a given satellite takes to complete one orbit around Earth"><div class="mobilelayout_l1">Orbital Period</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Orbital_period"></LABEL><span> s &emsp;</span></h8></div></TD></TR>
 						<TR class="Expanding">
-					  <TD title="Transfer time from lift off to the Orbit Apogee or to reach the Planet. &#013;Travel time to planets depends on the launch time and many other reasons, &#013;the given time is approximate and close to the practicable low."><div class="mobilelayout_l1">Transfer time</div></TD>
+					  <TD title="Transfer time from lift off to the Orbit Apogee or to reach the Planet. &#013;Travel time to planets depends on the launch date and many other reasons, &#013;the given time is approximate and close to the practicable low."><div class="mobilelayout_l1">Transfer time</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Transfer_time"></LABEL><span> s &emsp;</span></h8></div></TD></TR>
 						<TR class="fGEO">
 					  <TD title="Velocity increment needed to achieve zero inclination within a Geosynchronous orbit&#013;if the inclination of the Geosynchronous Transfer Orbit is not a zero. &#013;Usually this velocity increment is added at the apogee of the Geosynchronous Transfer Orbit."><div class="mobilelayout_l1">Delta-v for change orbit inclination to 0</div></TD>
@@ -1519,7 +1519,8 @@ input[type=range]:focus::-ms-fill-upper {
 		var Orbit_Apogee = parseFloat(elOrbit_Apogee.value);
 		if (Orbit_Apogee == 0)Orbit_Apogee = parseFloat(elOrbit_Perigee.value);
 		var a = 0.5 * (200 + 2 * 6371. + Orbit_Apogee);
-		var transfertime = -2650 + 0.5 * 2.0 * Math.PI * Math.sqrt( a * a * a / 398600.4418 ) + parseFloat(elFirst_stage_run_time.textContent) + parseFloat(elSecond_stage_run_time.textContent);
+//		var transfertime =  0.5 * 2.0 * Math.PI * Math.sqrt( a * a * a / 398600.4418 ) + parseFloat(elFirst_stage_run_time.textContent) + parseFloat(elSecond_stage_run_time.textContent);
+		var transfertime = -2650*200/Orbit_Apogee + 0.5 * 2.0 * Math.PI * Math.sqrt( a * a * a / 398600.4418 ) + parseFloat(elFirst_stage_run_time.textContent) + parseFloat(elSecond_stage_run_time.textContent);
 		if(elOrbit.selectedIndex < 6)		
 			{elTransfer_time.textContent = Sec2Day(transfertime);}
 		else
