@@ -630,7 +630,7 @@ input[type=range]:focus::-ms-fill-upper {
 				  <TR >
 					<TD>
 						<div class="spacetitle topspace">
-							<FONT class="leftTitle" size="5" title="Choose the Orbit you want to reach. &#013;Orbits for flights to planets only mean reaching these planets, &#013; not arrival in their orbits or landing. &#013;Delta-V calculation does not take into account the possibility&#013; of gravity assist maneuvering, which is usually used for flights &#013; to the distant planets such as Pluto.">Orbit</FONT><div class="spaceheder2cont"> <SELECT id="Orbit" title="Orbit or Planet to reach"></SELECT>	 
+							<FONT class="leftTitle" size="5" title="Choose the Orbit you want to reach. &#013;Orbits for flights to planets only mean reaching these planets, &#013; not arrival in their orbits or landing. &#013;Delta-V calculation does not take into account the possibility&#013; of gravity assist maneuvering, which is usually used for flights &#013; to the distant planets such as Jupiter or Pluto.">Orbit</FONT><div class="spaceheder2cont"> <SELECT id="Orbit" title="Orbit or Planet to reach"></SELECT>	 
 						  <FONT size="2"><LABEL id="OrbitDescription"></LABEL></div></FONT>
 					  </div>
 					  <TABLE border="1" class="borderTable">
@@ -1004,7 +1004,7 @@ input[type=range]:focus::-ms-fill-upper {
 				  ["Stornoway (UK)", 	58.2,	6.3,	 0,  58.2, "Isle of Lewis, Scotland"]];
 
 
-	var s_orbit_count = 12;
+	var s_orbit_count = 14;
 	var s_orbit_data = [["LEO",  200,     0,-1,  0,		0,"Low Earth orbit"],
 			   ["ISS",   409,   418,51.6,0,		0,"International Space Station orbit"],
 			   ["SSO",   500,     0, 98, 0,		0,"Sun-synchronous orbit"],
@@ -1016,7 +1016,9 @@ input[type=range]:focus::-ms-fill-upper {
 			   ["Moon",  200,     0, -1, 3100  ,283107,"Trans-Lunar injection orbit"],
 			   ["Mars",  200,     0, -1, 3613,11318400,"Trans-Mars injection orbit"],
 			   ["Venus", 200,     0, -1, 3506, 8380800,"Trans-Venus injection orbit"],
-			   ["Pluto", 200,     0, -1, 8200, 1434240000,"Trans-Pluto injection orbit"]];
+			   ["Mercury",200,     0, -1, 5554, 9115200,"Trans-Mercury injection orbit"],
+			   ["Jupiter",200,     0, -1, 6304, 86140800,"Trans-Jupiter injection orbit"],
+			   ["Pluto", 200,     0, -1, 8364, 1437868800,"Trans-Pluto injection orbit"]];
 							  
 	var s_stages_count = 2;
 	var s_stages_name = ["2", "3"];
