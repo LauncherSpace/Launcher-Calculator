@@ -1202,12 +1202,14 @@ input[type=range]:focus::-ms-fill-upper {
 		var Additional_Speed = parseFloat(elAdditional_Speed.value);
 		var Orbit_Perigee = parseFloat(elOrbit_Perigee.value);
 		var Orbit_Apogee = parseFloat(elOrbit_Apogee.value);
+		if (Orbit_Apogee == 0.) Orbit_Apogee = Orbit_Perigee;
 		var Spaceport_latitude = parseFloat(elSpaceport_latitude.value);
 		var Orbit_Inclination;
 		if (elOrbit.selectedIndex == 2)
 		{
 //			Orbit_Inclination = 95.7+.00296*Orbit_Perigee+7.97e-7*Orbit_Perigee*Orbit_Perigee;
-			Orbit_Inclination = Rad2Deg(Math.acos(-4.755411e-15*Math.pow(6371.+Orbit_Perigee,3.5)));
+			var Eccentr=1.-((6371.+Orbit_Perigee)/((6371.+Orbit_Perigee+6371.+Orbit_Apogee)/2.))
+			Orbit_Inclination = Rad2Deg(Math.acos(-4.755411e-15*Math.pow(6371.+Orbit_Perigee,3.5)*Math.pow(1.-Eccentr*Eccentr,2)));
 			elOrbit_Inclination.value = Orbit_Inclination.toFixed(2);
 		} else
 			Orbit_Inclination = parseFloat(elOrbit_Inclination.value);
