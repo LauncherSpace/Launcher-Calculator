@@ -1215,9 +1215,10 @@ input[type=range]:focus::-ms-fill-upper {
 			Orbit_Inclination = parseFloat(elOrbit_Inclination.value);
 		
 		var Extra_speed_for_flight_to_the_planets = parseFloat(elExtra_speed_for_flight_to_the_planets.value);
-		var Intermediate_angle = Math.abs(Orbit_Inclination) > Math.abs(Spaceport_latitude) ?
-				(Rad2Deg(Math.asin(Math.cos(Deg2Rad(Orbit_Inclination))/Math.cos(Deg2Rad(Spaceport_latitude))))) :
-				(90.-Rad2Deg(Math.asin(1.-(Math.cos(Deg2Rad(Orbit_Inclination))/Math.cos(Deg2Rad(Spaceport_latitude))))));
+//		if (Math.abs(Orbit_Inclination) > Math.abs(Spaceport_latitude))
+			var Intermediate_angle = Rad2Deg(Math.asin(Math.cos(Deg2Rad(Orbit_Inclination))/Math.cos(Deg2Rad(Spaceport_latitude))));
+//		else
+//			Intermediate_angle = 90.-Rad2Deg(Math.asin(1.-(Math.cos(Deg2Rad(Orbit_Inclination))/Math.cos(Deg2Rad(Spaceport_latitude)))));
 		elIntermediate_angle.textContent = Intermediate_angle.toFixed(2);
 		
 		var earth_radius = 6371.;
@@ -1232,19 +1233,13 @@ input[type=range]:focus::-ms-fill-upper {
 		var Absolute_orbital_velocity = Math.sqrt(gravity_const/(earth_radius+Orbit_Perigee));
 		elAbsolute_orbital_velocity.textContent = Absolute_orbital_velocity.toFixed(1);
 		
-		var Perigee_velocity = (Orbit_Apogee == 0) ?
-			1000.*Math.sqrt(398600.5*(2./(6371.+Orbit_Perigee)-1/(6371.+Orbit_Perigee))) :
-			1000.*Math.sqrt(398600.5*(2./(6371.+Orbit_Perigee)-1/(6371.+.5*(Orbit_Perigee+Orbit_Apogee))));
+		var Perigee_velocity = 1000.*Math.sqrt(398600.5*(2./(6371.+Orbit_Perigee)-1/(6371. +(Orbit_Perigee+Orbit_Apogee)/2.)));
 		elPerigee_velocity.textContent = Perigee_velocity.toFixed(1);
 
-		var Apogee_velocity = (Orbit_Apogee == 0) ?
-			Perigee_velocity :
-			1000.*Math.sqrt(398600.5*(2./(6371.+Orbit_Apogee)-1/(6371.+.5*(Orbit_Perigee+Orbit_Apogee))));
+		var Apogee_velocity = 1000.*Math.sqrt(398600.5*(2./(6371.+Orbit_Apogee)-1/(6371. +(Orbit_Perigee+Orbit_Apogee)/2.)));
 		elApogee_velocity.textContent = Apogee_velocity.toFixed(1);
 
-		var Orbital_period = (Orbit_Apogee == 0) ?
-			2.*Math.PI/Math.sqrt(398600.5)*Math.pow(6371+Orbit_Perigee, 3./2.) :
-			2.*Math.PI/Math.sqrt(398600.5)*Math.pow(6371+.5*(Orbit_Perigee+Orbit_Apogee), 3./2.);
+		var Orbital_period = 2.*Math.PI/Math.sqrt(398600.5)*Math.pow(6371. +(Orbit_Perigee+Orbit_Apogee)/2., 3./2.);
 		elOrbital_period.textContent = Sec2Day(Orbital_period);
 
 		var Vsp_for_inclination_change = (elOrbit.selectedIndex == 5) ?
