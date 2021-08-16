@@ -1242,23 +1242,22 @@ input[type=range]:focus::-ms-fill-upper {
 		var Orbital_period = 2.*Math.PI/Math.sqrt(398600.5)*Math.pow(6371. +(Orbit_Perigee+Orbit_Apogee)/2., 3./2.);
 		elOrbital_period.textContent = Sec2Day(Orbital_period);
 
-		var Vsp_for_inclination_change = (elOrbit.selectedIndex == 5) ?
-//			2*3075.*Math.sin(Math.abs(Deg2Rad(Orbit_Inclination)/2.)) :
-			-3.215E-3*Math.pow(Orbit_Inclination,3) + .5134*Math.pow(Orbit_Inclination,2) + .571*Orbit_Inclination :
-			0.;
+		if (elOrbit.selectedIndex == 5) var Vsp_for_inclination_change = -3.215E-3*Math.pow(Orbit_Inclination,3) + .5134*Math.pow(Orbit_Inclination,2) + .571*Orbit_Inclination;
+		else
+						Vsp_for_inclination_change = 0;
 		elVsp_for_inclination_change.textContent = Vsp_for_inclination_change.toFixed(1);
 		
 		var tmp_velocity = Math.sqrt(Launch_point_speed*Launch_point_speed + Absolute_orbital_velocity*Absolute_orbital_velocity
 										-2.*Launch_point_speed*Absolute_orbital_velocity*Math.sin(Deg2Rad(Intermediate_angle)));
 
-		var Orbital_velocity = (465.*Math.cos(Deg2Rad(Orbit_Inclination)) < Absolute_orbital_velocity) ?
-								tmp_velocity : -tmp_velocity;
+		if (465.*Math.cos(Deg2Rad(Orbit_Inclination)) < Absolute_orbital_velocity)  var Orbital_velocity = tmp_velocity;
+		else										Orbital_velocity = -tmp_velocity; 
 
 //		tmp_velocity = Math.sqrt(Launch_point_speed*Launch_point_speed + Absolute_orbital_velocity*Absolute_orbital_velocity
 //										-2.*Launch_point_speed*Absolute_orbital_velocity*Math.sin(Deg2Rad(Intermediate_angle)+1e-7));
 
-		var Orbital_velocity_ = (465.*Math.cos(Deg2Rad(Orbit_Inclination)) < Absolute_orbital_velocity) ?
-								tmp_velocity : -tmp_velocity;
+		if(465.*Math.cos(Deg2Rad(Orbit_Inclination)) < Absolute_orbital_velocity) var Orbital_velocity_ = tmp_velocity;
+		else									      Orbital_velocity_ = -tmp_velocity;					
 
 		elOrbital_velocity.textContent = Orbital_velocity.toFixed(1);
 		
@@ -1282,11 +1281,10 @@ input[type=range]:focus::-ms-fill-upper {
 				+Absolute_orbital_velocity*(1.-Absolute_orbital_velocity/Math.sqrt(.5*(Starting_point_Altitude_orbital_velocity*Starting_point_Altitude_orbital_velocity+Absolute_orbital_velocity*Absolute_orbital_velocity)))
 				-Orbital_velocity_increment_due_to_the_Earth_rotation -Additional_Speed +Vsp_for_inclination_change;
 		elVsp_for_circular_orbit.textContent = Vsp_for_circular_orbit.toFixed(1);
-		
-		Vsp_for_target_orbit = (Orbit_Apogee == 0) ?
-			Vsp_for_circular_orbit +Extra_speed_for_flight_to_the_planets : 
-			(Vsp_for_circular_orbit +Extra_speed_for_flight_to_the_planets
-			  +Absolute_orbital_velocity*(Absolute_orbital_velocity/Math.sqrt(.5*(Absolute_orbital_velocity*Absolute_orbital_velocity+gravity_const/(earth_radius+Orbit_Apogee)))-1.));
+		                   
+		if (Orbit_Apogee == 0)  Vsp_for_target_orbit = Vsp_for_circular_orbit +Extra_speed_for_flight_to_the_planets;
+		else			Vsp_for_target_orbit = Vsp_for_circular_orbit +Extra_speed_for_flight_to_the_planets
+								  +Absolute_orbital_velocity*(Absolute_orbital_velocity/Math.sqrt(.5*(Math.pow(Absolute_orbital_velocity,2)+gravity_const/(earth_radius+Orbit_Apogee)))-1.);
 		elVsp_for_target_orbit.textContent = Vsp_for_target_orbit.toFixed(1);
 
 		var Injection_velocity = Vsp_for_target_orbit+Orbital_velocity_increment_due_to_the_Earth_rotation;
@@ -1349,7 +1347,8 @@ input[type=range]:focus::-ms-fill-upper {
 			var Second_stage_dry_mass = Second_stage_wet_mass - Second_stage_propellant_mass;
 			var Second_stage_total_thrust = (Rocket_Mass+Fairing_mass + Payload_mass_calculated - First_stage_wet_mass)*Thrust_to_weight_ratio_2nd;
 			if(elRocket.selectedIndex == 0) Second_stage_total_thrust = elSecond_stage_engine_thrust.value*elSecond_stage_engines_number.value;
-			var Transfer_Orbit_stage_dry_mass = v3rd_Stage_mass_ratio == 0 ? 0 : ((Rocket_Mass*v3rd_Stage_mass_ratio/100.)*v3rd_Dry_to_Wet_mass_ratio/100.);
+			if(v3rd_Stage_mass_ratio == 0)var Transfer_Orbit_stage_dry_mass = 0;
+			else				  Transfer_Orbit_stage_dry_mass = (Rocket_Mass*v3rd_Stage_mass_ratio/100.)*v3rd_Dry_to_Wet_mass_ratio/100.;			
 			var Transfer_Orbit_stage_propellant_mass = (Rocket_Mass*v3rd_Stage_mass_ratio/100.) - Transfer_Orbit_stage_dry_mass;		     	
 		} else
 		{
@@ -1372,10 +1371,8 @@ input[type=range]:focus::-ms-fill-upper {
 				(Const2*(Const/First_stage_isp_sea_level)*
 				((Thrust_to_weight_ratio-1.)*9.81)-(1.-Const2*(Const/First_stage_isp_sea_level))*9.81))))*9.81));
 		
-		var Gravity_losses = 4./3.*
-		((Thrust_to_weight_ratio<1.46)
-				? Gravity_losses_at_specific_altitude*(1.5+2.5*(Thrust_to_weight_ratio-1.17)-4.25*(Thrust_to_weight_ratio-1.17)*(Thrust_to_weight_ratio-1.17))
-				: 1.865*Gravity_losses_at_specific_altitude);
+		if (Thrust_to_weight_ratio<1.46) var Gravity_losses = 4./3.* Gravity_losses_at_specific_altitude*(1.5+2.5*(Thrust_to_weight_ratio-1.17)-4.25*(Thrust_to_weight_ratio-1.17)*(Thrust_to_weight_ratio-1.17));
+		else 				     Gravity_losses = 4./3.* 1.865*Gravity_losses_at_specific_altitude;
 
 		//=== Additional losses calculation by J.Schilling ===
 		var Ascent_Time = 519;
@@ -1399,10 +1396,9 @@ input[type=range]:focus::-ms-fill-upper {
 		for (itt = 1; itt <= 5; ++itt)
 		{
 			Lift_off_Mass = Rocket_Mass + Fairing_mass + Payload_mass;
-			var Aerodynamic_losses = Math.exp(-Starting_point_Altitude/7.16)/(Lift_off_Mass/2945000)*Math.pow(Max_midsection_D/10.1, 2.) *
-			((Thrust_to_weight_ratio>1.17)
-				? (.045+.1*Math.pow(Thrust_to_weight_ratio-1.17, 1.5))*1000.
-				: (.045+.1*(1.3332*Thrust_to_weight_ratio*Thrust_to_weight_ratio-2.9399*Thrust_to_weight_ratio+1.6148))*1000.);
+			if (Thrust_to_weight_ratio>1.17) var Aerodynamic_losses = Math.exp(-Starting_point_Altitude/7.16)/(Lift_off_Mass/2945000)*Math.pow(Max_midsection_D/10.1, 2.) * (.045+.1*Math.pow(Thrust_to_weight_ratio-1.17, 1.5))*1000.;
+
+			else 				     Aerodynamic_losses = Math.exp(-Starting_point_Altitude/7.16)/(Lift_off_Mass/2945000)*Math.pow(Max_midsection_D/10.1, 2.) *	(.045+.1*(1.3332*Thrust_to_weight_ratio*Thrust_to_weight_ratio-2.9399*Thrust_to_weight_ratio+1.6148))*1000.;
 		
 			var Summary_losses = Gravity_losses+Aerodynamic_losses+145.;
 			var Vsp_with_losses = Vsp_for_target_orbit+Summary_losses-242.5;
@@ -1410,7 +1406,8 @@ input[type=range]:focus::-ms-fill-upper {
 			var First_stage_final_mass = Lift_off_Mass-First_stage_propellant_mass/100.*(100.-Unused_propellant_of_1st_Stage);
 			var First_stage_delta_v = 9.80665*First_stage_average_trajectory_isp*Math.log(Lift_off_Mass/First_stage_final_mass);
 
-			var Fairing_jettison_delta_v = (Fairing_jettison_velocity*1.2 > First_stage_delta_v) ? Fairing_jettison_velocity*1.2 : First_stage_delta_v+100.;
+			if (Fairing_jettison_velocity*1.2 > First_stage_delta_v) var Fairing_jettison_delta_v = Fairing_jettison_velocity*1.2;
+			else							     Fairing_jettison_delta_v = First_stage_delta_v+100.;
 			var Second_stage_delta_v_before_fairing_jettison = Fairing_jettison_delta_v-First_stage_delta_v;
 			var Second_stage_total_Start_mass = Lift_off_Mass - First_stage_wet_mass;
 			var Second_stage_total_mass_before_fairing_jettison =1./(Math.exp((Fairing_jettison_delta_v-First_stage_delta_v)/(Second_stage_isp_vac*9.80665))/Second_stage_total_Start_mass);
@@ -1437,8 +1434,9 @@ input[type=range]:focus::-ms-fill-upper {
 				Second_stage_delta_v = Second_stage_delta_v_before_fairing_jettison
 					+ Second_stage_delta_v_before_battery_jettison
 					+9.80665*Second_stage_isp_vac*Math.log((Second_stage_total_mass_before_battery_jettison-Jettisoned_battery_mass)/Second_stage_final_mass);
-				Transfer_Orbit_stage_delta_v_required = v3rd_Stage_mass_ratio == 0 ? 0 :
-					(Vsp_with_losses-First_stage_delta_v-Second_stage_delta_v);
+				if (v3rd_Stage_mass_ratio == 0) Transfer_Orbit_stage_delta_v_required = 0;
+				else 
+								Transfer_Orbit_stage_delta_v_required = Vsp_with_losses-First_stage_delta_v-Second_stage_delta_v;
 				Transfer_Orbit_stage_total_Start_mass = Second_stage_final_mass+Jettisoned_battery_mass-Second_stage_dry_mass-Second_stage_propellant_mass/100.*Unused_propellant_of_2nd_Stage;
 				Transfer_Orbit_stage_final_mass = 1./(Math.exp(Transfer_Orbit_stage_delta_v_required/(Transfer_Orbit_Stage_isp*9.80665))/Transfer_Orbit_stage_total_Start_mass);
 				Payload_mass_calculated = (Transfer_Orbit_stage_final_mass-Transfer_Orbit_stage_dry_mass-Transfer_Orbit_stage_propellant_mass/100.*Unused_propellant_of_Transfer_Orbit_Stage); 
