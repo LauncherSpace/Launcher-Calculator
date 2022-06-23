@@ -1516,7 +1516,7 @@ input[type=range]:focus::-ms-fill-upper {
 		elTransfer_Orbit_stage_final_mass.textContent = Transfer_Orbit_stage_final_mass.toFixed(1);
 		elTransfer_Orbit_stage_dry_mass.value = Transfer_Orbit_stage_dry_mass.toFixed(1);
 		elTransfer_Orbit_stage_propellant_mass.value = Transfer_Orbit_stage_propellant_mass.toFixed(1);
-		elFirst_stage_total_impulse.textContent = (9.81 * First_stage_propellant_mass/100.*(100.-Unused_propellant_of_1st_Stage)*First_stage_isp_vac).toExponential(3);
+		elFirst_stage_total_impulse.textContent = (9.80665 * First_stage_propellant_mass/100.*(100.-Unused_propellant_of_1st_Stage)*First_stage_average_trajectory_isp).toExponential(3);
 		elFirst_stage_run_time.textContent = (First_stage_propellant_mass/100.*(100.-Unused_propellant_of_1st_Stage)/(Lift_off_Mass*Thrust_to_weight_ratio/First_stage_isp_sea_level)).toFixed(0);
 		elFirst_stage_max_acc.textContent = (Lift_off_Mass/First_stage_final_mass*Thrust_to_weight_ratio).toFixed(1);
 		if (elRocket.selectedIndex == 0)
@@ -1527,10 +1527,10 @@ input[type=range]:focus::-ms-fill-upper {
 			Thrust_to_weight_ratio_2nd = Second_stage_engines_number*elSecond_stage_engine_thrust.value/(Rocket_Mass*el2nd_Stage_mass_ratio.value/100.+Fairing_mass+Payload_mass);
 			elThrust_to_weight_ratio_2nd.value = Thrust_to_weight_ratio_2nd.toFixed(3);  
 		} 
-		elSecond_stage_total_impulse.textContent = (9.81 * Second_stage_propellant_mass/100.*(100.-Unused_propellant_of_2nd_Stage)*Second_stage_isp_vac).toExponential(3);
+		elSecond_stage_total_impulse.textContent = (9.80665 * Second_stage_propellant_mass/100.*(100.-Unused_propellant_of_2nd_Stage)*Second_stage_isp_vac).toExponential(3);
 		elSecond_stage_run_time.textContent = (Second_stage_propellant_mass/100.*(100.-Unused_propellant_of_2nd_Stage)/(Second_stage_total_Start_mass*Thrust_to_weight_ratio_2nd/Second_stage_isp_vac)).toFixed(0);
 //		elTransfer_Orbit_stage_run_time.textContent = (Transfer_Orbit_stage_propellant_mass/100.*(100.-Unused_propellant_of_Transfer_Orbit_Stage)/(Transfer_Orbit_stage_total_Start_mass*0.5/Transfer_Orbit_Stage_isp)).toFixed(0);
-		elTransfer_Orbit_stage_total_impulse.textContent = (9.81 * Transfer_Orbit_stage_propellant_mass/100.*(100.-Unused_propellant_of_Transfer_Orbit_Stage)*parseFloat(elTransfer_Orbit_Stage_isp.value)).toExponential(3);
+		elTransfer_Orbit_stage_total_impulse.textContent = (9.80665 * Transfer_Orbit_stage_propellant_mass/100.*(100.-Unused_propellant_of_Transfer_Orbit_Stage)*parseFloat(elTransfer_Orbit_Stage_isp.value)).toExponential(3);
 		elSecond_stage_max_acc.textContent = (Second_stage_total_Start_mass/Second_stage_final_mass*Thrust_to_weight_ratio_2nd).toFixed(1);
 
 		var Orbit_Apogee = parseFloat(elOrbit_Apogee.value);
