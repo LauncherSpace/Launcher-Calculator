@@ -722,6 +722,9 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD title="The total thrust of the first stage engines."><div class="mobilelayout_l1">1st&ensp;stage total thrust</div></TD>
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="First_stage_total_thrust"><span> kgf</span></div></TD></TR>
 						<TR class="Expanding">
+					  <TD title="Engines thrust multiplied by approximate run time."><div class="mobilelayout_l1">1st&ensp;stage total impulse</div></TD>
+					  <TD><div class="mobilelayout_r2"><h8><LABEL id="First_stage_total_impulse"></LABEL> <span>N*s</span></h9></div></TD></TR>
+						<TR class="Expanding">
 					  <TD title="Approximate engines run time&#013;This is usually less than the real time&#013;because it does not take into account&#013;the real thrust profile."><div class="mobilelayout_l1">1st&ensp;stage engines run time</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="First_stage_run_time"></LABEL> <span>s&emsp;</span></h9></div></TD></TR>
 						<TR class="Expanding">
@@ -756,6 +759,9 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD title="The total thrust of the second stage engines."><div class="mobilelayout_l1">2nd stage total thrust</div></TD>
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Second_stage_total_thrust"><span>kgf&ensp;</span></div></TD></TR>
 						<TR class="Expanding">
+					  <TD title="Engines thrust multiplied by approximate run time."><div class="mobilelayout_l1">2nd&ensp;stage total impulse</div></TD>
+					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Second_stage_total_impulse"></LABEL> <span>N*s</span></h9></div></TD></TR>
+						<TR class="Expanding">
 					  <TD title="Approximate engine run time"><div class="mobilelayout_l1">2nd&ensp;stage engine run time</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Second_stage_run_time"></LABEL> <span>s&emsp;</span></h9></div></TD></TR>
 						<TR class="Expanding">
@@ -779,6 +785,9 @@ input[type=range]:focus::-ms-fill-upper {
 						<TR class="Expanding3">
 					  <TD title="The mass of the third stage plus contents."><div class="mobilelayout_l1">Transfer Orbit stage dry mass</div></TD>
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="Transfer_Orbit_stage_dry_mass"><span> kg</span></div></TD></TR>
+						<TR class="Expanding3">
+					  <TD title="Engine thrust multiplied by approximate run time."><div class="mobilelayout_l1">Transfer Orbit stage total impulse</div></TD>
+					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Transfer_Orbit_stage_total_impulse"></LABEL> <span>N*s</span></h9></div></TD></TR>
 			  
 						<TR>
 					  <TD class="tdpadd1" title="The procedure error - it should not be equated with actual accuracy of the result."><div class="mobilelayout_l1">Calculation Error</div></TD>
@@ -922,6 +931,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var elFirst_stage_propellant_mass = document.querySelector('#First_stage_propellant_mass');
 	var elFirst_stage_dry_mass = document.querySelector('#First_stage_dry_mass');
 	var elFirst_stage_total_thrust = document.querySelector('#First_stage_total_thrust');
+	var elFirst_stage_total_impulse = document.querySelector('#First_stage_total_impulse');
 	var elFirst_stage_run_time = document.querySelector('#First_stage_run_time');
 	var elFirst_stage_max_acc = document.querySelector('#First_stage_max_acc');
 
@@ -935,6 +945,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var elSecond_stage_propellant_mass = document.querySelector('#Second_stage_propellant_mass');
 	var elSecond_stage_dry_mass = document.querySelector('#Second_stage_dry_mass');
 	var elSecond_stage_total_thrust = document.querySelector('#Second_stage_total_thrust');
+	var elSecond_stage_total_impulse = document.querySelector('#Second_stage_total_impulse');
 	var elSecond_stage_run_time = document.querySelector('#Second_stage_run_time');
 	var elSecond_stage_max_acc = document.querySelector('#Second_stage_max_acc');
 	
@@ -943,6 +954,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var elTransfer_Orbit_stage_final_mass = document.querySelector('#Transfer_Orbit_stage_final_mass');
 	var elTransfer_Orbit_stage_propellant_mass = document.querySelector('#Transfer_Orbit_stage_propellant_mass');
 	var elTransfer_Orbit_stage_dry_mass = document.querySelector('#Transfer_Orbit_stage_dry_mass');
+	var elTransfer_Orbit_stage_total_impulse = document.querySelector('#Transfer_Orbit_stage_total_impulse');
 	var elCalculation_Error = document.querySelector('#Calculation_Error');
 
 	var elPayload_mass_calculated  = document.querySelector('#Payload_mass_calculated');
@@ -1504,7 +1516,7 @@ input[type=range]:focus::-ms-fill-upper {
 		elTransfer_Orbit_stage_final_mass.textContent = Transfer_Orbit_stage_final_mass.toFixed(1);
 		elTransfer_Orbit_stage_dry_mass.value = Transfer_Orbit_stage_dry_mass.toFixed(1);
 		elTransfer_Orbit_stage_propellant_mass.value = Transfer_Orbit_stage_propellant_mass.toFixed(1);
-
+		elFirst_stage_total_impulse.textContent = (9.81 * First_stage_propellant_mass/100.*(100.-Unused_propellant_of_1st_Stage)*First_stage_isp_vac).toExponential(3);
 		elFirst_stage_run_time.textContent = (First_stage_propellant_mass/100.*(100.-Unused_propellant_of_1st_Stage)/(Lift_off_Mass*Thrust_to_weight_ratio/First_stage_isp_sea_level)).toFixed(0);
 		elFirst_stage_max_acc.textContent = (Lift_off_Mass/First_stage_final_mass*Thrust_to_weight_ratio).toFixed(1);
 		if (elRocket.selectedIndex == 0)
@@ -1515,8 +1527,10 @@ input[type=range]:focus::-ms-fill-upper {
 			Thrust_to_weight_ratio_2nd = Second_stage_engines_number*elSecond_stage_engine_thrust.value/(Rocket_Mass*el2nd_Stage_mass_ratio.value/100.+Fairing_mass+Payload_mass);
 			elThrust_to_weight_ratio_2nd.value = Thrust_to_weight_ratio_2nd.toFixed(3);  
 		} 
+		elSecond_stage_total_impulse.textContent = (9.81 * Second_stage_propellant_mass/100.*(100.-Unused_propellant_of_2nd_Stage)*Second_stage_isp_vac).toExponential(3);
 		elSecond_stage_run_time.textContent = (Second_stage_propellant_mass/100.*(100.-Unused_propellant_of_2nd_Stage)/(Second_stage_total_Start_mass*Thrust_to_weight_ratio_2nd/Second_stage_isp_vac)).toFixed(0);
 //		elTransfer_Orbit_stage_run_time.textContent = (Transfer_Orbit_stage_propellant_mass/100.*(100.-Unused_propellant_of_Transfer_Orbit_Stage)/(Transfer_Orbit_stage_total_Start_mass*0.5/Transfer_Orbit_Stage_isp)).toFixed(0);
+		elTransfer_Orbit_stage_total_impulse.textContent = (9.81 * Transfer_Orbit_stage_propellant_mass/100.*(100.-Unused_propellant_of_Transfer_Orbit_Stage)*parseFloat(elTransfer_Orbit_Stage_isp.value)).toExponential(3);
 		elSecond_stage_max_acc.textContent = (Second_stage_total_Start_mass/Second_stage_final_mass*Thrust_to_weight_ratio_2nd).toFixed(1);
 
 		var Orbit_Apogee = parseFloat(elOrbit_Apogee.value);
