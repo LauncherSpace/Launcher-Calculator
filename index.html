@@ -1068,7 +1068,7 @@ input[type=range]:focus::-ms-fill-upper {
 			       [ 9, 10, 20, 3, 3,   3, 335, 370, 390, 390],  //Lox/Meth
 			       [14, 14, 20, 3, 3,   3, 410, 450, 490, 490],  //Lox/LH2
 			       [7.4,8.4,20, 3, 3,   3, 293, 320, 341, 341],  //HTP/Ker
-			       [7.4,8.4,20, 3, 3,   3, 293, 320, 341, 341],  //N2O/C2H6
+			       [ 9, 10, 30, 3, 10, 10, 283, 310, 331, 331],  //N2O/C2H6
 			       [13, 13, 20, 1, 1,   1, 270, 300, 300, 300],  //Mono
 			       [13, 13, 20, 0, 0,   0, 290, 320, 320, 320]]; //Solid
 	
@@ -1076,7 +1076,7 @@ input[type=range]:focus::-ms-fill-upper {
 			       [6.2,5.2, 10, 1, 0.5, 0.5, 297, 327, 345, 345],  //Lox/Meth
 			       [10, 8.0, 10, 1, 0.5, 0.5, 363, 399, 434, 434],  //Lox/LH2
 			       [4.7,3.7, 10, 1, 0.5, 0.5, 259, 283, 302, 302],  //HTP/Ker 
-			       [4.7,3.7, 10, 1, 0.5, 0.5, 259, 283, 302, 302],  //N2O/C2H6 
+			       [6.2,5.2, 15, 1, 3.0, 3.0, 249, 273, 292, 292],  //N2O/C2H6 
 			       [8,  7.,  10, 0, 0.,  0.,  239, 266, 266, 266],  //Mono    
 			       [8,  7.,  10, 0, 0.,  0.,  257, 283, 283, 283]]; //Solid   
 
@@ -1741,13 +1741,13 @@ input[type=range]:focus::-ms-fill-upper {
 		var orsc_corr = 0.;
 		var ThrustToWeight_corr = 0;
 		var Weight_corr = 0.8
-		if(cycle == 3 || fuel == 5)Weight_corr = 0.4  //Pressure Fed or Solid
+		if(cycle == 3 || fuel == 6)Weight_corr = 0.4  //Pressure Fed or Solid
 		if(index == 0)ThrustToWeight_corr = Weight_corr*(elThrust_to_weight_ratio.value-1.2);
 		if(index == 1)ThrustToWeight_corr = Weight_corr*(elThrust_to_weight_ratio_2nd.value-0.9);
 
 		if(cycle == 0) orsc_corr = 0.5; //Staged Combustion
 		if(cycle == 2) orsc_corr = 0.5; //Electric
-		if(fuel == 5) {cycle_corr = 1.; orsc_corr = 0.;}
+		if(fuel == 6) {cycle_corr = 1.; orsc_corr = 0.;}
 		var val_min = (s_fuel_data_min[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 		var val_max = (s_fuel_data_max[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 		}
@@ -1761,8 +1761,8 @@ input[type=range]:focus::-ms-fill-upper {
 
 		cycle_corr = 1.;
 		if(index > 5) cycle_corr = s_cycle_data[cycle][index-6];
-		if(fuel == 4) cycle_corr = 1.;
 		if(fuel == 5) cycle_corr = 1.;
+		if(fuel == 6) cycle_corr = 1.;
 		var val_min = s_fuel_data_min[fuel][index]*cycle_corr + Reus_corr_;
 		var val_max = s_fuel_data_max[fuel][index]*cycle_corr + Reus_corr_;
 		}
