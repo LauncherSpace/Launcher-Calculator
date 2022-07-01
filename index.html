@@ -1465,9 +1465,10 @@ input[type=range]:focus::-ms-fill-upper {
 			var Assumed_payload_mass_base = parseFloat(elAssumed_payload_mass.value);
 	
 			elPayload_mass_calculated.textContent = Payload_mass_calculated.toFixed(1);
-			var Payload_change = (Payload_mass_calculated/Assumed_payload_mass_base* 100.).toFixed(1);
+			var Payload_change = (Payload_mass_calculated/Assumed_payload_mass_base *100.).toFixed(1);
 			elPayload_change.textContent = Payload_change;	
-			var Last_Payload_change =  ((Payload_mass_calculated - Last_Payload_mass) / Last_Payload_mass *100.).toFixed(1);
+//			var Last_Payload_change =  ((Payload_mass_calculated - Last_Payload_mass) / Last_Payload_mass *100.).toFixed(1);
+			var Last_Payload_change =  ((Payload_mass_calculated - Last_Payload_mass) / Assumed_payload_mass_base *100.).toFixed(1);
 			elLast_Payload_change.textContent = Last_Payload_change;	
 			if(Payload_mass_calculated > 100.)
 			 {
