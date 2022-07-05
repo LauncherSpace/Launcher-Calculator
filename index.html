@@ -1469,7 +1469,9 @@ input[type=range]:focus::-ms-fill-upper {
 			elPayload_change.textContent = Payload_change;	
 //			var Last_Payload_change =  ((Payload_mass_calculated - Last_Payload_mass) / Last_Payload_mass *100.).toFixed(1);
 			var Last_Payload_change =  ((Payload_mass_calculated - Last_Payload_mass) / Assumed_payload_mass_base *100.).toFixed(1);
-			elLast_Payload_change.textContent = Last_Payload_change;	
+			var Sign = "";
+			if (Last_Payload_change > 0.) Sign = "+";
+			elLast_Payload_change.textContent = Sign + Last_Payload_change;	
 			if(Payload_mass_calculated > 100.)
 			 {
 				var strComma = Math.round(Payload_mass_calculated);
