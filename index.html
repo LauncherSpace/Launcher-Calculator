@@ -1764,7 +1764,7 @@ input[type=range]:focus::-ms-fill-upper {
 		 }
 
 		cycle_corr = 1.;
-		if(index > 6) cycle_corr = s_cycle_data[cycle][index-6];
+		if(index > 5) cycle_corr = s_cycle_data[cycle][index-6];
 		if(fuel == 6) cycle_corr = 1.;
 		if(fuel == 7) cycle_corr = 1.;
 		var val_min = s_fuel_data_min[fuel][index]*cycle_corr + Reus_corr_;
