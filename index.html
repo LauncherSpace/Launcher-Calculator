@@ -655,10 +655,10 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Apogee_velocity"></LABEL><span> m/s</span></h8></div></TD></TR>
 						<TR class="NearEarth">
 					  <TD title="The time a given satellite takes to complete one orbit around Earth"><div class="mobilelayout_l1">Orbital Period</div></TD>
-					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Orbital_period"></LABEL><span> s &emsp;</span></h8></div></TD></TR>
+					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Orbital_period"></LABEL><span> &emsp;</span></h8></div></TD></TR>
 						<TR class="Expanding">
 					  <TD title="Transfer time from lift off to the Orbit Apogee or to reach the Planet. &#013;Travel time to planets depends on the launch date and many other reasons, &#013;the given time is approximate and close to the practicable low."><div class="mobilelayout_l1">Transfer time</div></TD>
-					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Transfer_time"></LABEL><span> s &emsp;</span></h8></div></TD></TR>
+					  <TD><div class="mobilelayout_r2"><h8><LABEL id="Transfer_time"></LABEL><span> &emsp;</span></h8></div></TD></TR>
 						<TR class="fGEO">
 					  <TD title="Velocity increment needed to achieve zero inclination within a Geosynchronous orbit&#013;if the inclination of the Geosynchronous Transfer Orbit is not a zero. &#013;Usually this velocity increment is added at the apogee of the Geosynchronous Transfer Orbit."><div class="mobilelayout_l1">Delta-v for change orbit inclination to 0</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL 
@@ -1203,19 +1203,26 @@ input[type=range]:focus::-ms-fill-upper {
 		return degrees * (Math.PI/180.);
 	}
 
-	function Sec2Day(a)
-	{
-		d=Math.floor(a/86400);
-		a-=86400*d;
-		h=Math.floor(a/3600);
-		a-=3600*h;
-		m=Math.floor(a/60);if(m<10){m='0'+m};
-		s=(a-60*m).toFixed(0);if(s<10){s='0'+s};
-		if (d == 0)
-		{return h+":"+m+":"+s;}
-		else
-		{return d+"d "+h+":"+m+":"+s;}
-
+function Sec2Day(a)
+{
+	y=Math.floor(a/31558150);
+	a-=31558150*y;
+	d=Math.floor(a/86400);
+	a-=86400*d;
+	h=Math.floor(a/3600);
+	a-=3600*h;
+	m=Math.floor(a/60);if(m<10){m='0'+m};
+	s=(a-60*m).toFixed(0);if(s<10){s='0'+s};
+	if (d == 0 && y == 0)
+	  {return h+":"+m+":"+s+" s";}
+	else
+	  if (y == 0)
+	    {return d+"d "+h+":"+m+":"+s+" s";}
+	  else
+	    if (y < 10)
+	      {return y+"y "+d+"d "+h+":"+m+":"+s+" s";}
+	    else 
+	      {return y+"y "+d+"d "+h+"h";}
 	}
 
 	function CalculateTargetVelocity()
