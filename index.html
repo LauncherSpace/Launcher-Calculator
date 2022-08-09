@@ -1481,7 +1481,13 @@ function Sec2Day(a)
 			var Last_Payload_change =  ((Payload_mass_calculated - Last_Payload_mass) / Assumed_payload_mass_base *100.).toFixed(1);
 			var Sign = "";
 			if (Last_Payload_change > 0.) Sign = "+";
-			elLast_Payload_change.textContent = Sign + Last_Payload_change;	
+			elLast_Payload_change.textContent = Sign + Last_Payload_change;
+			if (Payload_change < 0)
+			 {
+				elPayload_change.textContent = "";
+				elLast_Payload_change.textContent = "";
+			 }
+	
 			if(Payload_mass_calculated > 100.)
 			 {
 				var strComma = Math.round(Payload_mass_calculated);
@@ -1499,7 +1505,6 @@ function Sec2Day(a)
 					elNegativePayload[i].style.color = "red";
 			}
 
-			elPayload_change.textContent = Payload_change;	
 			Assumed_payload_mass = Payload_mass_calculated;
 //			if(elRocket.selectedIndex == 0)elAssumed_payload_mass.value = Assumed_payload_mass;
 			Payload_mass = Payload_mass_calculated;
