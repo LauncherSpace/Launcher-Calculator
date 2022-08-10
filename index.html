@@ -1475,6 +1475,7 @@ function Sec2Day(a)
 			var Assumed_payload_mass_base = parseFloat(elAssumed_payload_mass.value);
 	
 			elPayload_mass_calculated.textContent = Payload_mass_calculated.toFixed(1);
+			elPayload_to_Lift_off_mass_ratio.textContent = (Payload_mass / Lift_off_Mass * 100.).toFixed(2);
 			var Payload_change = (Payload_mass_calculated/Assumed_payload_mass_base *100.).toFixed(1);
 			elPayload_change.textContent = Payload_change;	
 //			var Last_Payload_change =  ((Payload_mass_calculated - Last_Payload_mass) / Last_Payload_mass *100.).toFixed(1);
@@ -1484,6 +1485,7 @@ function Sec2Day(a)
 			elLast_Payload_change.textContent = Sign + Last_Payload_change;
 			if (Payload_change < 0)
 			 {
+				elPayload_to_Lift_off_mass_ratio.textContent = "";
 				elPayload_change.textContent = "";
 				elLast_Payload_change.textContent = "";
 			 }
@@ -1511,8 +1513,6 @@ function Sec2Day(a)
 		}
 
 		elLift_off_Mass.textContent = Lift_off_Mass.toFixed(0);
-		var Payload_to_Lift_off_mass_ratio = Payload_mass / Lift_off_Mass;
-		elPayload_to_Lift_off_mass_ratio.textContent = (Payload_to_Lift_off_mass_ratio * 100.).toFixed(2);
 		elGravity_losses_at_specific_altitude.textContent = Gravity_losses_at_specific_altitude.toFixed(1);
 		elGravity_losses.textContent = Gravity_losses.toFixed(1);
 		elAerodynamic_losses.textContent = Aerodynamic_losses.toFixed(1);
