@@ -1993,6 +1993,11 @@ function Sec2Day(a)
 
 	function updateWeight_Rel()
 	{
+		if (elThrust_to_weight_ratio.value < 1.05)
+		{
+                  Thrust_to_weight_ratio = 1.05;
+		  elThrust_to_weight_ratio.value = 1.05; 
+		}
 		Abs_Calculation.checked = false;
 		updateWeight();
 	}	
@@ -2957,10 +2962,10 @@ function Sec2Day(a)
 		elSpaceport_latitude.addEventListener('change', LatitudeChange);
 		elOrbit_Inclination.addEventListener('change', InclinationChange);
 
-		elFirst_stage_engine_thrust.addEventListener('change', updateWeight);
-		elFirst_stage_engines_number.addEventListener('change', updateWeight);
-		elSecond_stage_engine_thrust.addEventListener('change', updateWeight);
-		elSecond_stage_engines_number.addEventListener('change', updateWeight);
+		elFirst_stage_engine_thrust.addEventListener('change', updateWeight_Rel);
+		elFirst_stage_engines_number.addEventListener('change', updateWeight_Rel);
+		elSecond_stage_engine_thrust.addEventListener('change', updateWeight_Rel);
+		elSecond_stage_engines_number.addEventListener('change', updateWeight_Rel);
 		
 		elThrust_to_weight_ratio.addEventListener('change', updateWeight_Rel);
 		elThrust_to_weight_ratio_2nd.addEventListener('change', updateWeight_Rel);
