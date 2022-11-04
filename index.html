@@ -1662,6 +1662,9 @@ function Sec2Day(a)
 
 	function updateOrbit()
 	{
+		if (s_orbit_data[elOrbit.selectedIndex][3] > 0 && 
+			s_orbit_data[elOrbit.selectedIndex][3] < elSpaceport_latitude.value) elOrbit.selectedIndex = 0;
+
 		elOrbit_Perigee.value = s_orbit_data[elOrbit.selectedIndex][1];
 		
 		elOrbit_Apogee.value = s_orbit_data[elOrbit.selectedIndex][2];
@@ -1706,7 +1709,7 @@ function Sec2Day(a)
 
 	function LatitudeChange()
 	{
-		if (elOrbit.selectedIndex == 0)
+		if (elOrbit.selectedIndex == 0 || elOrbit.selectedIndex == 14)
 		{
 		Spaceport_latitude = Math.abs(parseFloat(elSpaceport_latitude.value));
 		Orbit_Inclination = parseFloat(elOrbit_Inclination.value);
@@ -1718,7 +1721,7 @@ function Sec2Day(a)
 			}
 		}
 
-		if (elOrbit.selectedIndex > 2)
+		if (elOrbit.selectedIndex > 2 && elOrbit.selectedIndex != 14)
 		{
 		 Spaceport_latitude = Math.abs(parseFloat(elSpaceport_latitude.value));
 		 elOrbit_Inclination.value = Spaceport_latitude.toFixed(2);
