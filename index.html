@@ -1019,7 +1019,7 @@ input[type=range]:focus::-ms-fill-upper {
 				  ["Stornoway (UK)", 	58.2,	6.3,	 0,  58.2, "Isle of Lewis, Scotland"]];
 
 
-	var s_orbit_count = 14;
+	var s_orbit_count = 15;
 	var s_orbit_data = [["LEO",  200,     0,-1,  0,		0,"Low Earth orbit"],
 			   ["ISS",   409,   418,51.6,0,		0,"International Space Station orbit"],
 			   ["SSO",   500,     0, 98, 0,		0,"Sun-synchronous orbit"],
@@ -1033,7 +1033,8 @@ input[type=range]:focus::-ms-fill-upper {
 			   ["Venus", 200,     0, -1, 3506, 8380800,"Trans-Venus injection orbit"],
 			   ["Mercury",200,     0, -1, 5554, 9115200,"Trans-Mercury injection orbit"],
 			   ["Jupiter",200,     0, -1, 6304, 86185100,"Trans-Jupiter injection orbit"],
-			   ["Pluto", 200,     0, -1, 8364, 1438865550,"Trans-Pluto injection orbit"]];
+			   ["Pluto", 200,     0, -1, 8364, 1438865550,"Trans-Pluto injection orbit"],
+			   ["SPC",   510,     0, 33,  0, 		0,"Special Low Earth orbit"]];
 							  
 	var s_stages_count = 2;
 	var s_stages_name = ["2", "3"];
@@ -1564,7 +1565,7 @@ function Sec2Day(a)
 		var a = 0.5 * (200 + 2 * 6371. + Orbit_Apogee);
 //		var transfertime =  0.5 * 2.0 * Math.PI * Math.sqrt( a * a * a / 398600.4418 ) + parseFloat(elFirst_stage_run_time.textContent) + parseFloat(elSecond_stage_run_time.textContent);
 		var transfertime = -2650*200/Orbit_Apogee + 0.5 * 2.0 * Math.PI * Math.sqrt( a * a * a / 398600.4418 ) + parseFloat(elFirst_stage_run_time.textContent) + parseFloat(elSecond_stage_run_time.textContent);
-		if(elOrbit.selectedIndex < 7)		
+		if(s_orbit_data[elOrbit.selectedIndex][5] == 0)		
 			{elTransfer_time.textContent = Sec2Day(transfertime);}
 		else
 			{elTransfer_time.textContent = Sec2Day(s_orbit_data[elOrbit.selectedIndex][5]);}
@@ -1688,7 +1689,7 @@ function Sec2Day(a)
 				elsGEOI[i].removeAttribute("style");
 		}
 
-		if (elOrbit.selectedIndex > 5)
+		if (s_orbit_data[elOrbit.selectedIndex][4] > 0)
 		{
 			for (var i = 0; i < elInterplanetary.length; i++)
 				elInterplanetary[i].removeAttribute("style");
