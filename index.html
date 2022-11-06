@@ -1406,8 +1406,10 @@ function Sec2Day(a)
 
 		//=== Additional losses calculation by J.Schilling ===
 		var Ascent_Time = 519;
+		Second_stage_total_Start_mass = Rocket_Mass + Fairing_mass + Payload_mass - First_stage_wet_mass;
+		Second_stage_run_time = Second_stage_propellant_mass/100.*(100.-Unused_propellant_of_2nd_Stage)/(Second_stage_total_Start_mass*Thrust_to_weight_ratio_2nd/Second_stage_isp_vac);
 		if (elFirst_stage_run_time.textContent != "NaN") 
-		{Ascent_Time = parseFloat(elFirst_stage_run_time.textContent) + parseFloat(elSecond_stage_run_time.textContent) + 2.;}
+		{Ascent_Time = parseFloat(elFirst_stage_run_time.textContent) + Second_stage_run_time + 2.;}
 
 //		var Gravity_losses_Time_Correction = 0.275*(0.0013*Math.pow(Ascent_Time,2)+0.0882*Ascent_Time-396)
 		var First_stage_delta_v0 = 3612.;
