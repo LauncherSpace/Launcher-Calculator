@@ -1452,7 +1452,7 @@ function Sec2Day(a)
 
 			var Transfer_Orbit_stage_total_Start_mass = Lift_off_Mass - First_stage_wet_mass - Second_stage_wet_mass - Fairing_mass;
 
-			if (v3rd_Stage_mass_ratio == 0)
+			if (v3rd_Stage_mass_ratio == 0 || v2nd_Stage_mass_ratio == 0)
 			{
 				var Second_stage_delta_v = Vsp_with_losses-First_stage_delta_v;
 				var Second_stage_final_mass = 1./(Math.exp((Second_stage_delta_v
@@ -1464,6 +1464,9 @@ function Sec2Day(a)
 //  Single-stage rocket calculation
 				if (v2nd_Stage_mass_ratio == 0)	
 				{
+					el3rd_Stage_mass_ratio.value = 0.;
+					elStages.selectedIndex = 0;
+					f3stagesChange();
 					Fairing_mass = 0.0;
 					Second_stage_final_mass = 1./(Math.exp(Vsp_with_losses/ (First_stage_average_trajectory_isp*9.80665))/Lift_off_Mass);
 					Payload_mass_calculated = Second_stage_final_mass - First_stage_dry_mass - First_stage_propellant_mass/100.*Unused_propellant_of_1st_Stage; 
