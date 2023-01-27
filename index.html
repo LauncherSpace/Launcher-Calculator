@@ -1461,6 +1461,14 @@ function Sec2Day(a)
 					/ (Second_stage_isp_vac*9.80665))/(Second_stage_total_mass_before_battery_jettison
 					-Jettisoned_battery_mass));
 				Payload_mass_calculated = Second_stage_final_mass+Jettisoned_battery_mass-Second_stage_dry_mass-Second_stage_propellant_mass/100.*Unused_propellant_of_2nd_Stage; 
+//  Single-stage rocket calculation
+				if (v2nd_Stage_mass_ratio == 0)	
+				{
+					Fairing_mass = 0.0;
+					Second_stage_final_mass = 1./(Math.exp(Vsp_with_losses/ (First_stage_average_trajectory_isp*9.80665))/Lift_off_Mass);
+					Payload_mass_calculated = Second_stage_final_mass - First_stage_dry_mass - First_stage_propellant_mass/100.*Unused_propellant_of_1st_Stage; 
+				}
+
 				var Transfer_Orbit_stage_final_mass = Transfer_Orbit_stage_total_Start_mass;
 
 			} else
