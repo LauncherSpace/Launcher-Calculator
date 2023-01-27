@@ -1366,6 +1366,7 @@ function Sec2Day(a)
 
 		//=== Output ===
 		var First_stage_average_trajectory_isp = .145*First_stage_isp_sea_level+.855*First_stage_isp_vac;
+		if (v2nd_Stage_mass_ratio == 0)First_stage_average_trajectory_isp = .058*First_stage_isp_sea_level+.942*First_stage_isp_vac;
 
 		if (Abs_Calculation.checked == false)
 // calculation using relative characteristics
