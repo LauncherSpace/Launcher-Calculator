@@ -1409,7 +1409,7 @@ function Sec2Day(a)
 		if (Thrust_to_weight_ratio<1.46) var Gravity_losses = 4./3.* Gravity_losses_at_specific_altitude*(1.5+2.5*(Thrust_to_weight_ratio-1.17)-4.25*(Thrust_to_weight_ratio-1.17)*(Thrust_to_weight_ratio-1.17));
 		else 				     Gravity_losses = 4./3.* 1.865*Gravity_losses_at_specific_altitude;
 //  Gravity losses for a single-stage rocket
-		if (v2nd_Stage_mass_ratio == 0) Gravity_losses = 1.865*Gravity_losses_at_specific_altitude;
+		if (v2nd_Stage_mass_ratio == 0) Gravity_losses = 3./4. * Gravity_losses;
 
 		//=== Additional losses calculation by J.Schilling ===
 		var Ascent_Time = 519;
