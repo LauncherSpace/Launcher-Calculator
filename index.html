@@ -499,7 +499,7 @@ input[type=range]:focus::-ms-fill-upper {
 			  <TD title="Estimated payload mass for the initial approximation at the beginning of the calculation"><div class="mobilelayout_l1">Assumed payload mass</div></TD>
 			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="Assumed_payload_mass" class="inputstyle-1" type="text"> <span>kg</span></div></TD></TR>
 				<TR>
-			  <TD title="The percentage ratio of the second and third stage mass to the rocket mass"><div class="mobilelayout_l1">2nd stage to Rocket mass ratio</div></TD>
+			  <TD title="The percentage ratio of the second and third stage mass to the rocket mass. &#013;For a single-stage rocket calculation set it to zero."><div class="mobilelayout_l1">2nd stage to Rocket mass ratio</div></TD>
 			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="_2nd_Stage_mass_ratio" class="inputstyle-1" type="text"> <span>%</span></div></TD></TR>
 	  
 				<TR class="f3stages">
@@ -1087,7 +1087,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var ScoreCalcWeight = [[1., 1., 0. , 1., 1., 0. , 1., 0.25, 1., 0. ],  // 2 stages 
 			       [1., 1., 0.5, 1., 1., 0.5, 1., 0.25, 1., 0.5]]; // 3 stages
 	
-	var s_rocket_count = 33;
+	var s_rocket_count = 34;
 	var s_rocket_data =  [["CST", "Custom Rocket...",	  1.20, 1.1,   32475, 1.7,  150, 3500,  0,  775,   24.86,   0.,     8.,   10.,     20,    2., 2.,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "Designed Rocket - engine based"],
 			     ["NS1", "NASA Saturn V",		  1.165,0.78,2909200,10.1, 8000, 3500,  0, 48600,  21.284,  4.228,  5.677,  8.081, 10.976,2.6, 2.0, 2,   263.0, 304,   421, 421, 0,1, 2,1, 2,1,    "Cape Canaveral",	"Moon",0, 0, "Apollo lunar program launcher"],
 			     ["LA1", "Launcher Rocket-1",	  1.19, 1.38,  32600, 1.7,  150, 3500,  0,  750,   25.00,   0.0,    8.5,    9.87,   20,  2.95, 2,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,3,    "Wallops",	"LEO", 0, 0, "Four E-2 engines on the 1st stage (project)"],
@@ -1115,7 +1115,8 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["BO2", "Blue Origin New Glenn 3st",  1.20, 0.83, 1435000, 7.0, 4000, 3500,  0, 20000,  22.647,  5.761,  9.91,  7.037,  10.909,1,   1,   1,   310.0, 335,   358, 440, 1,0, 1,0, 2,1,    "Cape Canaveral",	"Mars",0, 0, "Blue Origin 3-Stages (Superceded) (project)"],
 			     ["VO1", "Virgin Orbit Launcher One",  1.31, 0.65,  25500, 1.8,  100, 3500,  0,   300,   12.0,   0.00,   9.50,   9.00,  20.00, 3,   3,   1,   290.0, 308,   328, 300, 0,1, 0,1, 0,1,    "Mojave",		"SSO", 1, 0, "Virgin Orbit"],
 			     ["RT1", "Relativity Terran 1 ",	  1.2,  0.75,  55500, 2.7,  400, 3500,   0, 1250,  17.50,   0.00,   9.00,   9.00,  20.00, 2,   2,   1,   267.0, 310,   360, 300, 1,1, 1,1, 1,1,    "Cape Canaveral",	"LEO", 0, 0, "Relativity (project)"],
-			     ["AS1", "Astra Rocket-3",		  1.4,  0.53,  10000, 1.32, 100, 3500,   0,   100,   4.0,    0.00, 10.00,   9.00,  20.00, 2.5,  2,   1,   234.0, 284,   315, 300, 0,2, 0,3, 4,3,    "Kodiak",		"LEO", 0, 0, "Astra (project)"],
+			     ["AS3", "Astra Rocket-3",		  1.4,  0.53,  10000, 1.32, 100, 3500,   0,   100,   4.0,    0.00, 10.00,   9.00,  20.00, 2.5,  2,   1,   234.0, 284,   315, 300, 0,2, 0,3, 4,3,    "Kodiak",		"LEO", 0, 0, "Astra (project)"],
+			     ["AS4", "Astra Rocket-4",		  1.203,0.696, 29500, 1.8, 150, 3500,   0,   550,   12.0,    0.00,  9.00,   8.00,  20.00, 2.0,  1,   1,   265.0, 305,   335, 300, 0,1, 0,1, 4,3,    "Kodiak",		"LEO", 0, 0, "Astra (project)"],
 			     ["FR1", "Firefly Alpha",		  1.243, 0.79, 53000, 2.21,  330, 3500,  0,  1000,  14.905,  0.00, 6.42,   11.508, 20.00, 2,    1,   1,   265.0, 295.6, 322, 300, 0,1, 0,1, 0,1,    "Vandenberg",	"LEO", 0, 0, "Firefly (project)"],
 			     ["AB1", "ABL RS1 (In-house engines)", 1.2,  0.7,   40000, 1.83,  450, 3500,  0,  1350,  16.,	   0.00,   7.00,   6.00,  20.00, 2.,  1,   1,   265.0, 295.6, 322, 300, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "ABL Space Systems (project)"],
 			     ["AB2", "ABL RS1 (Ursa engines)",	  1.2,  0.69,  25260, 1.83,  300, 3500,  0,   900,  11.75,   0.00,   4.00,   4.00,  20.00, 1,  .5,   1,   262.0, 308,   345, 300, 0,0, 0,0, 0,0,    "Cape Canaveral",	"LEO", 0, 0, "with URSA Major Tech engines (project)"],
