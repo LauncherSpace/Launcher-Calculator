@@ -997,7 +997,7 @@ input[type=range]:focus::-ms-fill-upper {
 	window.onload = onPageLoad;
 	window.onunload = onPageUnload;
 	
-	var s_start_point_count = 19;
+	var s_start_point_count = 20;
 	var s_start_point_data = [["Cape Canaveral",	28.6083,  -80.6043,  	0.1,	32.6, "USA East Coast (28.6083,-80.6043)"],
 				  ["Vandenberg",   	34.7545, -120.6189,	0.11,	34.76,"USA West Coast, basicall polar orbit (34.7545,-120.6189)"],
 				  ["Wallops",   	37.83382,-75.4877,	0,	37.83,"Wallops Island USA (37.83382,-75.4877)"],
@@ -1016,7 +1016,8 @@ input[type=range]:focus::-ms-fill-upper {
 				  ["Alcantara (Brazil)", -2.28, -44.38,  .05, 2.28,"Brazil (-2.28,-44.38)"],
 				  ["Tanegashima (Japan)", 30.4,  131.7, 0.1, 30.4, "Japan (30.4,131.7)"],
 				  ["Naro (South Korea)", 34.2592, 127.3201, 0, 34.26, "Outer Naro Island (34.2592,127.3201)"],
-				  ["Stornoway (UK)", 	58.2,	6.3,	 0,  58.2, "Isle of Lewis, Scotland (58.2,6.3)"]];
+				  ["Stornoway (UK)", 	58.2,	6.3,	 0,  58.2, "Isle of Lewis, Scotland (58.2,6.3)"],
+				  ["TiSpace Space Port", 	22.261,	120.89,	 0,  22.3, "Taiwan  (22.26,120.89)"]];
 
 
 	var s_orbit_count = 15;
@@ -1087,7 +1088,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var ScoreCalcWeight = [[1., 1., 0. , 1., 1., 0. , 1., 0.25, 1., 0. ],  // 2 stages 
 			       [1., 1., 0.5, 1., 1., 0.5, 1., 0.25, 1., 0.5]]; // 3 stages
 	
-	var s_rocket_count = 34;
+	var s_rocket_count = 35;
 	var s_rocket_data =  [["CST", "Custom Rocket...",	  1.20, 1.1,   32475, 1.7,  150, 3500,  0,  775,   24.86,   0.,     8.,   10.,     20,    2., 2.,   1,   290.5, 327,   365, 320, 0,0, 0,0, 0,1,    "Cape Canaveral",	"LEO", 0, 0, "Designed Rocket - engine based"],
 			     ["NS1", "NASA Saturn V",		  1.165,0.78,2909200,10.1, 8000, 3500,  0, 48600,  21.284,  4.228,  5.677,  8.081, 10.976,2.6, 2.0, 2,   263.0, 304,   421, 421, 0,1, 2,1, 2,1,    "Cape Canaveral",	"Moon",0, 0, "Apollo lunar program launcher"],
 			     ["LA5", "Launcher Nano",		  1.5,  1.1,     500,0.45,    0, 3500,  0, 1.45,   24.00,   4.,    23.00, 23.00,   15,    3,   3,   3,   225.0, 270,   315, 300, 0,3, 0,3, 0,3,    "Wallops",	"LEO", 0, 0, "The smallest orbital launcher (project)"],
@@ -1121,7 +1122,8 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["AB1", "ABL RS1 (In-house engines)", 1.2,  0.7,   40000, 1.83,  450, 3500,  0,  1350,  16.,	   0.00,   7.00,   6.00,  20.00, 2.,  1,   1,   265.0, 295.6, 322, 300, 0,1, 0,1, 0,1,    "Kodiak",	"LEO", 0, 0, "ABL Space Systems (project)"],
 			     ["AB2", "ABL RS1 (Ursa engines)",	  1.2,  0.69,  25260, 1.83,  300, 3500,  0,   900,  11.75,   0.00,   4.00,   4.00,  20.00, 1,  .5,   1,   262.0, 308,   345, 300, 0,0, 0,0, 0,0,    "Kodiak",	"LEO", 0, 0, "with URSA Major Tech engines (project)"],
 			     ["KR1", "KSLV-II",			  1.312, 1.46, 200000,  3.5, 700, 3500,  0, 2600,  25.886,  4.283,   10.0,   10.0,  25.88, 3.0, 3.0, 3.,  262.0, 298.6, 315.4, 325.1, 0,1, 0,1, 0,1, "Naro (South Korea)",	"LEO", 0, 0, "KARI Nuri rocket"],
-			     ["SK1", "Skyrora XL ",		  1.24, 0.9,   55300, 2.2,   215, 4000,  0,   315,  14.7,     1.0,    11.0,   11.0,  27.00, 3., 3.,  3.,   250.0, 285,   306, 305, 3,1, 3,1, 3,3,    "Stornoway (UK)",	"SSO", 0, 0, "Skyrora United Kingdom (project)"]
+			     ["SK1", "Skyrora XL ",		  1.24, 0.9,   55300, 2.2,   215, 4000,  0,   315,  14.7,     1.0,    11.0,   11.0, 27.00, 3., 3.,  3.,   250.0, 285,   306, 305, 3,1, 3,1, 3,3,    "Stornoway (UK)",	"SSO", 0, 0, "Skyrora United Kingdom (project)"],
+			     ["TI1", "Hapith V",                 1.435, 0.834, 43980, 2.2,   100, 3500,  0,   390, 20.418,  2.910,  15.714, 15.584, 18.0, 5., 5.,  5.,  270.0, 305,   315, 315, 7,1, 7,1, 7,1,    "TiSpace Space Port","LEO", 0, 0, "TiSPACE (project)"],
 				 ];
 	var s_engine_count = 38;
 	var s_engine_data = [["Launcher E-2",		10000.,	290.5, 327., 0, 0, 9,"Launcher 1st stage"],
