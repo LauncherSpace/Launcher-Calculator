@@ -1078,6 +1078,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var First_stage_run_time = 0.;
 	var Second_stage_run_time = 0.;
 	var Second_stage_prop_used_with_booster = 0.;
+	var First_stage_isp_vac_summ = 300.;
 
 	const params = new URLSearchParams(window.location.search);
         var rocket = params.get('rocket'); // will return the value of the parameter rocket
@@ -1552,7 +1553,7 @@ function Sec2Day(a)
 			var Second_stage_vac_thrust = Second_stage_sea_level_thrust / Second_stage_isp_sea_level * Second_stage_isp_vac;
 			var First_stage_vac_thrust = First_stage_sea_level_thrust / First_stage_isp_sea_level * First_stage_isp_vac;
 			var First_stage_isp_sea_level_summ = Total_sea_level_thrust / (First_stage_sea_level_thrust/First_stage_isp_sea_level + Second_stage_sea_level_thrust/Second_stage_isp_sea_level);
-			var First_stage_isp_vac_summ = (First_stage_vac_thrust + Second_stage_vac_thrust) / (First_stage_vac_thrust/First_stage_isp_vac + Second_stage_vac_thrust/Second_stage_isp_vac);
+			First_stage_isp_vac_summ = (First_stage_vac_thrust + Second_stage_vac_thrust) / (First_stage_vac_thrust/First_stage_isp_vac + Second_stage_vac_thrust/Second_stage_isp_vac);
 			First_stage_isp_sea_level = First_stage_isp_sea_level_summ;
 			First_stage_isp_vac = First_stage_isp_vac_summ;
 		  }
@@ -1889,6 +1890,7 @@ function Sec2Day(a)
 		var Transfer_Orbit_Stage_isp = parseFloat(elTransfer_Orbit_Stage_isp.value);
 		var Vsp_with_losses = parseFloat(elVsp_with_losses.textContent);
 		var Pressure_losses = parseFloat(elPressure_losses.textContent);
+		if (elBooster.checked) 	First_stage_isp_vac = First_stage_isp_vac_summ;
 		if (parseFloat(elSecond_stage_dry_mass.value) > 0)
 		var Summary_Delta_V = 9.80665*First_stage_isp_vac*Math.log(Lift_off_Mass/First_stage_final_mass)
 		+ 9.80665*Second_stage_isp_vac*Math.log(Second_stage_total_Start_mass/Second_stage_total_mass_before_fairing_jettison)
