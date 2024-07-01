@@ -399,7 +399,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-f9e0ce3730d4">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
 				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a>
-				<label title="Software version"> &emsp;v50</FONT></p><center></p>
+				<label title="Software version"> &emsp;v51</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
 				<FONT size="5" title="Choose a preset Rocket or create a Custom one">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
@@ -864,6 +864,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 <div class="adwacedContent">
 	<button isBool=0 id="Expand" >Advanced...</button>
+	<button title="Export rocket data to address bar" isBool=0 id="Export" >Export</button>
 </div>
 
 			<div id="myModal" class="modal">
@@ -882,6 +883,8 @@ input[type=range]:focus::-ms-fill-upper {
 				</div>
 			  
 			  </div>
+
+
 <SCRIPT>
 	var elStartingPoint = document.querySelector('#StartingPoint');
 	var elReusable = document.querySelector('#Reusable');
@@ -1043,6 +1046,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var elPayload_change = document.querySelector('#Payload_change');
 	var elLast_Payload_change = document.querySelector('#Last_Payload_change');
 	var elExpand = document.querySelector('#Expand');
+	var elExport = document.querySelector('#Export');
 	var elsExpanding = document.querySelectorAll('.content tr[class="Expanding"]');
 	var elsExpanding2 = document.querySelectorAll('.content tr[class="Expanding2"]');
 	var elsExpandingB = document.querySelectorAll('.content tr[class="ExpandingB"]');
@@ -1082,7 +1086,9 @@ input[type=range]:focus::-ms-fill-upper {
 
 	const params = new URLSearchParams(window.location.search);
         var rocket = params.get('rocket'); // will return the value of the parameter rocket
+        var rdata = params.get('rdata'); // will return the value of the parameter rdata
 	if(rocket == null) rocket = "NS1";
+	if(rdata != null) rocket = "NEW";
 
 	window.onload = onPageLoad;
 	window.onunload = onPageUnload;
@@ -1180,7 +1186,6 @@ input[type=range]:focus::-ms-fill-upper {
 				[1.25, 1.25, 0.   , 0.575, 1.25, 1.25, 0.   , 0.575, 0.5, 0.125, 0., 0.5, 0.  , 0.25],  // 3 stages 
 				[1.25, 1.25, 0.575, 0.575, 1.25, 1.25, 0.575, 0.575, 0.5, 0.125, 0., 0.5, 0.25, 0.25]]; // 4 stages
 	
-	var s_rocket_count = 44;
 //                              0           1                      2     3       4     5     6    7     8    9      10     11  12      13      14     15  16    17   18   19 20     21     22     23   24   25   26  27   29   31   33             35             36   37 38 39        40
 	var s_rocket_data =  [["CST", "Custom Rocket...",	  1.20, 1.1,   32475, 1.7,  150, 3500,  0,  775,   24.86,   0, 0.,     8.,   10.,     15, 20,    2., 2.,   1, 1,   290.5, 327,   280, 365, 320, 320, 0,0, 0,0, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "Designed Rocket - engine based"],
 			     ["NS1", "NASA Saturn V",		  1.165,0.78,2909200,10.1, 8000, 3500,  0, 48600,  21.284,  0, 4.228,  5.677,  8.081, 15, 10.976,2., 2.0,  1, 2,   263.0, 304,   350, 421, 421, 421, 0,1, 2,1, 2,1, 2,1,    "Cape Canaveral",	"Moon",0, 0, 0, "Apollo lunar program launcher"],
@@ -1226,6 +1231,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["TI1", "TiSpace Hapith V",          1.435, 0.834, 43980, 2.2,   100, 3500,  0,   390, 20.418, 0, 2.910,  15.714, 15.584,15, 18.0,  5.,  5.,  1, 4.,  270.0, 305,   250, 315, 315, 315, 7,1, 7,1, 7,1, 7,1,    "TiSpace Space Port","LEO", 0, 0, 0, "TiSPACE (project)"],
 			     ["PH2", "Phantom Laguna",		  1.221, 0.419, 54000, 2.0,   300, 3500,  0,  1200,  10.00, 0,  0.00,    8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  262.0, 308,   250, 345, 300, 300, 0,0, 0,0, 0,0, 0,0,    "Cape Canaveral",	"LEO", 0, 0, 0, "Phantom (project)"],
 			     ["PL1", "Miura 5",		  	  1.206, 0.720, 43200, 1.8,   250, 3500,  0,  900,   14.00, 0,  0.0,     8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  265.0, 296,   250, 322, 320, 320, 0,1, 0,1, 0,3, 0,3,    "Kuru (ESA)",	"LEO", 0, 0, 0, "PLD Space (project)"],
+			     ["NEW", " ",		  	  1.206, 0.720, 43200, 1.8,   250, 3500,  0,  900,   14.00, 0,  0.0,     8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  265.0, 296,   250, 322, 320, 320, 0,1, 0,1, 0,3, 0,3,    "Cape Canaveral",	"LEO", 0, 0, 0, " "],
 				 ];
 	var s_engine_count = 40;
 	var s_engine_data = [["Launcher E-2",		10000.,	290.5, 327., 0, 0, 9,"Launcher 1st stage"],
@@ -2629,6 +2635,26 @@ function Sec2Day(a)
 		else
 			elLimitation.checked = false;
 
+		if(rdata != null) 
+		 {
+		  var strs = rdata.split("|");
+		  s_rocket_data[44][1] = strs[0];
+
+		  var opt = document.createElement('option');
+		  opt.value = s_rocket_data[44][1];
+		  opt.innerHTML = s_rocket_data[44][1];
+		  opt.title=s_rocket_data[44][40];
+		  elRocket.appendChild(opt);
+
+		  elRocket.selectedIndex = 44;
+		  for (var i = 1; i < 34; i++) s_rocket_data[44][i+1] = strs[i];
+		  s_rocket_data[44][35] = s_start_point_data[strs[34]][0];
+		  s_rocket_data[44][36] = s_orbit_data[strs[35]][0];
+		  s_rocket_data[44][37] = strs[36];
+		  s_rocket_data[44][38] = strs[37];
+		  s_rocket_data[44][39] = strs[38];
+		 }
+
 		elThrust_to_weight_ratio.value = s_rocket_data[elRocket.selectedIndex][2];
 		elFirst_stage_total_thrust.value = ((s_rocket_data[elRocket.selectedIndex][4]+s_rocket_data[elRocket.selectedIndex][6]+s_rocket_data[elRocket.selectedIndex][9])*s_rocket_data[elRocket.selectedIndex][2]).toFixed(1);
 
@@ -2781,6 +2807,57 @@ function Sec2Day(a)
 		}
 
                 fStagesChange();
+	}
+
+	function ExportRocket()
+	{
+		var rdata = "new_Rocket"
+		rdata = rdata + "|"+ elThrust_to_weight_ratio.value;
+		rdata = rdata + "|"+ elThrust_to_weight_ratio_2nd.value;
+		rdata = rdata + "|"+ elRocket_Mass.value;
+		rdata = rdata + "|"+ elMax_midsection_D.value;
+		rdata = rdata + "|"+ elFairing_mass.value;
+		rdata = rdata + "|"+ elFairing_jettison_velocity.value;
+		rdata = rdata + "|"+ elJettisoned_battery_mass.value;
+		rdata = rdata + "|"+ elAssumed_payload_mass.value;
+		rdata = rdata + "|"+ el2nd_Stage_mass_ratio.value;
+		rdata = rdata + "|"+ el3rd_Stage_mass_ratio.value;
+		rdata = rdata + "|"+ elOrb_Stage_mass_ratio.value;
+		rdata = rdata + "|"+ el1st_Dry_to_Wet_mass_ratio.value;
+		rdata = rdata + "|"+ el2nd_Dry_to_Wet_mass_ratio.value;
+		rdata = rdata + "|"+ el3rd_Dry_to_Wet_mass_ratio.value;
+		rdata = rdata + "|"+ elOrb_Dry_to_Wet_mass_ratio.value;
+		rdata = rdata + "|"+ elUnused_propellant_of_1st_Stage.value;
+		rdata = rdata + "|"+ elUnused_propellant_of_2nd_Stage.value;
+		rdata = rdata + "|"+ elUnused_propellant_of_3rd_Stage.value;
+		rdata = rdata + "|"+ elUnused_propellant_of_Transfer_Orbit_Stage.value;
+		rdata = rdata + "|"+ elFirst_stage_isp_sea_level.value;
+		rdata = rdata + "|"+ elFirst_stage_isp_vac.value;
+		rdata = rdata + "|"+ elSecond_stage_isp_sea_level.value;
+		rdata = rdata + "|"+ elSecond_stage_isp_vac.value;
+		rdata = rdata + "|"+ elThird_stage_isp.value;
+		rdata = rdata + "|"+ elTransfer_Orbit_Stage_isp.value;
+		rdata = rdata + "|"+ elFuel.selectedIndex.toFixed(0);
+		rdata = rdata + "|"+ elCycle.selectedIndex.toFixed(0);
+		rdata = rdata + "|"+ elFuel2.selectedIndex.toFixed(0);
+		rdata = rdata + "|"+ elCycle2.selectedIndex.toFixed(0);
+		rdata = rdata + "|"+ elFuel3.selectedIndex.toFixed(0);
+		rdata = rdata + "|"+ elCycle3.selectedIndex.toFixed(0);
+		rdata = rdata + "|"+ elFuelO.selectedIndex.toFixed(0);
+		rdata = rdata + "|"+ elCycleO.selectedIndex.toFixed(0);
+		rdata = rdata + "|"+ elStartingPoint.selectedIndex.toFixed(0);
+		rdata = rdata + "|"+ elOrbit.selectedIndex.toFixed(0);
+		var l = 0; if (elAir_Launch.checked) l = 1;
+		rdata = rdata + "|"+ l;
+		l = 0; if (elReusable.checked) l = 1;
+		rdata = rdata + "|"+ l;
+		l = 0; if (elBooster.checked) l = 1;
+		rdata = rdata + "|"+ l;
+
+		var myURL = new URL(location.href);
+		myURL.searchParams.set('rdata', rdata);
+		window.location.search = "?rdata=" + rdata; // page should reload
+//		myUrl.reload;
 	}
 
 	function fStagesChange()
@@ -3274,7 +3351,7 @@ function Sec2Day(a)
 			Aggressivity = Aggressivity + ScoreCalcWeight[StageIndex][i]*Math.pow(Math.max(1e-3,(parseFloat(s_slider_edit[i].value)*100.*parseFloat(s_slider_edit[14].value)/100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
 			}
 		if (Aggressivity < 0)Aggressivity = 0.;
-		elAggressivity.textContent = Aggressivity.toFixed(1);
+//		elAggressivity.textContent = Aggressivity.toFixed(1);
 	}
 
 	function MassRecalculate()
@@ -3387,7 +3464,7 @@ function Sec2Day(a)
 		}
 		elStartingPoint.addEventListener('change', updateStartingPointAndCalc);
 		
-		for (var i = 0; i<s_rocket_count; i++)
+		for (var i = 0; s_rocket_data[i][0] !="NEW"; i++)
 		{
 			var opt = document.createElement('option');
 			opt.value = s_rocket_data[i][1];
@@ -3600,7 +3677,7 @@ function Sec2Day(a)
 		elTransfer_Orbit_stage_dry_mass.addEventListener('change', MassRecalculateAndCalc);
 
 		elRocket.selectedIndex = 1;
-		for (var i=0; i < s_rocket_count; ++i)
+		for (var i=0; s_rocket_data[i][0] !="NEW"; ++i)
 		{
 			if ( s_rocket_data[i][0] == rocket )
 			{
@@ -3616,6 +3693,7 @@ function Sec2Day(a)
 
 //		elExpand.setAttribute('isBool',0);
 		elExpand.addEventListener('click', ExpandChange);
+		elExport.addEventListener('click', ExportRocket);
 //		ExpandChange();
 		fStagesChange();
 		elAbs_Calculation.checked = true;
