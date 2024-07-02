@@ -3351,7 +3351,7 @@ function Sec2Day(a)
 			Aggressivity = Aggressivity + ScoreCalcWeight[StageIndex][i]*Math.pow(Math.max(1e-3,(parseFloat(s_slider_edit[i].value)*100.*parseFloat(s_slider_edit[14].value)/100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
 			}
 		if (Aggressivity < 0)Aggressivity = 0.;
-//		elAggressivity.textContent = Aggressivity.toFixed(1);
+		elAggressivity.textContent = Aggressivity.toFixed(1);
 	}
 
 	function MassRecalculate()
