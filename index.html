@@ -398,8 +398,8 @@ input[type=range]:focus::-ms-fill-upper {
 				<P title="All parameters in the Launcher Calculator have &#013;Hints that appear when hovering over." class="logoContent"><FONT>Launcher <img src="rocketlogo.png"> Calculator</FONT>
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-f9e0ce3730d4">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
-				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a>
-				<label title="Software version"> &emsp;v51</FONT></p><center></p>
+				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a> | <a style="color:green" title="Export rocket data to address bar" href="#" onclick="ExportRocket()">Export</a>
+				<label title="Software version"> &emsp;v52</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
 				<FONT size="5" title="Choose a preset Rocket or create a Custom one">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
@@ -863,8 +863,7 @@ input[type=range]:focus::-ms-fill-upper {
 </div>
 
 <div class="adwacedContent">
-	<button title="Display more information" isBool=0 id="Expand" >Advanced...</button>
-	<button title="Export rocket data to address bar" isBool=0 id="Export" >Export</button>
+	<button isBool=0 id="Expand" >Advanced...</button>
 </div>
 
 			<div id="myModal" class="modal">
@@ -883,8 +882,6 @@ input[type=range]:focus::-ms-fill-upper {
 				</div>
 			  
 			  </div>
-
-
 <SCRIPT>
 	var elStartingPoint = document.querySelector('#StartingPoint');
 	var elReusable = document.querySelector('#Reusable');
@@ -1046,7 +1043,6 @@ input[type=range]:focus::-ms-fill-upper {
 	var elPayload_change = document.querySelector('#Payload_change');
 	var elLast_Payload_change = document.querySelector('#Last_Payload_change');
 	var elExpand = document.querySelector('#Expand');
-	var elExport = document.querySelector('#Export');
 	var elsExpanding = document.querySelectorAll('.content tr[class="Expanding"]');
 	var elsExpanding2 = document.querySelectorAll('.content tr[class="Expanding2"]');
 	var elsExpandingB = document.querySelectorAll('.content tr[class="ExpandingB"]');
@@ -1083,12 +1079,17 @@ input[type=range]:focus::-ms-fill-upper {
 	var Second_stage_run_time = 0.;
 	var Second_stage_prop_used_with_booster = 0.;
 	var First_stage_isp_vac_summ = 300.;
+	var Engine1_Index = 0;
+	var Engine2_Index = 0;
+	var Export_count = 0;
 
 	const params = new URLSearchParams(window.location.search);
         var rocket = params.get('rocket'); // will return the value of the parameter rocket
         var rdata = params.get('rdata'); // will return the value of the parameter rdata
+        var edata = params.get('edata'); // will return the value of the parameter edata
 	if(rocket == null) rocket = "NS1";
 	if(rdata != null) rocket = "NEW";
+//	if(edata != null) rocket = "CST";
 
 	window.onload = onPageLoad;
 	window.onunload = onPageUnload;
@@ -1947,6 +1948,7 @@ function Sec2Day(a)
 
 		if ((elOrbit.selectedIndex > 0) || (elOrbit_Perigee.value == "")) elOrbit_Perigee.value = s_orbit_data[elOrbit.selectedIndex][1];
 		
+		elOrbit_Apogee.value = 0;
 		if ((elOrbit.selectedIndex > 0) || (elOrbit_Apogee.value == "")) elOrbit_Apogee.value = s_orbit_data[elOrbit.selectedIndex][2];
 
 		elOrbitDescription.textContent = s_orbit_data[elOrbit.selectedIndex][6];
@@ -2225,7 +2227,8 @@ function Sec2Day(a)
 				break;
 			}
 		}
-
+		Engine1_Index = Index;
+		
 		elFuel.selectedIndex = s_engine_data[Index][4];
 		elCycle.selectedIndex = s_engine_data[Index][5];
 		elFirst_stage_engine_thrust.value = s_engine_data[Index][1];
@@ -2261,10 +2264,14 @@ function Sec2Day(a)
 				break;
 			}
 		}
+		Engine2_Index = Index;
 
 		elFuel2.selectedIndex = s_engine_data[Index][4];
-		elFuelO.selectedIndex = elFuel2.selectedIndex;
-		elFuel3.selectedIndex = elFuel2.selectedIndex;
+		if(s_designed_first)
+		{
+		  elFuelO.selectedIndex = elFuel2.selectedIndex;
+		  elFuel3.selectedIndex = elFuel2.selectedIndex;
+		}
 		elCycle2.selectedIndex = s_engine_data[Index][5];
 		elSecond_stage_engine_thrust.value = s_engine_data[Index][1];
 		elSecond_stage_isp_sea_level.value = s_engine_data[Index][2];
@@ -2622,12 +2629,17 @@ function Sec2Day(a)
 		elSet_averages.checked = false;
 		elSet_AllMin.checked = false;
 		elSet_AllMax.checked = false;
-		if (elRocket.selectedIndex == 0)
+		elOrbit_Perigee.value = "";
+		if (elRocket.selectedIndex == 0 && edata == null)
 		{ 
 			Abs_Calculation.checked = false;
 			elLimitation.checked = false;
+			elBooster.checked = false;
+			BoosterChange(0);
 			elEngine1.selectedIndex = 0;
 			elEngine2.selectedIndex = 0;
+			s_rocket_data[0][11] = 0.;
+			s_rocket_data[0][12] = 0.;
 			s_designed_first = true;
 			updateEngine1()
 			s_designed_first = true;
@@ -2638,6 +2650,7 @@ function Sec2Day(a)
 		if(rdata != null) 
 		 {
 		  var strs = rdata.split("|");
+		  rdata = null;
 		  s_rocket_data[44][1] = strs[0];
 
 		  var opt = document.createElement('option');
@@ -2653,6 +2666,35 @@ function Sec2Day(a)
 		  s_rocket_data[44][37] = strs[36];
 		  s_rocket_data[44][38] = strs[37];
 		  s_rocket_data[44][39] = strs[38];
+		 }
+
+		if(edata != null) 
+		 {
+		  var strs = edata.split("|");
+
+//		  s_rocket_data[0][1] = strs[0];
+		  elRocket.selectedIndex = 0;
+		  for (var i = 1; i < 26; i++) s_rocket_data[0][i+1] = strs[i];
+		  for (var i = 30; i < 34; i++) s_rocket_data[0][i+1] = strs[i];
+		  s_rocket_data[0][35] = s_start_point_data[strs[34]][0];
+		  s_rocket_data[0][36] = s_orbit_data[strs[35]][0];
+		  s_rocket_data[0][37] = strs[36];
+		  s_rocket_data[0][38] = strs[37];
+		  s_rocket_data[0][39] = strs[38];
+
+		  s_designed_first = false;
+		  elEngine1.value = s_engine_data[strs[26]][0];
+		  updateEngine1();
+		  elEngine2.value = s_engine_data[strs[28]][0];
+		  updateEngine2();
+
+		  elFirst_stage_engines_number.value = strs[27];
+		  elSecond_stage_engines_number.value = strs[29];
+
+		  s_rocket_data[0][27] = elFuel.selectedIndex;
+		  s_rocket_data[0][29] = elFuel2.selectedIndex;
+		  s_rocket_data[0][28] = elCycle.selectedIndex;
+		  s_rocket_data[0][30] = elCycle2.selectedIndex;
 		 }
 
 		elThrust_to_weight_ratio.value = s_rocket_data[elRocket.selectedIndex][2];
@@ -2704,10 +2746,10 @@ function Sec2Day(a)
 			if ( s_start_point_data[i][0] == spacePort )
 			{
 				elStartingPoint.selectedIndex = i;
-				updateStartingPoint();
 				break;
 			}
 		}
+		updateStartingPoint();
 		
 		var orbit = s_rocket_data[elRocket.selectedIndex][36];
 		for (var i=0; i < s_orbit_count; ++i)
@@ -2715,10 +2757,10 @@ function Sec2Day(a)
 			if ( s_orbit_data[i][0] == orbit )
 			{
 				elOrbit.selectedIndex = i;
-				updateOrbit();
 				break;
 			}
 		}
+
 		if ( i == s_orbit_count)
 		{
 			elOrbit.selectedIndex = 0;
@@ -2726,6 +2768,7 @@ function Sec2Day(a)
 			elOrbit_Apogee.value = orbit.slice(6).trim();
 //			elOrbit_Inclination.value = s_start_point_data[elStartingPoint.selectedIndex][4];
 		}
+		updateOrbit();
 		
 		elFuel.selectedIndex = s_rocket_data[elRocket.selectedIndex][27];
 		elFuel2.selectedIndex = s_rocket_data[elRocket.selectedIndex][29];
@@ -2760,7 +2803,6 @@ function Sec2Day(a)
 				elProjectingH[i].style.display = "none";
 			SetAverages(0,7);
 			updateWeight();
-			
 		} else
 		{
 			for (var i = 0; i < elProjecting.length; i++)
@@ -2772,23 +2814,25 @@ function Sec2Day(a)
 
 		elReusable.checked = s_rocket_data[elRocket.selectedIndex][38] != 0;
 		ReusabilityChange(0);
-
 		elBooster.checked = s_rocket_data[elRocket.selectedIndex][39] != 0;
 		BoosterChange(0);
-
-
+		edata = null;
 	}
 
 	function updateRocketAndCalc()
 	{
-		var myURL = new URL(location.href);
-		myURL.searchParams.set('rocket', s_rocket_data[elRocket.selectedIndex][0]);
-		window.location.search = "?rocket=" + s_rocket_data[elRocket.selectedIndex][0]; // page should reload
+//		var myURL = new URL(location.href);
+//		myURL.searchParams.set('rocket', s_rocket_data[elRocket.selectedIndex][0]);
+//		window.location.search = "?rocket=" + s_rocket_data[elRocket.selectedIndex][0]; // page should reload
 //		myUrl.reload;
 
-//		updateRocket();
-//		Calculate();
-//		if (elRocket.selectedIndex > 0)Abs_Calculation.checked = true;
+		var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname + "?rocket=" + s_rocket_data[elRocket.selectedIndex][0];
+		window.history.pushState({path:myURL},'',myURL);
+//		window.history.replaceState ('','',myURL);
+
+		updateRocket();
+		Calculate();
+		if (elRocket.selectedIndex > 0)Abs_Calculation.checked = true;
 	}
 
 	function ExpandChange()
@@ -2811,7 +2855,11 @@ function Sec2Day(a)
 
 	function ExportRocket()
 	{
-		var rdata = "new_Rocket"
+		Export_count = 1 - Export_count;
+		var rname ="New_Rocket";
+		if (Export_count == 0)rname ="new_Rocket";
+		var rdata = "?rdata=" + rname;
+		if(elRocket.selectedIndex == 0)rdata = "?edata=" + rname;
 		rdata = rdata + "|"+ elThrust_to_weight_ratio.value;
 		rdata = rdata + "|"+ elThrust_to_weight_ratio_2nd.value;
 		rdata = rdata + "|"+ elRocket_Mass.value;
@@ -2827,7 +2875,8 @@ function Sec2Day(a)
 		rdata = rdata + "|"+ el2nd_Dry_to_Wet_mass_ratio.value;
 		rdata = rdata + "|"+ el3rd_Dry_to_Wet_mass_ratio.value;
 		rdata = rdata + "|"+ elOrb_Dry_to_Wet_mass_ratio.value;
-		rdata = rdata + "|"+ elUnused_propellant_of_1st_Stage.value;
+                if(Reusable.checked)rdata = rdata + "|"+ s_rocket_data[0][17];
+		else rdata = rdata + "|"+ elUnused_propellant_of_1st_Stage.value;
 		rdata = rdata + "|"+ elUnused_propellant_of_2nd_Stage.value;
 		rdata = rdata + "|"+ elUnused_propellant_of_3rd_Stage.value;
 		rdata = rdata + "|"+ elUnused_propellant_of_Transfer_Orbit_Stage.value;
@@ -2837,10 +2886,19 @@ function Sec2Day(a)
 		rdata = rdata + "|"+ elSecond_stage_isp_vac.value;
 		rdata = rdata + "|"+ elThird_stage_isp.value;
 		rdata = rdata + "|"+ elTransfer_Orbit_Stage_isp.value;
-		rdata = rdata + "|"+ elFuel.selectedIndex.toFixed(0);
-		rdata = rdata + "|"+ elCycle.selectedIndex.toFixed(0);
-		rdata = rdata + "|"+ elFuel2.selectedIndex.toFixed(0);
-		rdata = rdata + "|"+ elCycle2.selectedIndex.toFixed(0);
+
+		if(elRocket.selectedIndex == 0) rdata = rdata + "|"+ Engine1_Index;
+		else 	rdata = rdata + "|"+ elFuel.selectedIndex.toFixed(0);
+
+		if(elRocket.selectedIndex == 0) rdata = rdata + "|"+ elFirst_stage_engines_number.value;
+		else	rdata = rdata + "|"+ elCycle.selectedIndex.toFixed(0);
+
+		if(elRocket.selectedIndex == 0) rdata = rdata + "|"+ Engine2_Index;
+		else	rdata = rdata + "|"+ elFuel2.selectedIndex.toFixed(0);
+
+		if(elRocket.selectedIndex == 0) rdata = rdata + "|"+ elSecond_stage_engines_number.value;
+		else	rdata = rdata + "|"+ elCycle2.selectedIndex.toFixed(0);
+
 		rdata = rdata + "|"+ elFuel3.selectedIndex.toFixed(0);
 		rdata = rdata + "|"+ elCycle3.selectedIndex.toFixed(0);
 		rdata = rdata + "|"+ elFuelO.selectedIndex.toFixed(0);
@@ -2854,10 +2912,13 @@ function Sec2Day(a)
 		l = 0; if (elBooster.checked) l = 1;
 		rdata = rdata + "|"+ l;
 
-		var myURL = new URL(location.href);
-		myURL.searchParams.set('rdata', rdata);
-		window.location.search = "?rdata=" + rdata; // page should reload
-//		myUrl.reload;
+//		var myURL = new URL(location.href);
+//		myURL.searchParams.set('rdata', rdata);
+//		window.location.search = "?rdata=" + rdata; // page should reload
+
+		var myURL = window.location.protocol + "//" + window.location.host + window.location.pathname + rdata;
+		window.history.pushState({path:myURL},'',myURL);
+//		window.history.replaceState ('','',myURL);
 	}
 
 	function fStagesChange()
@@ -2976,7 +3037,7 @@ function Sec2Day(a)
 		     elUnused_propellant_of_1st_Stage.value = s_rocket_data[elRocket.selectedIndex][17];
 		 }
 		else
-                 elUnused_propellant_of_1st_Stage.value = (s_rocket_data[elRocket.selectedIndex][17]+Reus_corr).toFixed(2);
+                 elUnused_propellant_of_1st_Stage.value = (parseFloat(s_rocket_data[elRocket.selectedIndex][17])+Reus_corr).toFixed(2);
 
 		RangeMinMax(s_slider[4], s_slider_edit[4], 0, 0, 4);
 
@@ -3033,7 +3094,7 @@ function Sec2Day(a)
 			}
 		}
 
-		if (elBooster.checked)
+		if (elBooster.checked && edata == null)
 			{
 			  var Second_stage_propellant_mass = parseFloat(elSecond_stage_propellant_mass.value);
 			  var Unused_propellant_of_2nd_Stage = parseFloat(elUnused_propellant_of_2nd_Stage.value)
@@ -3246,13 +3307,16 @@ function Sec2Day(a)
 
 	function SetAverages(Istr,Ifin)
 	{
-		for (var i = Istr; i < Ifin+1; ++i)
+		if(edata == null)
+		{
+		  for (var i = Istr; i < Ifin+1; ++i)
 			{
 			s_slider[i].value = 0.5*(parseFloat(s_slider[i].max)+parseFloat(s_slider[i].min));
 			updateSlider(i);
 			}
-		elSpecific_Impulse_Variation.value = 100.;
-		updateSliderEdit0(14);
+		  elSpecific_Impulse_Variation.value = 100.;
+		  updateSliderEdit0(14);
+		}
 	}
 
 	function DelAverages()
@@ -3693,7 +3757,6 @@ function Sec2Day(a)
 
 //		elExpand.setAttribute('isBool',0);
 		elExpand.addEventListener('click', ExpandChange);
-		elExport.addEventListener('click', ExportRocket);
 //		ExpandChange();
 		fStagesChange();
 		elAbs_Calculation.checked = true;
