@@ -398,7 +398,7 @@ input[type=range]:focus::-ms-fill-upper {
 				<P title="All parameters in the Launcher Calculator have &#013;Hints that appear when hovering over." class="logoContent"><FONT>Launcher <img src="rocketlogo.png"> Calculator</FONT>
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-f9e0ce3730d4">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
-				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a> | <a style="color:green" title="Export rocket data to address bar" href="#" onclick="ExportRocket()">Export</a>
+				> | <a href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a href="https://discord.gg/2rcRQTK" target="_new">Discord</a> | <a style="color:green" title="Export rocket data to address bar" href="" onclick="ExportRocket()">Export</a>
 				<label title="Software version"> &emsp;v52</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
@@ -1137,13 +1137,14 @@ input[type=range]:focus::-ms-fill-upper {
 	var s_stages_count = 4;
 	var s_stages_name = ["1", "2", "3", "4"];
 	                                                                
-	var s_fuel_count = 8;
+	var s_fuel_count = 9;
 	var s_fuel_name = [["Lox/Kerosene", "Liquid oxygen/Kerosene - Most common rocket propellants"], 
 			   ["Lox/Methane", "Liquid oxygen/Methane"], 
 			   ["Lox/LH2", "Liquid oxygen/Hydrogen - Most efficient rocket fuel"], 
 			   ["HTP/Kerosene", "Hydrogen peroxide/Kerosene - Not cryogenic, eco-friendly"],
 			   ["N2O/C2H6", "Nitrous oxide/Ethane - Self pressurization propellants"],
 			   ["NTO/MMH", "Nitrogen TetrOxide MonoMethylHydrazine - highly toxic hypergolic propellants"],
+			   ["NTO/UDMH", "Nitrogen TetrOxide Unsymmetrical DiMethylHydrazine - highly toxic hypergolic propellants"],
 			   ["Monopropellant", "Consisted of chemicals that release energy through exothermic reactions"], 
 			   ["Solid", "Solid propellant - Often used for missiles"]];
 	var s_cycle_count = 4;
@@ -1169,7 +1170,8 @@ input[type=range]:focus::-ms-fill-upper {
 			       [14, 14,  20, 20, 3,  3,   3,  3, 410, 450, 410, 490, 490, 490],  //Lox/LH2
 			       [7.4,8.4, 20, 20, 3,  3,   3,  3, 293, 320, 293, 341, 341, 341],  //HTP/Ker
 			       [ 9, 10,  30, 30,10, 10,  10, 10, 283, 310, 283, 331, 331, 331],  //N2O/C2H6
-			       [ 8,  9,  20, 20, 3,  3,   3,  3, 320, 350, 320, 375, 375, 375],  //NTO/MMH
+			       [7.6,8.6, 19, 19, 3,  3,   3,  3, 314, 343, 314, 368, 368, 368],  //NTO/MMH
+			       [7.6,8.6, 19, 19, 3,  3,   3,  3, 307, 336, 307, 360, 360, 360],  //NTO/UDMH
 			       [13, 13,  20, 20, 1,  1,   1,  1, 270, 300, 270, 300, 300, 300],  //Mono
 			       [13, 13,  20, 20, 0,  0,   0,  0, 290, 320, 290, 320, 320, 320]]; //Solid
 	                                                                 
@@ -1178,7 +1180,8 @@ input[type=range]:focus::-ms-fill-upper {
 			       [10, 8.0, 10, 10, 1, 0.5, 0.5, 0.5, 363, 399, 363, 434, 434, 434],  //Lox/LH2
 			       [4.7,3.7, 10, 10, 1, 0.5, 0.5, 0.5, 259, 283, 259, 302, 302, 302],  //HTP/Ker 
 			       [6.2,5.2, 15, 15, 3, 3.0, 3.0, 3.0, 249, 273, 249, 292, 292, 292],  //N2O/C2H6
-			       [5,  4.,  10, 10, 1, 0.5, 0.5, 0.5, 283, 310, 283, 332, 332, 332],  //NTO/MMH 
+			       [4.8,3.8, 9.5,9.5,1, 0.5, 0.5, 0.5, 277, 304, 277, 325, 325, 325],  //NTO/MMH 
+			       [4.8,3.8, 9.5,9.5,1, 0.5, 0.5, 0.5, 272, 298, 272, 319, 319, 319],  //NTO/UDMH 
 			       [8,  7.,  10, 10, 0, 0.,  0.,  0.,  239, 266, 239, 266, 266, 266],  //Mono    
 			       [8,  7.,  10, 10, 0, 0.,  0.,  0.,  257, 283, 257, 283, 283, 283]]; //Solid   
 
@@ -1195,9 +1198,9 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["LA3", "Launcher Medium",		  1.19, 0.65,  33000, 1.7,  120, 3500,  0,  505,   14.00,   0, 0.0,    8.5,    11.7,  15, 20,    2.,  1,   1, 1,   290.5, 327,   270, 320, 320, 320, 0,0, 0,3, 0,3, 0,3,    "Wallops",		"LEO", 0, 0, 0, "4 E-2 engines on the 1st stage, pres fed 2nd stage"],
 			     ["LA1", "Launcher Rocket-1",	  1.19, 1.38,  32600, 1.7,  150, 3500,  0,  720,   25.00,   0, 0.0,    8.5,    9.87,  15, 20,  2.95, 2,    1, 1,   290.5, 327,   280, 365, 320, 320, 0,0, 0,0, 0,3, 0,3,    "Wallops",		"LEO", 0, 0, 0, "Four E-2 engines on the 1st stage (project)"],
 			     ["LA4", "Launcher XL",		  1.19, 0.88,  73540, 2.1,  550, 3500,  0, 2000,    16.0,   0, 2.,     8.0,    10.,   15, 20,    2,   2,   1, 1,   290.5, 327,   285, 365, 320, 320, 0,0, 0,0, 0,3, 0,3,    "Wallops",		"LEO", 0, 0, 0, "Nine E-2 engines on the 1st stage (project)"],
-			     ["NS2", "Space Shuttle",		  1.57, 0.646,2006320,11.3,    0, 3500,  0,33600,   41.591, 0, 3.888, 14.983, 4.693,  15, 86.12, 0., 1.7,  1, 50., 242.0, 268,   366, 452, 316, 316, 7,1, 2,1, 5,3, 5,3,    "Cape Canaveral",	"310   0", 0, 0, 1, "NASA The world`s first fully reusable launcher"],
-			     ["AR1", "Ariane-5",		  1.67, 0.413, 738300, 5.3, 3500, 3500,  0,22500,   24.827, 0, 1.693, 14.342, 7.436,  15, 21.6,  0., 1.5,  1, 1,   250.0, 275,   340, 430, 324, 324, 7,1, 2,1, 5,3, 5,3,    "Kuru (ESA)",	"LEO", 0, 0, 1, "ESA The most powerful European launcher"],
-			     ["CZ2", "Long March-2F",		  1.430,1.105, 452000, 6.0 ,2000, 3500,  0, 8400,   63.717, 0,20.343, 7.805,  4.835,  15, 6.011, 2.,  2.,  1, 1.0, 260.0, 291,   260, 291, 289, 289, 5,1, 5,1, 0,1, 0,1,    "Jiuquan (China)",	"LEO", 0, 0, 1, "Chang Zheng-2F (CZ-2F) China crewed"],
+			     ["NS2", "Space Shuttle",		  1.57, 0.646,2006320,11.3,    0, 3500,  0,33600,   41.591, 0, 3.888, 14.983, 4.693,  15, 86.12, 0., 1.7,  1, 50., 242.0, 268,   366, 452, 316, 316, 8,1, 2,1, 5,3, 5,3,    "Cape Canaveral",	"310   0", 0, 0, 1, "NASA The world`s first fully reusable launcher"],
+			     ["AR1", "Ariane-5",		  1.67, 0.413, 738300, 5.3, 3500, 3500,  0,22500,   24.827, 0, 1.693, 14.342, 7.436,  15, 21.6,  0., 1.5,  1, 1,   250.0, 275,   340, 430, 324, 324, 8,1, 2,1, 5,3, 5,3,    "Kuru (ESA)",	"LEO", 0, 0, 1, "ESA The most powerful European launcher"],
+			     ["CZ2", "Long March-2F",		  1.430,1.105, 452000, 6.0 ,2000, 3500,  0, 8400,   63.717, 0,20.343, 7.805,  4.835,  15, 6.011, 2.,  2.,  1, 1.0, 260.0, 291,   260, 291, 289, 289, 6,1, 6,1, 0,1, 0,1,    "Jiuquan (China)",	"LEO", 0, 0, 1, "Chang Zheng-2F (CZ-2F) China crewed"],
 			     ["CZ5", "Long March-5",		  1.264,0.549, 849300, 10. ,2000, 3500,  0, 6000,   26.245, 0, 4.239, 8.812, 11.557,  15, 19.167,2.,  2.,  1, 2.0, 300.0, 335,   317, 428, 442, 442, 0,0, 2,1, 2,1, 2,1,    "Wenchang (China)",	"Mars",0, 0, 1, "Chang Zheng-5 (CZ-5) China heavy"],
 			     ["SZ1", "Soyuz-ST",		  1.333,0.578, 305100, 6.2 ,3500, 3500,  0, 3250,   41.786, 0, 8.812, 11.557, 19.167, 15, 4.238, 2.,  2.,  1, 1.0, 263.3, 320,   255, 319, 359, 359, 0,1, 0,1, 0,1, 0,1,    "Kuru (ESA)",	"GTO", 0, 0, 1, "Roskosmos Russia"],
 			     ["EN1", "Energia",			  1.521,0.718,2266500, 11.,    0, 3500,  0,100000,  34.245, 0,  0.0, 17.606, 9.357,   15, 32.58, 1.5, 1.,  1, 0,   309.0, 337,   353, 455, 324, 324, 0,0, 2,0, 5,3, 5,3,    "Baikonur",		"LEO", 0, 0, 1, "The largest Soviet rocket"],
@@ -1205,17 +1208,17 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["YZ2", "Yuzhnoye Zenit-3SL",	  1.574, 0.872, 462036, 4.15,1850, 3500,  0, 6160, 23.368,  0,3.526, 7.925,  10.359,  15, 11.122, 2., 1.2, 1, 5.4, 309.5, 337.2, 300, 350, 356, 356, 0,0, 0,0, 0,0, 0,0,    "Sea Launch (Equator)","GTO", 0, 0, 0, "Yuzhnoye Ukraine"],
 			     ["UL1", "ULA Delta-IV Medium",	  1.21, 0.30,  250570, 5.1, 2800, 4500,  0, 9420,    9.64,  0, 0.,    11.70, 11.79,   15, 20,    2,   1.5, 1, 0.8, 360.0, 412,   350, 462, 300, 300, 2,1, 2,1, 2,1, 2,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "United Launch Alliance"],
 			     ["UL2", "ULA Atlas V 401",		  1.15, 0.29,  328770, 4.2, 2900, 4500,  0, 9800,    7.05,  0, 0.,     7.04,   10.1,  15, 20,    1.5,  1,  1, 0.8, 311.9, 338.4, 350, 450.5,300,300, 0,0, 2,0, 2,0, 2,0,    "Cape Canaveral",	"ISS", 0, 0, 0, "United Launch Alliance"],
-			     ["UL3", "ULA Atlas V 541",		  1.50, 1.141, 514270, 5.4, 4650, 3500,  0, 8200,   64.019, 0, 4.439, 7.847, 7.281,   15, 8.892,  0.,  1., 1, 0.5, 245.0, 275, 311.9, 338.4,450,450, 7,1, 0,0, 2,0, 2,0,    "Cape Canaveral",	"GTO", 0, 0, 1, "ULA - CCB+SEC/DEC+4SRB+5mSPLF"],
-			     ["NG1", "Orbital (NG now) Antares 100",1.19, 1.53, 274735, 3.9,  970, 4500,  0, 4600,    5.10, 0,  0.,     7.17,   8.69, 15, 20,    3,   0,   1, 0.8, 297.,  331.,  270, 301, 300, 300, 0,0, 7,1, 7,1, 7,1,    "Wallops",		"LEO", 0, 0, 0, "Orbital Sciences Corporation (Aj-26)"],
-			     ["NG2", "Northrop Grumman Antares 230",1.32, 1.44, 287000, 3.9,  970, 4500,  0, 6500,    9.103,0,  0.,   7.845,  7.985,  15, 20,    2.5, 0,   1, 0.8, 311.9, 339.2, 270, 304, 300, 300, 0,0, 7,1, 7,1, 7,1,    "Wallops",		"LEO", 0, 0, 0, "Northrop Grumman (RD-181)"],
-			     ["NG3", "Northrop Grumman Pegasus",  3.17, 2.59,  18300, 1.27, 150, 3500,  0,  450,   23.3,    0,4.87,  13.34,  10.39,   15, 13.48, 0,   0,   1, 0,   270.0, 295,   260, 289, 287, 287, 7,1, 7,1, 7,1, 7,1,    "Vandenberg",	"LEO", 1, 0, 0, "Northrop Grumman Air Launch"],
+			     ["UL3", "ULA Atlas V 541",		  1.50, 1.141, 514270, 5.4, 4650, 3500,  0, 8200,   64.019, 0, 4.439, 7.847, 7.281,   15, 8.892,  0.,  1., 1, 0.5, 245.0, 275, 311.9, 338.4,450,450, 8,1, 0,0, 2,0, 2,0,    "Cape Canaveral",	"GTO", 0, 0, 1, "ULA - CCB+SEC/DEC+4SRB+5mSPLF"],
+			     ["NG1", "Orbital (NG now) Antares 100",1.19, 1.53, 274735, 3.9,  970, 4500,  0, 4600,    5.10, 0,  0.,     7.17,   8.69, 15, 20,    3,   0,   1, 0.8, 297.,  331.,  270, 301, 300, 300, 0,0, 8,1, 8,1, 8,1,    "Wallops",		"LEO", 0, 0, 0, "Orbital Sciences Corporation (Aj-26)"],
+			     ["NG2", "Northrop Grumman Antares 230",1.32, 1.44, 287000, 3.9,  970, 4500,  0, 6500,    9.103,0,  0.,   7.845,  7.985,  15, 20,    2.5, 0,   1, 0.8, 311.9, 339.2, 270, 304, 300, 300, 0,0, 8,1, 8,1, 8,1,    "Wallops",		"LEO", 0, 0, 0, "Northrop Grumman (RD-181)"],
+			     ["NG3", "Northrop Grumman Pegasus",  3.17, 2.59,  18300, 1.27, 150, 3500,  0,  450,   23.3,    0,4.87,  13.34,  10.39,   15, 13.48, 0,   0,   1, 0,   270.0, 295,   260, 289, 287, 287, 8,1, 8,1, 8,1, 8,1,    "Vandenberg",	"LEO", 1, 0, 0, "Northrop Grumman Air Launch"],
 			     ["SX1", "SpaceX Falcon 1e",	  1.19, 0.55,  46955, 1.7,  145, 3500,  0,  650,   10.41,   0,0.00,   6.13,  11.07,   15, 20.00, 3,   3,   1, 1,   263.0, 304,   260, 317, 300, 300, 0,1, 0,3, 0,3, 0,3,    "Omelek Island",	"LEO", 0, 0, 0, "First SpaceX Launcher"],
 			     ["SX2", "SpaceX Falcon 9 V1.0",	  1.22, 0.70, 308000,3.66, 1000, 3500,  0, 8500,   16.56,   0,0.00,   6.74,   5.96,   15, 20.00, 2.0, 1.5, 1, 1,   266.0, 304,   260, 336, 300, 300, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "SpaceX"],
 			     ["SX3", "SpaceX Falcon 9 V1.1",	  1.19, 0.74, 490600, 5.2, 1900, 3500,  0, 13150,  14.656,  0,0.00,   5.493,  5.425,  15, 20.00, 3.0, 3.0, 1, 1,   282.0, 311,   260, 342, 300, 300, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "SpaceX"],
 			     ["SX4", "SpaceX Falcon 9 FT",	  1.41, 0.70, 524554, 5.2, 1700, 3500,  0, 22800,  20.93,   0,0.00,   5.14,   4.04,   15, 20.00, 1.0, 1.0, 1, 1,   286.0, 321,   280, 348, 300, 300, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "Advanced SpaceX Launcher"],
 			     ["SX5", "SpaceX Starship",		  1.434,0.549, 5226000, 9.0,  0, 3500,  0,150000,  25.238,  0, 0.00,  13.0,   9.0,    15, 10.,   1.5, 1.5, 1, 1,   327.0, 356,   280, 380, 380, 380, 1,0, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, 0, 0, "SpaceX (project)"],
-			     ["RL1", "Rocket Lab Electron",	  1.32, 0.93,  12355, 1.2,   44, 3500, 50,   150,  20.16,   0,1.83,   9.31,  10.42,   15, 18.00, 2.,  2.,  1, 1,   256.0, 303,   250, 333, 250, 250, 0,2, 0,2, 6,3, 6,3,    "Rocket Lab LC-1",	"SSO", 0, 0, 0, "Rocket Lab"],
-			     ["RL2", "Rocket Lab Electron improved",1.32, 0.93,  12580, 1.2,   44, 3500, 50,   200,  20.16, 0,  1.83,   9.31,  10.42, 15, 18.00, 2.,  2.,  1, 1,   263.0, 311,   250, 343, 280, 280, 0,2, 0,2, 6,3, 6,3,    "Rocket Lab LC-1",	"SSO", 0, 0, 0, "Rocket Lab 2020 improved version"],
+			     ["RL1", "Rocket Lab Electron",	  1.32, 0.93,  12355, 1.2,   44, 3500, 50,   150,  20.16,   0,1.83,   9.31,  10.42,   15, 18.00, 2.,  2.,  1, 1,   256.0, 303,   250, 333, 250, 250, 0,2, 0,2, 7,3, 7,3,    "Rocket Lab LC-1",	"SSO", 0, 0, 0, "Rocket Lab"],
+			     ["RL2", "Rocket Lab Electron improved",1.32, 0.93,  12580, 1.2,   44, 3500, 50,   200,  20.16, 0,  1.83,   9.31,  10.42, 15, 18.00, 2.,  2.,  1, 1,   263.0, 311,   250, 343, 280, 280, 0,2, 0,2, 7,3, 7,3,    "Rocket Lab LC-1",	"SSO", 0, 0, 0, "Rocket Lab 2020 improved version"],
 			     ["RL3", "Rocket Lab Neutron (Electric Cycle)",1.32, 0.93, 740000, 4.5,  1100,3500,2000, 8000,  26, 0., 2.50,  9.0, 10.0, 15, 15.0, 1.5, 1.5,  1, 1,   263.0, 311,   250, 343, 305, 305, 0,2, 0,2, 3,3, 3,3,    "Wallops",		"SSO", 0, 1, 0, "Rocket Lab new rocket (Electric cycle engines)"],
 			     ["RL4", "Rocket Lab Neutron (Archimedes)",	  1.2,  0.90,  480000, 7.0,     0,3500,   0, 8000,  25, 0.,  0.0,  7.0,  6.5, 15, 15.0, 2.0, 1.5,  1, 1,   283.0, 320,   280, 363, 305, 305, 1,1, 1,1, 3,3, 3,3,    "Wallops",		"LEO", 0, 1, 0, "Rocket Lab new rocket (Open cycle engines)"],
 			     ["VO1", "Virgin Orbit Launcher One",  1.31, 0.65,  25500, 1.8,  100, 3500,  0,   300,   12.0,  0, 0.00,   9.50,   9.00,  15, 20.00, 3,   3,   1, 1,   290.0, 308,   280, 328, 300, 300, 0,1, 0,1, 0,1, 0,1,    "Mojave",		"SSO", 1, 0, 0, "Virgin Orbit"],
@@ -1229,7 +1232,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["AB1", "ABL RS1 (In-house engines)", 1.2, 0.769, 40000, 1.83,  450, 3500,  0,  1350,  16.,    0, 0.00,   7.00,  6.0,    15, 20.0,  2.,   1,  1, 1,   265.0, 295.6, 270, 322, 300, 300, 0,1, 0,1, 0,1, 0,1,    "Kodiak",	"LEO", 0, 0, 0, "ABL Space Systems (project)"],
 			     ["AB2", "ABL RS1 (Ursa engines)",	  1.2,  0.69,  25260, 1.83,  300, 3500,  0,   900,  11.75,  0, 0.00,   4.00,   4.00,  15, 20.00, 1,  .5,   1, 1,   262.0, 308,   260, 345, 300, 300, 0,0, 0,0, 0,0, 0,0,    "Kodiak",	"LEO", 0, 0, 0, "with URSA Major Tech engines (project)"],
 			     ["SK1", "Skyrora XL ",		  1.24, 0.9,   55300, 2.2,   215, 4000,  0,   315,  14.7,   0,  1.0,    11.0,   11.0, 15, 27.00, 3.,  3.,  1, 3.,  250.0, 285,   250, 306, 305, 305, 3,1, 3,1, 3,3, 3,3,    "Stornoway (UK)",	"SSO", 0, 0, 0, "Skyrora United Kingdom (project)"],
-			     ["TI1", "TiSpace Hapith V",          1.435, 0.834, 43980, 2.2,   100, 3500,  0,   390, 20.418, 0, 2.910,  15.714, 15.584,15, 18.0,  5.,  5.,  1, 4.,  270.0, 305,   250, 315, 315, 315, 7,1, 7,1, 7,1, 7,1,    "TiSpace Space Port","LEO", 0, 0, 0, "TiSPACE (project)"],
+			     ["TI1", "TiSpace Hapith V",          1.435, 0.834, 43980, 2.2,   100, 3500,  0,   390, 20.418, 0, 2.910,  15.714, 15.584,15, 18.0,  5.,  5.,  1, 4.,  270.0, 305,   250, 315, 315, 315, 8,1, 8,1, 8,1, 8,1,    "TiSpace Space Port","LEO", 0, 0, 0, "TiSPACE (project)"],
 			     ["PH2", "Phantom Laguna",		  1.221, 0.419, 54000, 2.0,   300, 3500,  0,  1200,  10.00, 0,  0.00,    8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  262.0, 308,   250, 345, 300, 300, 0,0, 0,0, 0,0, 0,0,    "Cape Canaveral",	"LEO", 0, 0, 0, "Phantom (project)"],
 			     ["PL1", "Miura 5",		  	  1.206, 0.720, 43200, 1.8,   250, 3500,  0,  900,   14.00, 0,  0.0,     8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  265.0, 296,   250, 322, 320, 320, 0,1, 0,1, 0,3, 0,3,    "Kuru (ESA)",	"LEO", 0, 0, 0, "PLD Space (project)"],
 			     ["NEW", " ",		  	  1.206, 0.720, 43200, 1.8,   250, 3500,  0,  900,   14.00, 0,  0.0,     8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  265.0, 296,   250, 322, 320, 320, 0,1, 0,1, 0,3, 0,3,    "Cape Canaveral",	"LEO", 0, 0, 0, " "],
@@ -1596,7 +1599,7 @@ function Sec2Day(a)
 
 		var Ascent_Time = 519;
 //		First_stage_run_time = (First_stage_propellant_mass/100.*(100.-Unused_propellant_of_1st_Stage)/(elLift_off_Mass.textContent * Thrust_to_weight_ratio/First_stage_isp_sea_level));
-		if (elFuel.selectedIndex == 7) First_stage_run_time = 1.3 * First_stage_run_time; 
+		if (elFuel.selectedIndex == 8) First_stage_run_time = 1.3 * First_stage_run_time; 
 		Second_stage_total_Start_mass = Rocket_Mass + Fairing_mass + Payload_mass - First_stage_wet_mass;
 		var Second_stage_isp = Second_stage_isp_vac;
 		if (elBooster.checked) Second_stage_isp = Second_stage_isp_sea_level;
@@ -1798,7 +1801,7 @@ function Sec2Day(a)
 		elTransfer_Orbit_stage_propellant_mass.value = Transfer_Orbit_stage_propellant_mass.toFixed(1);
 		elFirst_stage_total_impulse.textContent = (9.80665 * First_stage_propellant_mass/100.*(100.-Unused_propellant_of_1st_Stage)*First_stage_average_trajectory_isp).toExponential(3);
 //		First_stage_run_time = (First_stage_propellant_mass/100.*(100.-Unused_propellant_of_1st_Stage)/(Lift_off_Mass*Thrust_to_weight_ratio/First_stage_isp_sea_level));
-//		if (elFuel.selectedIndex == 7) First_stage_run_time = 1.2 * First_stage_run_time; 
+//		if (elFuel.selectedIndex == 8) First_stage_run_time = 1.2 * First_stage_run_time; 
 		elFirst_stage_run_time.textContent = First_stage_run_time.toFixed(0);
 		elFirst_stage_max_acc.textContent = (Lift_off_Mass/First_stage_final_mass*Thrust_to_weight_ratio*First_stage_isp_vac/First_stage_isp_sea_level).toFixed(1);
 		if (elRocket.selectedIndex == 0)
@@ -2043,13 +2046,13 @@ function Sec2Day(a)
 		var orsc_corr = 0.;
 		var ThrustToWeight_corr = 0;
 		var Weight_corr = 0.8
-		if(cycle == 3 || fuel == 7)Weight_corr = 0.4  //Pressure Fed or Solid
+		if(cycle == 3 || fuel == 8)Weight_corr = 0.4  //Pressure Fed or Solid
 		if(index == 0)ThrustToWeight_corr = Weight_corr*(elThrust_to_weight_ratio.value-1.2);
 		if(index == 1)ThrustToWeight_corr = Weight_corr*(elThrust_to_weight_ratio_2nd.value-0.9);
 
 		if(cycle == 0) orsc_corr = 0.5; //Staged Combustion
 		if(cycle == 2) orsc_corr = 0.5; //Electric
-		if(fuel == 7) {cycle_corr = 1.; orsc_corr = 0.;}
+		if(fuel == 8) {cycle_corr = 1.; orsc_corr = 0.;}
 		var val_min = (s_fuel_data_min[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 		var val_max = (s_fuel_data_max[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 		}
@@ -2063,8 +2066,8 @@ function Sec2Day(a)
 
 		cycle_corr = 1.;
 		if(index > 7) cycle_corr = s_cycle_data[cycle][index-8];
-		if(fuel == 6) cycle_corr = 1.;
 		if(fuel == 7) cycle_corr = 1.;
+		if(fuel == 8) cycle_corr = 1.;
 		var val_min = s_fuel_data_min[fuel][index]*cycle_corr + Reus_corr_;
 		var val_max = s_fuel_data_max[fuel][index]*cycle_corr + Reus_corr_;
 		}
@@ -2156,6 +2159,29 @@ function Sec2Day(a)
 		cycle[11] = elCycle2.selectedIndex;
 		cycle[12] = elCycle3.selectedIndex;
 		cycle[13] = elCycleO.selectedIndex;
+
+// 	Staged Combustion and Gas-Gen cycle cannot be used for monopropellant or solid
+		for (var i = 0; i < 14; ++i)
+		 {
+			if (fuel[i] == 7 && cycle[i] < 2) cycle[i] = 3;
+			if (fuel[i] == 8 ) cycle[i] = 1;
+		 }
+
+		elCycle.selectedIndex  = cycle[0]; 
+		elCycle2.selectedIndex = cycle[1]; 
+		elCycle3.selectedIndex = cycle[2]; 
+		elCycleO.selectedIndex = cycle[3]; 
+		elCycle.selectedIndex  = cycle[4]; 
+		elCycle2.selectedIndex = cycle[5]; 
+		elCycle3.selectedIndex = cycle[6]; 
+		elCycleO.selectedIndex = cycle[7]; 
+		elCycle.selectedIndex  = cycle[8]; 
+		elCycle.selectedIndex  = cycle[9]; 
+		elCycle2.selectedIndex = cycle[10];
+		elCycle2.selectedIndex = cycle[11];
+		elCycle3.selectedIndex = cycle[12];
+		elCycleO.selectedIndex = cycle[13];
+
 		for (var i = 0; i < 14; ++i)
 			RangeMinMax(s_slider[i], s_slider_edit[i], fuel[i], cycle[i], i);
 	}
@@ -2973,7 +2999,7 @@ function Sec2Day(a)
 
 	function SolidChange()
 	{
-		if (elFuel.selectedIndex == 7)
+		if (elFuel.selectedIndex == 8)
 		{
 			document.getElementById("Cycle").style.visibility='hidden';
 		} else
@@ -2981,7 +3007,7 @@ function Sec2Day(a)
 			document.getElementById("Cycle").style.visibility='visible';
 		}
 
-		if (elFuel2.selectedIndex == 7)
+		if (elFuel2.selectedIndex == 8)
 		{
 			document.getElementById("Cycle2").style.visibility='hidden';
 		} else
@@ -2989,7 +3015,7 @@ function Sec2Day(a)
 			document.getElementById("Cycle2").style.visibility='visible';
 		}
 
-		if (elFuel3.selectedIndex == 7)
+		if (elFuel3.selectedIndex == 8)
 		{
 			document.getElementById("Cycle3").style.visibility='hidden';
 		} else
@@ -2997,7 +3023,7 @@ function Sec2Day(a)
 			document.getElementById("Cycle3").style.visibility='visible';
 		}
 
-		if (elFuelO.selectedIndex == 7)
+		if (elFuelO.selectedIndex == 8)
 		{
 				document.getElementById("CycleO").style.visibility='hidden';
 			} else
