@@ -3053,6 +3053,7 @@ function Sec2Day(a)
 
 	function ReusabilityChange(Checked)
 	{
+		if (elFuel.selectedIndex == 8)Reusable.checked = false;
 		var fuel = elFuel.selectedIndex;
 		if (Reusable.checked == false)
 		 {
