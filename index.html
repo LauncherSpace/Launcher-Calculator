@@ -2826,6 +2826,8 @@ function Sec2Day(a)
 		if ( parseFloat(el2nd_Stage_mass_ratio.value) == 0 ) elStages.selectedIndex = 0;
        		fStagesChange();
 
+		elBooster.checked = s_rocket_data[elRocket.selectedIndex][39] != 0;
+		BoosterChange(0);
 		if (elRocket.selectedIndex == 0)
 		{
 			for (var i = 0; i < elProjecting.length; i++)
@@ -2845,8 +2847,6 @@ function Sec2Day(a)
 
 		elReusable.checked = s_rocket_data[elRocket.selectedIndex][38] != 0;
 		ReusabilityChange(0);
-		elBooster.checked = s_rocket_data[elRocket.selectedIndex][39] != 0;
-		BoosterChange(0);
 		edata = null;
 	}
 
