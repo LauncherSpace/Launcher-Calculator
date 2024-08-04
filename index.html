@@ -1209,6 +1209,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["UL1", "ULA Delta-IV Medium",	  1.21, 0.30,  250570, 5.1, 2800, 4500,  0, 9420,    9.64,  0, 0.,    11.70, 11.79,   15, 20,    2,   1.5, 1, 0.8, 360.0, 412,   350, 462, 300, 300, 2,1, 2,1, 2,1, 2,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "United Launch Alliance"],
 			     ["UL2", "ULA Atlas V 401",		  1.15, 0.29,  328770, 4.2, 2900, 4500,  0, 9800,    7.05,  0, 0.,     7.04,   10.1,  15, 20,    1.5,  1,  1, 0.8, 311.9, 338.4, 350, 450.5,300,300, 0,0, 2,0, 2,0, 2,0,    "Cape Canaveral",	"ISS", 0, 0, 0, "United Launch Alliance"],
 			     ["UL3", "ULA Atlas V 541",		  1.50, 1.141, 514270, 5.4, 4650, 3500,  0, 8200,   64.019, 0, 4.439, 7.847, 7.281,   15, 8.892,  0.,  1., 1, 0.5, 245.0, 275, 311.9, 338.4,450,450, 8,1, 0,0, 2,0, 2,0,    "Cape Canaveral",	"GTO", 0, 0, 1, "ULA - CCB+SEC/DEC+4SRB+5mSPLF"],
+			     ["UL4", "ULA Vulcan VC6L",		  1.787,0.826, 839789, 5.4, 6000, 3500,  0,27200,   62.581, 0, 2.783, 8.632, 8.000,   15, 11.0,   0.,  2., 1, 2,   255.,  280.3, 310, 335, 324,453.8,8,1, 1,0, 5,3, 2,1,    "Cape Canaveral",	"LEO", 0, 0, 1, "ULA with BE-4"],
 			     ["NG1", "Orbital (NG now) Antares 100",1.19, 1.53, 274735, 3.9,  970, 4500,  0, 4600,    5.10, 0,  0.,     7.17,   8.69, 15, 20,    3,   0,   1, 0.8, 297.,  331.,  270, 301, 300, 300, 0,0, 8,1, 8,1, 8,1,    "Wallops",		"LEO", 0, 0, 0, "Orbital Sciences Corporation (Aj-26)"],
 			     ["NG2", "Northrop Grumman Antares 230",1.32, 1.44, 287000, 3.9,  970, 4500,  0, 6500,    9.103,0,  0.,   7.845,  7.985,  15, 20,    2.5, 0,   1, 0.8, 311.9, 339.2, 270, 304, 300, 300, 0,0, 8,1, 8,1, 8,1,    "Wallops",		"LEO", 0, 0, 0, "Northrop Grumman (RD-181)"],
 			     ["NG3", "Northrop Grumman Pegasus",  3.17, 2.59,  18300, 1.27, 150, 3500,  0,  450,   23.3,    0,4.87,  13.34,  10.39,   15, 13.48, 0,   0,   1, 0,   270.0, 295,   260, 289, 287, 287, 8,1, 8,1, 8,1, 8,1,    "Vandenberg",	"LEO", 1, 0, 0, "Northrop Grumman Air Launch"],
@@ -2682,21 +2683,21 @@ function Sec2Day(a)
 		 {
 		  var strs = rdata.split("|");
 		  rdata = null;
-		  s_rocket_data[44][1] = strs[0];
+		  s_rocket_data[45][1] = strs[0];
 
 		  var opt = document.createElement('option');
-		  opt.value = s_rocket_data[44][1];
-		  opt.innerHTML = s_rocket_data[44][1];
-		  opt.title=s_rocket_data[44][40];
+		  opt.value = s_rocket_data[45][1];
+		  opt.innerHTML = s_rocket_data[45][1];
+		  opt.title=s_rocket_data[45][40];
 		  elRocket.appendChild(opt);
 
-		  elRocket.selectedIndex = 44;
-		  for (var i = 1; i < 34; i++) s_rocket_data[44][i+1] = strs[i];
-		  s_rocket_data[44][35] = s_start_point_data[strs[34]][0];
-		  s_rocket_data[44][36] = s_orbit_data[strs[35]][0];
-		  s_rocket_data[44][37] = strs[36];
-		  s_rocket_data[44][38] = strs[37];
-		  s_rocket_data[44][39] = strs[38];
+		  elRocket.selectedIndex = 45;
+		  for (var i = 1; i < 34; i++) s_rocket_data[45][i+1] = strs[i];
+		  s_rocket_data[45][35] = s_start_point_data[strs[34]][0];
+		  s_rocket_data[45][36] = s_orbit_data[strs[35]][0];
+		  s_rocket_data[45][37] = strs[36];
+		  s_rocket_data[45][38] = strs[37];
+		  s_rocket_data[45][39] = strs[38];
 		 }
 
 		if(edata != null) 
