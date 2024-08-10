@@ -2067,8 +2067,8 @@ function Sec2Day(a)
 
 		cycle_corr = 1.;
 		if(index > 7) cycle_corr = s_cycle_data[cycle][index-8];
-		if(fuel == 7) cycle_corr = 1.;
-		if(fuel == 8) cycle_corr = 1.;
+		if(fuel == 7) cycle_corr = 1.;    //Mono
+		if(fuel == 8) cycle_corr = 1.;    //Solid
 		var val_min = s_fuel_data_min[fuel][index]*cycle_corr + Reus_corr_;
 		var val_max = s_fuel_data_max[fuel][index]*cycle_corr + Reus_corr_;
 		}
@@ -3273,7 +3273,7 @@ function Sec2Day(a)
 			if(i == 1)ThrustToWeight_corr = 0.8*(elThrust_to_weight_ratio_2nd.value-1.1);
 
 			if(cycle[i] == 0) orsc_corr = .5;
-			if(fuel[i] == 5) {cycle_corr = 1.; orsc_corr = 0.;}
+			if(fuel[i] == 8) {cycle_corr = 1.; orsc_corr = 0.;}  //Solid
 			var val_min = (s_fuel_data_min[fuel[i]][i]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 			var val_max = (s_fuel_data_max[fuel[i]][i]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 			}
@@ -3281,8 +3281,8 @@ function Sec2Day(a)
 			{
 			cycle_corr = 1.;
 			if(i > 7) cycle_corr = s_cycle_data[cycle[i]][i-8];
-			if(fuel[i] == 4) cycle_corr = 1.;
-			if(fuel[i] == 5) cycle_corr = 1.;
+			if(fuel[i] == 7) cycle_corr = 1.;    //Mono
+			if(fuel[i] == 8) cycle_corr = 1.;    //Solid
 			var val_min = s_fuel_data_min[fuel[i]][i]*cycle_corr;
 			var val_max = s_fuel_data_max[fuel[i]][i]*cycle_corr;
 			}
