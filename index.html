@@ -3431,15 +3431,16 @@ function Sec2Day(a)
 		for (var i = 0; i < 8; ++i)
 			{
 			if (parseFloat(s_slider[i].max) > 0.) Aggressivity = Aggressivity + ScoreCalcWeight[StageIndex][i]*Math.pow(Math.max(1e-3,1.-(parseFloat(s_slider_edit[i].value)*100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
-			if (i < 4 & parseFloat(s_slider_edit[i].value)*100. < parseFloat(s_slider[i].min)) Aggressivity = Aggressivity + ScoreCalcWeight[StageIndex][i]*Math.pow(1.+(-parseFloat(s_slider_edit[i].value)*100.+parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)), 2.0);
+			if (i < 4 & parseFloat(s_slider_edit[i].value)*100. < parseFloat(s_slider[i].min)) Aggressivity = Aggressivity + ScoreCalcWeight[StageIndex][i]*(Math.pow(1.+(-parseFloat(s_slider_edit[i].value)*100.+parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)), 3.0)-1.);
 			if (i < 4 & parseFloat(s_slider_edit[i].value) == 0.) Aggressivity = 1/0;
 			}
-		var i_end = 13;
-		if (elStages.selectedIndex == 2) i_end = 12;
+		var i_end = 14;
+//		if (elStages.selectedIndex == 2) i_end = 12;
 		for (var i = 8; i < i_end; ++i)
 			{
-			if (i == 0) Aggressivity = 0;
+//			if (i == 0) Aggressivity = 0;
 			Aggressivity = Aggressivity + ScoreCalcWeight[StageIndex][i]*Math.pow(Math.max(1e-3,(parseFloat(s_slider_edit[i].value)*100.*parseFloat(s_slider_edit[14].value)/100.-parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min))), 1.5);
+			if (parseFloat(s_slider_edit[i].value)*100. > parseFloat(s_slider[i].max)) Aggressivity = Aggressivity + ScoreCalcWeight[StageIndex][i]*(Math.pow(1.+(parseFloat(s_slider_edit[i].value)*parseFloat(s_slider_edit[14].value)-parseFloat(s_slider[i].max))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)),3.0)-1.);
 			}
 		if (Aggressivity < 0)Aggressivity = 0.;
 		elAggressivity.textContent = Aggressivity.toFixed(1);
