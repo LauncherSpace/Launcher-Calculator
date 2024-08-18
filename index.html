@@ -399,7 +399,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-f9e0ce3730d4">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a title="Background and usage" href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
 				> | <a title="An open source code is here" href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a title="Write your questions and wishes here" href="https://discord.gg/2rcRQTK" target="_new">Discord</a> | <a style="color:green" title="Export rocket data to address bar" href="#" onclick="ExportRocket()">Export</a>
-				<label title="Software version"> &emsp;v53</FONT></p><center></p>
+				<label title="Software version"> &emsp;v54</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
 				<FONT size="5" title="Choose a preset Rocket or create a Custom one">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
@@ -442,7 +442,7 @@ input[type=range]:focus::-ms-fill-upper {
 			  <TABLE border="1" class="borderTable">
 			<TBODY>
 	  
-			  <div class="borderTable"> <FONT size=5" title="Basic rocket data"><b>&ensp;Rocket</FONT><div class="right-content"><div class="spaceheder2cont" title="When choosing this item, the engines thrust and in general stages mass &#013;are considered unchangeable (it is good for Payload calculation of the &#013;existing rocket or selecting the optimal thrust-to-weight ratio or weights &#013;ratio between the first and second stages), otherwise the relative &#013;characteristics which is better for the new launchers designing. &#013;This option may switch automatically if you change the parameter &#013;corresponding to a specific calculation type."><font size="2">Fixed design</font><INPUT id="Abs_Calculation" type="checkbox"><div class="spaceheder2cont" title="Returnable and Reusable first stage of SpaceX type. &#013;It should be borne in mind that Reusability requires &#013;certain capabilities for the first stage Engines, &#013;which are difficult to achieve of the most existing &#013;Launchers."><font size="2">Reusability</font><INPUT id="Reusable" type="checkbox"></div></TD></TR>
+			  <div class="borderTable"> <FONT size=5" title="Basic rocket data"><b>&ensp;Rocket</FONT><div class="right-content"><div class="spaceheder2cont" title="When choosing this item, the engines thrust and in general stages mass &#013;are considered unchangeable (it is good for Payload calculation of the &#013;existing rocket or selecting the optimal thrust-to-weight ratio or weights &#013;ratio between the first and second stages), otherwise the relative &#013;characteristics which is better for the new launchers designing. &#013;This option may switch automatically if you change the parameter &#013;corresponding to a specific calculation type."><font size="2">Fixed design</font><INPUT id="Abs_Calculation" type="checkbox"><div class="spaceheder2cont" title="Returnable and Reusable first stage of SpaceX type by the most &#013; energy-intensive version with returning to the starting point. &#013;It should be borne in mind that Reusability requires certain capabilities &#013;for the first stage Engines, which are difficult to achieve of the most &#013;existing Launchers."><font size="2">Reusability</font><INPUT id="Reusable" type="checkbox"></div></TD></TR>
 
 				<TR class="Projecting">
 			  <TD width="460" title="Choose an engine for the first stage"><div class="engineText">1st&ensp;engine</div><SELECT class="right-select" id="Engine1" title="First stage engine name. &#013;If you select a new engine for the first time, the software will automatically &#013;assign a second-stage engine and the number of engines corresponding to &#013;an existing launch vehicle. For example - choosing F-1 you will get Saturn-V."> </TD>
@@ -1165,27 +1165,27 @@ input[type=range]:focus::-ms-fill-upper {
 			    [ 0.85, 0.90, 0.85, 0.92, 0.92, 0.92],  //Electric
 			    [ 0.79, 0.86, 0.79, 0.85, 0.85, 0.85]]; //Pressure Fed
 
-	var s_fuel_data_max = [[ 8,  9,  20, 20, 3,   3,   3,   3, 320, 350, 320, 375, 375, 375, 3.8],  //Lox/Ker
-			       [ 9, 10,  20, 20, 3,   3,   3,   3, 335, 370, 335, 390, 390, 390, 4.0],  //Lox/Meth
-			       [14, 14,  20, 20, 3,   3,   3,   3, 410, 450, 410, 490, 490, 490, 6.0],  //Lox/LH2
-			       [7.9,8.9, 20, 20, 3,   3,   3,   3, 331, 366, 331, 385, 385, 385, 3.76], //Lox/Syn
-			       [7.4,8.4, 20, 20, 3,   3,   3,   3, 293, 320, 293, 341, 341, 341, 3.5],  //HTP/Ker
-			       [7.6,8.6, 19, 19, 3,   3,   3,   3, 314, 343, 314, 368, 368, 368, 3.6],  //NTO/MMH
-			       [7.6,8.6, 19, 19, 3,   3,   3,   3, 307, 336, 307, 360, 360, 360, 3.6],  //NTO/UDMH
-			       [13, 13,  20, 20, 1,   1,   1,   1, 270, 300, 270, 300, 300, 300, 3.7],  //Mono
-			       [13, 13,  30, 30,10,  10,  10,  10, 283, 310, 283, 331, 331, 331, 5.0],  //N2O/C2H6
-			       [13, 13,  20, 20, 0,   0,   0,   0, 290, 320, 290, 320, 320, 320, 3.5]]; //Solid
+	var s_fuel_data_max = [[ 8.0,  9.0,  20, 20, 3,   3,   3,   3, 320, 350, 320, 375, 375, 375, 3.8],  //Lox/Ker
+			       [ 8.98, 9.01, 20, 20, 3,   3,   3,   3, 335, 370, 335, 390, 390, 390, 4.0],  //Lox/Meth
+			       [ 15.0, 14.0, 20, 20, 3,   3,   3,   3, 410, 450, 410, 490, 490, 490, 6.0],  //Lox/LH2
+			       [ 7.93, 8.92, 20, 20, 3,   3,   3,   3, 331, 366, 331, 385, 385, 385, 3.76], //Lox/Syn
+			       [ 7.08, 7.96, 20, 20, 3,   3,   3,   3, 293, 320, 293, 341, 341, 341, 3.5],  //HTP/Ker
+			       [ 7.35, 8.27, 19, 19, 3,   3,   3,   3, 314, 343, 314, 368, 368, 368, 3.6],  //NTO/MMH
+			       [ 7.39, 8.32, 19, 19, 3,   3,   3,   3, 307, 336, 307, 360, 360, 360, 3.6],  //NTO/UDMH
+			       [ 13.0, 13.0, 20, 20, 1,   1,   1,   1, 270, 300, 270, 300, 300, 300, 3.7],  //Mono
+			       [ 13.0, 13.0, 30, 30,10,  10,  10,  10, 283, 310, 283, 331, 331, 331, 5.0],  //N2O/C2H6
+			       [ 13.0, 13.0, 20, 20, 0,   0,   0,   0, 290, 320, 290, 320, 320, 320, 3.5]]; //Solid
 	                                                                 
-	var s_fuel_data_min = [[5,  4.,  10, 10, 1, 0.5, 0.5, 0.5, 283, 310, 283, 332, 332, 332],  //Lox/Ker 
-			       [6.2,5.2, 10, 10, 1, 0.5, 0.5, 0.5, 297, 327, 297, 345, 345, 345],  //Lox/Meth
-			       [10, 8.0, 10, 10, 1, 0.5, 0.5, 0.5, 363, 399, 363, 434, 434, 434],  //Lox/LH2
-			       [4.9,3.9, 10, 10, 1, 0.5, 0.5, 0.5, 294, 323, 294, 341, 341, 341],  //Lox/Syn
-			       [4.7,3.7, 10, 10, 1, 0.5, 0.5, 0.5, 259, 283, 259, 302, 302, 302],  //HTP/Ker 
-			       [4.8,3.8, 9.5,9.5,1, 0.5, 0.5, 0.5, 277, 304, 277, 325, 325, 325],  //NTO/MMH 
-			       [4.8,3.8, 9.5,9.5,1, 0.5, 0.5, 0.5, 272, 298, 272, 319, 319, 319],  //NTO/UDMH 
-			       [8,  7.,  10, 10, 0, 0.,  0.,  0.,  239, 266, 239, 266, 266, 266],  //Mono    
-			       [8,  7.,  15, 15, 3, 3.0, 3.0, 3.0, 249, 273, 249, 292, 292, 292],  //N2O/C2H6
-			       [8,  7.,  10, 10, 0, 0.,  0.,  0.,  257, 283, 257, 283, 283, 283]]; //Solid   
+	var s_fuel_data_min = [[ 5.0,   4.0,  10, 10, 1, 0.5, 0.5, 0.5, 283, 310, 283, 332, 332, 332],  //Lox/Ker 
+			       [ 5.61,  4.49, 10, 10, 1, 0.5, 0.5, 0.5, 297, 327, 297, 345, 345, 345],  //Lox/Meth
+			       [ 10.0,  8.0, 10, 10, 1, 0.5, 0.5, 0.5, 363, 399, 363, 434, 434, 434],  //Lox/LH2
+			       [ 4.96,  3.96, 10, 10, 1, 0.5, 0.5, 0.5, 294, 323, 294, 341, 341, 341],  //Lox/Syn
+			       [ 4.42,  3.54, 10, 10, 1, 0.5, 0.5, 0.5, 259, 283, 259, 302, 302, 302],  //HTP/Ker 
+			       [ 4.6,   3.68, 9.5,9.5,1, 0.5, 0.5, 0.5, 277, 304, 277, 325, 325, 325],  //NTO/MMH 
+			       [ 4.62,  3.7,  9.5,9.5,1, 0.5, 0.5, 0.5, 272, 298, 272, 319, 319, 319],  //NTO/UDMH 
+			       [ 8.0,   7.0,  10, 10, 0, 0.,  0.,  0.,  239, 266, 239, 266, 266, 266],  //Mono    
+			       [ 8.0,   7.0,  15, 15, 3, 3.0, 3.0, 3.0, 249, 273, 249, 292, 292, 292],  //N2O/C2H6
+			       [ 8.0,   7.0,  10, 10, 0, 0.,  0.,  0.,  257, 283, 257, 283, 283, 283]]; //Solid   
 
 	var ScoreCalcWeight =  [[1.25, 0.  , 0.   , 0.   , 1.25, 0.  , 0.   , 0.   , 0.5, 0.125, 0., 0. , 0.  , 0.  ],  // 1 stage
 				[1.25, 1.25, 0.   , 0.   , 1.25, 1.25, 0.   , 0.   , 0.5, 0.125, 0., 0.5, 0.  , 0.  ],  // 2 stages 
@@ -1215,9 +1215,9 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["NG1", "Orbital (NG now) Antares 100",1.19, 1.53, 274735, 3.9,  970, 4500,  0, 4600,    5.10, 0,  0.,     7.17,   8.69, 15, 20,    3,   0,   1, 0.8, 297.,  331.,  270, 301, 300, 300, 0,0, 9,1, 9,1, 9,1,    "Wallops",		"LEO", 0, 0, 0, "Orbital Sciences Corporation (Aj-26)"],
 			     ["NG2", "Northrop Grumman Antares 230",1.32, 1.44, 287000, 3.9,  970, 4500,  0, 6500,    9.103,0,  0.,   7.845,  7.985,  15, 20,    2.5, 0,   1, 0.8, 311.9, 339.2, 270, 304, 300, 300, 0,0, 9,1, 9,1, 9,1,    "Wallops",		"LEO", 0, 0, 0, "Northrop Grumman (RD-181)"],
 			     ["NG3", "Northrop Grumman Pegasus",  3.17, 2.59,  18300, 1.27, 150, 3500,  0,  450,   23.3,    0,4.87,  13.34,  10.39,   15, 13.48, 0,   0,   1, 0,   270.0, 295,   260, 289, 287, 287, 9,1, 9,1, 9,1, 9,1,    "Vandenberg",	"LEO", 1, 0, 0, "Northrop Grumman Air Launch"],
-			     ["SX1", "SpaceX Falcon 1e",	  1.19, 0.55,  46955, 1.7,  145, 3500,  0,  650,   10.41,   0,0.00,   6.13,  11.07,   15, 20.00, 3,   3,   1, 1,   263.0, 304,   260, 317, 300, 300, 0,1, 0,3, 0,3, 0,3,    "Omelek Island",	"LEO", 0, 0, 0, "First SpaceX Launcher"],
-			     ["SX2", "SpaceX Falcon 9 V1.0",	  1.22, 0.70, 308000,3.66, 1000, 3500,  0, 8500,   16.56,   0,0.00,   6.74,   5.96,   15, 20.00, 2.0, 1.5, 1, 1,   266.0, 304,   260, 336, 300, 300, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "SpaceX"],
-			     ["SX3", "SpaceX Falcon 9 V1.1",	  1.19, 0.74, 490600, 5.2, 1900, 3500,  0, 13150,  14.656,  0,0.00,   5.493,  5.425,  15, 20.00, 3.0, 3.0, 1, 1,   282.0, 311,   260, 342, 300, 300, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "SpaceX"],
+			     ["SX1", "SpaceX Falcon 1",		  1.179,0.598, 29400, 1.7,  145, 3500,  0,  420,   15.341,  0,0.00,   6.5,    9.0,    15, 20.00, 3,   2,   1, 1,   264.0, 300,   260, 317, 300, 300, 0,1, 0,3, 0,3, 0,3,    "Omelek Island",	"LEO", 0, 0, 0, "First SpaceX Launcher"],
+			     ["SX2", "SpaceX Falcon 9 V1.0",	  1.22, 0.75, 308000,3.66, 1000, 3500,  0, 8500,   16.56,   0,0.00,   6.74,   5.96,   15, 20.00, 2.0, 1.5, 1, 1,   266.0, 304,   260, 336, 300, 300, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "SpaceX"],
+			     ["SX3", "SpaceX Falcon 9 V1.1",	  1.19, 0.837,490600, 5.2, 1900, 3500,  0, 13150,  14.656,  0,0.00,   5.493,  5.425,  15, 20.00, 3.0, 3.0, 1, 1,   282.0, 311,   260, 340, 300, 300, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "SpaceX"],
 			     ["SX4", "SpaceX Falcon 9 FT",	  1.41, 0.70, 524554, 5.2, 1700, 3500,  0, 22800,  20.93,   0,0.00,   5.14,   4.04,   15, 20.00, 1.0, 1.0, 1, 1,   286.0, 321,   280, 348, 300, 300, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "Advanced SpaceX Launcher"],
 			     ["SX5", "SpaceX Starship",		  1.434,0.549, 5226000, 9.0,  0, 3500,  0,150000,  25.238,  0, 0.00,  13.0,   9.0,    15, 10.,   1.5, 1.5, 1, 1,   327.0, 356,   280, 380, 380, 380, 1,0, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, 0, 0, "SpaceX (project)"],
 			     ["RL1", "Rocket Lab Electron",	  1.32, 0.93,  12355, 1.2,   44, 3500, 50,   150,  20.16,   0,1.83,   9.31,  10.42,   15, 18.00, 2.,  2.,  1, 1,   256.0, 303,   250, 333, 250, 250, 0,2, 0,2, 7,3, 7,3,    "Rocket Lab LC-1",	"SSO", 0, 0, 0, "Rocket Lab"],
@@ -1240,7 +1240,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["PL1", "Miura 5",		  	  1.206, 0.720, 43200, 1.8,   250, 3500,  0,  900,   14.00, 0,  0.0,     8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  265.0, 296,   250, 322, 320, 320, 0,1, 0,1, 0,3, 0,3,    "Kuru (ESA)",	"LEO", 0, 0, 0, "PLD Space (project)"],
 			     ["NEW", " ",		  	  1.206, 0.720, 43200, 1.8,   250, 3500,  0,  900,   14.00, 0,  0.0,     8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  265.0, 296,   250, 322, 320, 320, 0,1, 0,1, 0,3, 0,3,    "Cape Canaveral",	"LEO", 0, 0, 0, " "],
 				 ];
-	var s_engine_count = 40;
+	var s_engine_count = 44;
 	var s_engine_data = [["Launcher E-2",		10000.,	290.5, 327., 0, 0, 9,"Launcher 1st stage"],
 			     ["Launcher E-2 vac",	12600.,	270.0, 365., 0, 0, 1,"Launcher 2nd stage"],				
 			     ["Ursa Hadley",		2690.,	260.0, 305., 0, 0, 9,"URSA Major ORSC engine for 1st stage"],
@@ -1259,8 +1259,12 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["RFA Helix vac",		10000.,	262.0, 352., 0, 1, 1,"RFA Aerospace ONE 2nd stage"],	
 			     ["Isar Aqula",		7650.,	256.0, 303., 0, 1, 9,"Isar Aerospace Spectrum 1st stage"],				
 			     ["Isar Aqula vac",		9580.,	236.0, 333., 0, 1, 1,"Isar Aerospace Spectrum 2nd stage"],	
-			     ["SpaceX Merlin 1C",	56700.,	263.0, 304., 0, 1, 1,"SpaceX Falcone-1 1st stage"],				
+			     ["SpaceX Merlin 1Ci",	35500.,	264.0, 300., 0, 1, 1,"SpaceX Falcone-1 1st stage"],				
 			     ["SpaceX Kerstel 2",	3100.,	230.0, 317., 0, 3, 1,"SpaceX Falcone-1 2nd stage"],				
+			     ["SpaceX Merlin 1C",	43100.,	267.0, 305., 0, 1, 9,"SpaceX Falcone-9 1st stage"],				
+			     ["SpaceX Merlin 1Cv",	45400.,	260.0, 336., 0, 1, 1,"SpaceX Falcone-9 2nd stage"],				
+			     ["SpaceX Merlin 1D",	66700.,	282.0, 311., 0, 1, 9,"SpaceX Falcone-9 v1.1 1st stage"],				
+			     ["SpaceX Merlin 1Dv",	73000.,	260.0, 340., 0, 1, 1,"SpaceX Falcone-9 v1.1 2nd stage"],				
 			     ["SpaceX Merlin 1D+",	86200.,	282.0, 311., 0, 1, 9,"SpaceX Falcone-9FT 1st stage"],				
 			     ["SpaceX Merlin 1D+v",	95300.,	262.0, 348., 0, 1, 1,"SpaceX Falcone-9FT 2nd stage"],	
 			     ["SpaceX Raptor",		235000,	327.0, 356., 1, 0, 33,"SpaceX Starship 1st stage"],				
@@ -1653,7 +1657,7 @@ function Sec2Day(a)
 // Calculation of the fuel reserve for Reusability
 		var First_stage_Unused_propellant=s_rocket_data[elRocket.selectedIndex][17];
 		var First_stage_landing_mass = First_stage_dry_mass + First_stage_Unused_propellant*First_stage_propellant_mass/100.;
-		Reus_corr = ((Math.exp(3800./(First_stage_isp_vac*9.80665))*First_stage_landing_mass-First_stage_landing_mass)/First_stage_propellant_mass*100.);
+		Reus_corr = ((Math.exp(2200./(First_stage_isp_vac*9.80665))*First_stage_landing_mass-First_stage_landing_mass)/First_stage_propellant_mass*100.);
                 
 		//=== Recursion ===
 		for (itt = 1; itt <= 5; ++itt)
