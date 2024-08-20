@@ -417,7 +417,7 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD title="The percentage of payload mass in the initial rocket mass." width="600">Payload to Lift-off mass ratio</TD>
 					  <TD width="120" class="tdright"><h8><LABEL id="Payload_to_Lift_off_mass_ratio"></LABEL> % </TD></TR>
 					<TR class="ProjectingH">
-					  <TD title="The percentage of calculated payload mass to the assumed payload mass &#013;and (the percentage of payload increment due to last data change).">Payload change</TD>
+					  <TD title="The percentage of calculated payload mass to the assumed payload mass &#013;and (the percentage of payload increment due to last data change). &#013;Use the checkbox to accept the current calculated payload as the base one.">Payload change<INPUT id="ResetInit" type="checkbox"></TD>
 					  <TD class="tdright"><h8><LABEL id="Payload_change"></LABEL> % (<LABEL id="Last_Payload_change"></LABEL>%) </TD></TR>
 				      	<TR class="TooHighAggressivity">
 					  <TD title="This is the complexity of the rocket development estimated on a 12-point scale. &#013;It takes into account only the technical complexity of achieving the performance&#013;objectives but not the the rocket scale.">Aggressivity index</TD>
@@ -741,7 +741,7 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TABLE border="1" class="borderTable">
 						<TBODY>
 						<TR class="Expanding">
-					  <TD title="The integral specific impulse of the engines of the first stage. &#013;This way back pressure losses are taken into account."><div class="mobilelayout_l1">1st&ensp;stage average trajectory Isp</div></TD>
+					  <TD title="The integral specific impulse of the engines of the first stage."><div class="mobilelayout_l1">1st&ensp;stage average trajectory Isp</div></TD>
 					  <TD><div class="mobilelayout_r2"><h8><LABEL id="First_stage_average_trajectory_isp"></LABEL> <span>s&emsp;</span></h9></div></TD></TR>
 						<TR>
 					  <TD class="tdpadd1" title="The increment of the rocket velocity due to the thrust of the first stage engines&#013;in the ideal case (the absence of external forces) calculated by the Tsiolkovsky formula." width="460"><div class="mobilelayout_l1">1st&ensp;stage delta-v</div></TD>
@@ -882,6 +882,7 @@ input[type=range]:focus::-ms-fill-upper {
 			  </div>
 <SCRIPT>
 	var elStartingPoint = document.querySelector('#StartingPoint');
+	var elResetInit = document.querySelector('#ResetInit');
 	var elReusable = document.querySelector('#Reusable');
 	var elBooster = document.querySelector('#Booster');
 	var elAir_Launch = document.querySelector('#Air_Launch');
@@ -1071,6 +1072,7 @@ input[type=range]:focus::-ms-fill-upper {
 	var Payload_mass;
 	var Last_Payload_mass;
 	var AirLaunch_Thrust_gain = 1.;
+	var Starting_point_Altitude_Old = 0.1;
 	var Aggressivity = 0.;
 	var Specific_Impulse_Variation_old = 100.;
 	var Reus_corr = 0;
@@ -1207,7 +1209,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["SZ1", "Soyuz-ST",		  1.333,0.578, 305100, 6.2 ,3500, 3500,  0, 3250,   41.786, 0, 8.812, 11.557, 19.167, 15, 4.238, 2.,  2.,  1, 1.0, 263.3, 320,   255, 319, 359, 359, 0,1, 0,1, 0,1, 0,1,    "Kuru (ESA)",	"GTO", 0, 0, 1, "Roskosmos Russia"],
 			     ["EN1", "Energia",			  1.521,0.718,2266500, 11.,    0, 3500,  0,100000,  34.245, 0,  0.0, 17.606, 9.357,   15, 32.58, 1.5, 1.,  1, 0,   309.0, 337,   353, 455, 324, 324, 0,0, 2,0, 5,3, 5,3,    "Baikonur",		"LEO", 0, 0, 1, "The largest Soviet rocket"],
 			     ["YZ1", "Yuzhnoye Zenit-2",	  1.605,0.95,  443730, 4.15,1800, 3500,  0,13470,   20.551, 0, 0.,     7.93,  9.15,   15, 20,    2., 1.2,  1, 0.8, 309.0, 336,   300, 349, 352, 352, 0,0, 0,0, 0,0, 0,0,    "Baikonur",		"LEO", 0, 0, 0, "Yuzhnoye Ukraine"],
-			     ["YZ2", "Yuzhnoye Zenit-3SL",	  1.574, 0.872, 462036, 4.15,1850, 3500,  0, 6160, 23.368,  0,3.526, 7.925,  10.359,  15, 11.122, 2., 1.2, 1, 5.4, 309.5, 337.2, 300, 350, 356, 356, 0,0, 0,0, 0,0, 0,0,    "Sea Launch (Equator)","GTO", 0, 0, 0, "Yuzhnoye Ukraine"],
+			     ["YZ2", "Yuzhnoye Zenit-3SL",	  1.574, 0.872, 462036, 4.15,1850, 3500,  0, 6160, 23.368,  0,3.526, 7.925,  10.359,  15, 11.122, 2., 1.2, 1, 5.0, 309.5, 337.2, 300, 350, 356, 356, 0,0, 0,0, 0,0, 0,0,    "Sea Launch (Equator)","GTO", 0, 0, 0, "Yuzhnoye Ukraine"],
 			     ["UL1", "ULA Delta-IV Medium",	  1.21, 0.30,  250570, 5.1, 2800, 4500,  0, 9420,    9.64,  0, 0.,    11.70, 11.79,   15, 20,    2,   1.5, 1, 0.8, 360.0, 412,   350, 462, 300, 300, 2,1, 2,1, 2,1, 2,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "United Launch Alliance"],
 			     ["UL2", "ULA Atlas V 401",		  1.15, 0.29,  328770, 4.2, 2900, 4500,  0, 9800,    7.05,  0, 0.,     7.04,   10.1,  15, 20,    1.5,  1,  1, 0.8, 311.9, 338.4, 350, 450.5,300,300, 0,0, 2,0, 2,0, 2,0,    "Cape Canaveral",	"ISS", 0, 0, 0, "United Launch Alliance"],
 			     ["UL3", "ULA Atlas V 541",		  1.50, 1.141, 514270, 5.4, 4650, 3500,  0, 8200,   64.019, 0, 4.439, 7.847, 7.281,   15, 8.892,  0.,  1., 1, 0.5, 245.0, 275, 311.9, 338.4,450,450, 9,1, 0,0, 2,0, 2,0,    "Cape Canaveral",	"GTO", 0, 0, 1, "ULA - CCB+SEC/DEC+4SRB+5mSPLF"],
@@ -1964,7 +1966,11 @@ function Sec2Day(a)
 		elOrbitDescription.textContent = s_orbit_data[elOrbit.selectedIndex][6];
 			
 		if (s_orbit_data[elOrbit.selectedIndex][3] < 0)
-			elOrbit_Inclination.value = s_start_point_data[elStartingPoint.selectedIndex][4];
+			{
+			 elOrbit_Inclination.value = s_start_point_data[elStartingPoint.selectedIndex][4];
+//				If the rocket isn't the Saturn V
+			 if (elStartingPoint.selectedIndex == 0 && elRocket.selectedIndex != 1)elOrbit_Inclination.value = 28.61;
+			}
 		else
 			elOrbit_Inclination.value = s_orbit_data[elOrbit.selectedIndex][3];
 			
@@ -2825,7 +2831,7 @@ function Sec2Day(a)
 
 		if (elLimitation.checked) SetLimitation();
 		elAir_Launch.checked = s_rocket_data[elRocket.selectedIndex][37] != 0;
-		AirLaunchChange(0);
+		AirLaunchChange();
 
 		elRocketDescription.textContent = s_rocket_data[elRocket.selectedIndex][40];
 
@@ -2873,6 +2879,14 @@ function Sec2Day(a)
 		updateRocket();
 		Calculate();
 		if (elRocket.selectedIndex > 0)Abs_Calculation.checked = true;
+	}
+
+	function ResetInitPayload(Checked)
+	{
+		elResetInit.checked = false;
+		elAssumed_payload_mass.value = Payload_mass_calculated.toFixed(1);
+		elPayload_change.textContent = "100.0";
+		elLast_Payload_change.textContent = "0.0";
 	}
 
 	function ExpandChange()
@@ -3153,20 +3167,25 @@ function Sec2Day(a)
 		updateWeight();
 	}
 	
-	function AirLaunchChange(Checked)
+	function AirLaunchChange()
 	{
 		if (elAir_Launch.checked)
 		{
 			elLimitation.checked = false;
 
-			var Starting_point_Altitude_Old = parseFloat(elStarting_point_Altitude.value);
+//			var Starting_point_Altitude_Old = parseFloat(elStarting_point_Altitude.value);
 			var Starting_point_Pressure_Old = (Math.exp(-Starting_point_Altitude_Old/7.16));
-			Starting_point_Altitude = 12;
-			elStarting_point_Altitude.value = Starting_point_Altitude;
-			elAdditional_Speed.value = 250;
+
+			Starting_point_Altitude = elStarting_point_Altitude.value;
+			if (Starting_point_Altitude < 1.)
+			{
+			  Starting_point_Altitude = 12;
+			  elStarting_point_Altitude.value = Starting_point_Altitude;
+			  elAdditional_Speed.value = 250;
+			}
 			if(Abs_Calculation.checked)
 			{
-			if(Checked == 1)
+			if(elAir_Launch.checked)
 			{
 			 var Starting_point_Pressure=(Math.exp(-Starting_point_Altitude/7.16));
 			 var First_stage_isp_sea_level = parseFloat(elFirst_stage_isp_sea_level.value);
@@ -3180,14 +3199,16 @@ function Sec2Day(a)
 
 			}
 			}
-		} else
+		Starting_point_Altitude_Old = parseFloat(elStarting_point_Altitude.value);
+		} 
+		else
 		{
-			Starting_point_Altitude_Old = parseFloat(elStarting_point_Altitude.value);
 			Starting_point_Pressure_Old = (Math.exp(-Starting_point_Altitude_Old/7.16));
 			Starting_point_Altitude = s_start_point_data[elStartingPoint.selectedIndex][3];
 			elStarting_point_Altitude.value = Starting_point_Altitude;
 			elAdditional_Speed.value = 0.;
 			AirLaunch_Thrust_gain = 1.;
+			Starting_point_Altitude_Old = parseFloat(elStarting_point_Altitude.value);
 
 			if(Abs_Calculation.checked)
 			{
@@ -3205,12 +3226,27 @@ function Sec2Day(a)
 
 	function AirLaunchChangeAndCalc()
 	{
-		AirLaunchChange(1);
-//		var Abs_Calc=Abs_Calculation.checked;
-//		Abs_Calculation.checked = true;
+		AirLaunchChange();
 		Calculate();
-//		if (elAir_Launch.checked == false)Calculate();
-//		Abs_Calculation.checked = Abs_Calc;
+	}
+
+	function StrtPointAlt_Change()
+	{
+		var Starting_point_Altitude = elStarting_point_Altitude.value;
+		  if(elAir_Launch.checked)
+			{
+			  elAir_Launch.checked = false;
+			  AirLaunchChangeAndCalc();
+			}
+		elStarting_point_Altitude.value = Starting_point_Altitude;
+
+		if (Starting_point_Altitude > 1.)
+		{
+		  elAir_Launch.checked = true;
+		  AirLaunchChangeAndCalc();
+		}
+		else
+		Calculate();
 	}
 
 	function LimitationChange()
@@ -3738,7 +3774,7 @@ function Sec2Day(a)
 		elTransfer_Orbit_Stage_isp.addEventListener('change', updateTransfer_Orbit_Stage_isp);
 		elSpecific_Impulse_Variation.addEventListener('change', updateSpecific_Impulse_Variation);
 					
-		elStarting_point_Altitude.addEventListener('change', Calculate);
+		elStarting_point_Altitude.addEventListener('change', StrtPointAlt_Change);
 		elAdditional_Speed.addEventListener('change', Calculate);
 		elOrbit_Perigee.addEventListener('change', OrbitChange);
 		elOrbit_Apogee.addEventListener('change', OrbitChange);
@@ -3810,6 +3846,10 @@ function Sec2Day(a)
 		elExpand.addEventListener('click', ExpandChange);
 //		ExpandChange();
 		fStagesChange();
+
+		elResetInit.checked = false;
+		elResetInit.addEventListener('change', ResetInitPayload);
+
 		elAbs_Calculation.checked = true;
 		elAbs_Calculation.addEventListener('change', Abs_CalculationChange);
 
