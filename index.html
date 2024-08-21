@@ -3232,6 +3232,8 @@ function Sec2Day(a)
 
 	function StrtPointAlt_Change()
 	{
+		var Space_Port_Altitude = s_start_point_data[elStartingPoint.selectedIndex][3];
+		if (elStarting_point_Altitude.value < Space_Port_Altitude) elStarting_point_Altitude.value = Space_Port_Altitude;
 		var Starting_point_Altitude = elStarting_point_Altitude.value;
 		  if(elAir_Launch.checked)
 			{
