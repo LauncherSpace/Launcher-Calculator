@@ -1595,7 +1595,7 @@ function Sec2Day(a)
 		if (Thrust_to_weight_ratio>1.17) var Aerodynamic_losses = Math.exp(-Starting_point_Altitude/7.16)/(Lift_off_Mass/2945000)*Math.pow(Max_midsection_D/10.1, 2.) * (.045+.1*Math.pow(Thrust_to_weight_ratio-1.17, 1.5))*1000.;
 		else 				     Aerodynamic_losses = Math.exp(-Starting_point_Altitude/7.16)/(Lift_off_Mass/2945000)*Math.pow(Max_midsection_D/10.1, 2.) *	(.045+.1*(1.3332*Thrust_to_weight_ratio*Thrust_to_weight_ratio-2.9399*Thrust_to_weight_ratio+1.6148))*1000.;
 //  Correction taking into account the initial launch speed
-		var Add_Speed = parseFloat(elAdditional_Speed.value);
+		var Add_Speed = Math.min(1200.,parseFloat(elAdditional_Speed.value));
 	        Aerodynamic_losses = Aerodynamic_losses*(1.+3.75e-5*Add_Speed+2.09e-6*Add_Speed*Add_Speed);
 //  Gravity losses 
 		var Const = (First_stage_isp_vac-(First_stage_isp_vac-First_stage_isp_sea_level)*.169);
