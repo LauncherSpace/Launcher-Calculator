@@ -2083,6 +2083,7 @@ function Sec2Day(a)
 		if(cycle == 0) orsc_corr = 0.5; //Staged Combustion
 		if(cycle == 2) orsc_corr = 0.5; //Electric
 		if(fuel == 9) {cycle_corr = 1.; orsc_corr = 0.;}
+		if(elReusable.checked && index == 0) orsc_corr = orsc_corr + 0.5;
 		var val_min = (s_fuel_data_min[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 		var val_max = (s_fuel_data_max[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 		}
@@ -3128,7 +3129,9 @@ function Sec2Day(a)
 		else
                  elUnused_propellant_of_1st_Stage.value = (parseFloat(s_rocket_data[elRocket.selectedIndex][17])+Reus_corr).toFixed(2);
 
+		RangeMinMax(s_slider[0], s_slider_edit[0], elFuel.selectedIndex, elCycle.selectedIndex, 0);
 		RangeMinMax(s_slider[4], s_slider_edit[4], elFuel.selectedIndex, elCycle.selectedIndex, 4);
+		if (elSet_averages.checked)SetAverages(0,0);
 
 		Calculate();
 	}
