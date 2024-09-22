@@ -2083,7 +2083,7 @@ function Sec2Day(a)
 		if(cycle == 0) orsc_corr = 0.5; //Staged Combustion
 		if(cycle == 2) orsc_corr = 0.5; //Electric
 		if(fuel == 9) {cycle_corr = 1.; orsc_corr = 0.;}
-		if(elReusable.checked && index == 0) orsc_corr = orsc_corr + 0.5;
+		if(elReusable.checked && index == 0) orsc_corr = orsc_corr + 0.7; //Reusable
 		var val_min = (s_fuel_data_min[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 		var val_max = (s_fuel_data_max[fuel][index]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
 		}
