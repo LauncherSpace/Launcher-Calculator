@@ -2419,10 +2419,10 @@ function Sec2Day(a)
 		}
 		if (Abs_Calculation.checked)
 		  {
-//			Lift_off_Mass = 1./elThrust_to_weight_ratio.value * elFirst_stage_total_thrust.value;
+			Lift_off_Mass = 1./elThrust_to_weight_ratio.value * elFirst_stage_total_thrust.value;
 			Fairing_mass = parseFloat(elFairing_mass.value);
-//			Rocket_Mass = Lift_off_Mass - Fairing_mass - Last_Payload_mass;
-//			elRocket_Mass.value = Rocket_Mass.toFixed(0);
+			Rocket_Mass = Lift_off_Mass - Fairing_mass - Last_Payload_mass;
+			elRocket_Mass.value = Rocket_Mass.toFixed(0);
 			Rocket_Mass = parseFloat(elRocket_Mass.value);
 			Thrust_to_weight_ratio_2nd = elSecond_stage_total_thrust.value/(Rocket_Mass*el2nd_Stage_mass_ratio.value/100.+Fairing_mass+Last_Payload_mass);
 			elThrust_to_weight_ratio_2nd.value = Thrust_to_weight_ratio_2nd.toFixed(3);  
