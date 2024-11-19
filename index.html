@@ -3343,8 +3343,73 @@ function Sec2Day(a)
 		cycle[12] = elCycle3.selectedIndex;
 		cycle[13] = elCycleO.selectedIndex;
 
+//		for (var i = 0; i < 14; ++i)
+//			RangeMinMax(s_slider[i], s_slider_edit[i], fuel[i], cycle[i], i);
+
 		for (var i = 0; i < 14; ++i)
-			RangeMinMax(s_slider[i], s_slider_edit[i], fuel[i], cycle[i], i);
+		{
+			var Lift_off_Mass = parseFloat(elLift_off_Mass.textContent);
+//			if(Lift_off_Mass > 460000) Lift_off_Mass = 460000;
+			var cycle_corr = 1.;
+			if(i < 2)
+			{
+			cycle_corr = 1.;
+			if(cycle[i] == 3) cycle_corr = 1.6;
+			var orsc_corr = 0.;
+			var ThrustToWeight_corr = 0;
+			var Weight_corr = 0.8
+			if(cycle == 3 || fuel == 9)Weight_corr = 0.4  //Pressure Fed or Solid
+			if(i == 0)ThrustToWeight_corr = Weight_corr*(elThrust_to_weight_ratio.value-1.2);
+			if(i == 1)ThrustToWeight_corr = Weight_corr*(elThrust_to_weight_ratio_2nd.value-1.1);
+
+			if(cycle[i] == 0) orsc_corr = .5; //Staged Combustion
+			if(cycle[i] == 2) orsc_corr = .5; //Electric
+			if(fuel[i] == 9) {cycle_corr = 1.; orsc_corr = 0.;}  //Solid
+			if(elReusable.checked && i == 0) orsc_corr = orsc_corr + 0.7; //Reusable
+			var val_min = (s_fuel_data_min[fuel[i]][i]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
+			var val_max = (s_fuel_data_max[fuel[i]][i]+orsc_corr+ThrustToWeight_corr)*cycle_corr*Math.pow(Lift_off_Mass/460000,-.085);
+			}
+			else
+			{
+			var Reus_corr_ = 0.;
+			if(i == 4 && Reusable.checked == true)
+			 { 
+				Reus_corr_ = Reus_corr;
+			 }
+
+			cycle_corr = 1.;
+			if(i > 7) cycle_corr = s_cycle_data[cycle[i]][i-8];
+			var val_min = s_fuel_data_min[fuel[i]][i]*cycle_corr + Reus_corr_;
+			var val_max = s_fuel_data_max[fuel[i]][i]*cycle_corr + Reus_corr_;
+			}
+//	For heavy Launchers, the same ratios are used for the upper stage as for the second stage.
+//			if(i == 2)
+//			 {
+//			  var ScaleCoeff = Math.min(1., 10000. / _3rdStage_Mass);
+//			  val_min = s_fuel_data_min[fuel[i]][i-1] + ScaleCoeff * (s_fuel_data_min[fuel[i]][i] - s_fuel_data_min[fuel[i]][i-1]);
+//			  val_max = s_fuel_data_max[fuel[i]][i-1] + ScaleCoeff * (s_fuel_data_max[fuel[i]][i] - s_fuel_data_max[fuel[i]][i-1]);
+//			 }
+//			if(i == 3)
+//			 { 
+//			  ScaleCoeff = Math.min(1., 10000. / OrbStage_Mass);
+//		  	  val_min = s_fuel_data_min[fuel[i]][i-2] + ScaleCoeff * (s_fuel_data_min[fuel[i]][i] - s_fuel_data_min[fuel[i]][i-2]);
+//			  val_max = s_fuel_data_max[fuel[i]][i-2] + ScaleCoeff * (s_fuel_data_max[fuel[i]][i] - s_fuel_data_max[fuel[i]][i-2]);
+//			 }
+////			} 
+
+			
+			var input_value = parseFloat(s_slider_edit[i].value);
+			if (s_fuel_invert[i] == 1)
+			  {if (input_value < val_min)
+				s_slider_edit[i].value = val_min.toFixed(3);
+			  }
+			  else
+			  {if (input_value > val_max)
+				s_slider_edit[i].value = val_max.toFixed(3);
+			  }
+		}
+
+
 	}
 
 	function DelLimitation()
