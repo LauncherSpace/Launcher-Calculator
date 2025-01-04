@@ -442,11 +442,11 @@ input[type=range]:focus::-ms-fill-upper {
 			  <TABLE border="1" class="borderTable">
 			<TBODY>
 	  
-			  <div class="borderTable"> <FONT size=5" title="Basic rocket data"><b>&ensp;Rocket</FONT><div class="right-content"><div class="spaceheder2cont" title="When choosing this item, the engines thrust and in general stages mass &#013;are considered unchangeable (it is good for Payload calculation of the &#013;existing rocket or selecting the optimal thrust-to-weight ratio or weights &#013;ratio between the first and second stages), otherwise the relative factors&#013;which is better for the new launchers designing. &#013;This option may switch automatically if you change the parameter &#013;corresponding to a specific calculation type."><font size="2">Fixed design</font><INPUT id="Abs_Calculation" type="checkbox"><div class="spaceheder2cont" title="  Returnable and Reusable first stage of SpaceX way by the most energy-intensive &#013;version with returning to the starting point. In case of choosing reusability,&#013;the propellant reserve on the first stage is increased by an amount sufficient&#013;for this stage (excluding the mass of the second stage) to reach a delta speed &#013;of 2200 m/s. This delta speed, according to the author's assessment, is sufficient&#013;for the first stage returning and landing.&#013;It should be borne in mind that Reusability requires certain capabilities for the&#013;first stage Engines, which are difficult to achieve of the most existing launchers."><font size="2">Reusability</font><INPUT id="Reusable" type="checkbox"></div></TD></TR>
+			  <div class="borderTable"> <FONT size=5" title="Basic rocket data"><b>&ensp;Rocket</FONT><div class="right-content"><div class="spaceheder2cont" title="When choosing this item, the engines thrust and in general stages mass &#013;are considered unchangeable (it is good for Payload calculation of the &#013;existing rocket or selecting the optimal thrust-to-weight ratio or weights &#013;ratio between the first and second stages), otherwise the relative &#013;factors which is better for the new launchers designing. &#013;This option may switch automatically if you change the parameter &#013;corresponding to a specific calculation type."><font size="2">Fixed design</font><INPUT id="Abs_Calculation" type="checkbox"><div class="spaceheder2cont" title="Returnable and Reusable first stage of SpaceX type by the most &#013;energy-intensive version with returning to the starting point. &#013;It should be borne in mind that Reusability requires certain capabilities &#013;for the first stage Engines, which are difficult to achieve of the most &#013;existing launchers."><font size="2">Reusability</font><INPUT id="Reusable" type="checkbox"></div></TD></TR>
 
 				<TR class="Projecting">
 			  <TD width="460" title="Choose an engine for the first stage"><div class="engineText">1st&ensp;engine</div><SELECT class="right-select" id="Engine1" title="First stage engine name. &#013;If you select a new engine for the first time, the software will automatically &#013;assign a second-stage engine and the number of engines corresponding to &#013;an existing launch vehicle. For example - choosing F-1 you will get Saturn-V."> </TD>
-			  <TD width="220"><div class="rocketnewview"><INPUT type="text" class="inputstyle-1" id="First_stage_engine_thrust" title="First stage engine thrust"><span class='kgtext'>kgf</span><INPUT id="First_stage_engines_number" type="text" class="number-text1" title="Quantity of engines on the first stage"><span>Qty</span></div></TD></TR>
+			  <TD width="220"><div class="rocketnewview"><INPUT type="text" class="inputstyle-1" id="First_stage_engine_thrust" title="First stage engine thrust at sea level"><span class='kgtext'>kgf</span><INPUT id="First_stage_engines_number" type="text" class="number-text1" title="Quantity of engines on the first stage"><span>Qty</span></div></TD></TR>
 	  
 				<TR>
 			  <TD class="mobLeft" title="&#013;Changing the fuel or cycle in this menu only changes&#013;the maximum and minimum limits. To compare&#013;launchers with different fuels select 'Set averages'" width="460"><div class="engineText">1st&ensp;stage Fuel & Cycle &emsp;&emsp;</div><SELECT  class="right-select" id="Fuel"></SELECT></TD>
@@ -756,7 +756,7 @@ input[type=range]:focus::-ms-fill-upper {
 					  <TD title="The mass of the vehicle first stage plus contents."><div class="mobilelayout_l1">1st&ensp;stage dry mass</div></TD>
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="First_stage_dry_mass"><span> kg</span></div></TD></TR>
 						<TR class="Expanding">
-					  <TD title="The total thrust of the first stage engines."><div class="mobilelayout_l1">1st&ensp;stage total thrust</div></TD>
+					  <TD title="The total thrust of the first stage engines at sea level."><div class="mobilelayout_l1">1st&ensp;stage total thrust</div></TD>
 					  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT type="text" id="First_stage_total_thrust"><span> kgf</span></div></TD></TR>
 						<TR class="Expanding">
 					  <TD title="Engines thrust multiplied by run time."><div class="mobilelayout_l1">1st&ensp;stage total impulse</div></TD>
@@ -1096,7 +1096,7 @@ input[type=range]:focus::-ms-fill-upper {
 	window.onload = onPageLoad;
 	window.onunload = onPageUnload;
 	
-	var s_start_point_count = 22;
+	var s_start_point_count = 21;
 	var s_start_point_data = [["Cape Canaveral",	28.6083,  -80.6043,  	0.1,	32.6, "USA East Coast (28.6083,-80.6043)"],
 				  ["Vandenberg",   	34.7545, -120.6189,	0.11,	34.76,"USA West Coast, basicall polar orbit (34.7545,-120.6189)"],
 				  ["Wallops",   	37.83382,-75.4877,	0,	37.83,"Wallops Island USA (37.83382,-75.4877)"],
@@ -1117,7 +1117,6 @@ input[type=range]:focus::-ms-fill-upper {
 				  ["Tanegashima (Japan)", 30.4,  131.7, 0.1, 30.4, "Japan (30.4,131.7)"],
 				  ["Naro (South Korea)", 34.2592, 127.3201, 0, 34.26, "Outer Naro Island (34.2592,127.3201)"],
 				  ["Stornoway (UK)", 	58.2,	6.3,	 0,  58.2, "Isle of Lewis, Scotland (58.2,6.3)"],
-				  ["SaxaVord (UK)", 	58.2,	6.3,	 0,  60.8, "Lamba Ness peninsula, Scotland (60.8,0.8)"],
 				  ["TiSpace Space Port", 	22.261,	120.89,	 0,  22.3, "Taiwan  (22.26,120.89)"]];
 
 
@@ -1262,8 +1261,8 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["Firefly Lightning",	7100.,  245.0, 322., 0, 1, 1,"Firefly Alpha 2nd stage"],				
 			     ["Relativity Aeon-1",	9200.,	267.0, 310., 1, 1, 9,"Relativity Space Terran-1 1st stage"],				
 			     ["Relativity Aeon-1 vac",	12600.,	247.0, 360., 1, 1, 1,"Relativity Space Terran-1 2nd stage"],
-			     ["RFA Helix",		8010.,	282.0, 327., 0, 0, 9,"RFA Aerospace ONE 1st stage"],				
-			     ["RFA Helix vac",		10000.,	262.0, 352., 0, 0, 1,"RFA Aerospace ONE 2nd stage"],	
+			     ["RFA Helix",		8010.,	282.0, 327., 0, 1, 9,"RFA Aerospace ONE 1st stage"],				
+			     ["RFA Helix vac",		10000.,	262.0, 352., 0, 1, 1,"RFA Aerospace ONE 2nd stage"],	
 			     ["Isar Aqula",		7650.,	256.0, 303., 0, 1, 9,"Isar Aerospace Spectrum 1st stage"],				
 			     ["Isar Aqula vac",		9580.,	236.0, 333., 0, 1, 1,"Isar Aerospace Spectrum 2nd stage"],	
 			     ["SpaceX Merlin 1Ci",	35500.,	264.0, 300., 0, 1, 1,"SpaceX Falcone-1 1st stage"],				
