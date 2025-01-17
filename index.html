@@ -614,7 +614,7 @@ input[type=range]:focus::-ms-fill-upper {
 				  <TR>
 					<TD>
 					<div class="spacetitle"><FONT class="leftTitle" size=5" title="Choose the Launch point">Spaceport</FONT><div class="spaceheder2cont"> <SELECT title="Spaceport name"
-					  id="StartingPoint"></SELECT>&ensp;<id="Air Launch" title=".&emsp;&emsp;Launch of an existing rocket from an airplane.&#013;The effect of Air Launch is taken into account by increasing&#013;the altitude and velocity of the rocket at moment of releasing,&#013;as well as increasing the engines thrust and Isp at launch altitude."><font size="2">Air Launch</font><INPUT id="Air_Launch" type="checkbox"></div>
+					  id="StartingPoint"></SELECT>&ensp;<id="Air Launch" title="Launch of an existing rocket from an airplane"><font size="2">Air Launch</font><INPUT id="Air_Launch" type="checkbox"></div>
 					  </div>
 					  <TABLE border="1" class="borderTable">
 						<TBODY title="">
@@ -1128,7 +1128,7 @@ input[type=range]:focus::-ms-fill-upper {
 			   ["MEO",   20200,   0, 55, 0,		0,"Medium Earth orbit (GPS satellites)"],
 			   ["GTO",   200, 35786, -1, 0,		0,"Geosynchronous transfer orbit"],
 			   ["GEO",   35786,   0, -1, 0,		0,"Geosynchronous equatorial orbit"],
-			   ["HCO",   200,     0, -1, 3150.6, 	0,"Heliocentric Orbit (escape velocity)"],
+			   ["HCO or C3=0",   200,     0, -1, 3150.6, 	0,"Heliocentric Orbit (escape velocity)"],
 			   ["L1",    200,     0, -1, 3300., 8726400.,"Sun-Earth Lagrange Point 1"],
 			   ["Moon",  200,     0, -1, 3100  ,283107,"Trans-Lunar injection orbit"],
 			   ["Mars",  200,     0, -1, 3613,11318400,"Trans-Mars injection orbit"],
@@ -1247,7 +1247,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["PL1", "Miura 5",		  	  1.206, 0.720, 43200, 1.8,   250, 3500,  0,  900,   14.00, 0,  0.0,     8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  265.0, 296,   250, 322, 320, 320, 0,1, 0,1, 0,3, 0,3,    "Kuru (ESA)",	"LEO", 0, 0, 0, "PLD Space (project)"],
 			     ["NEW", " ",		  	  1.206, 0.720, 43200, 1.8,   250, 3500,  0,  900,   14.00, 0,  0.0,     8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  265.0, 296,   250, 322, 320, 320, 0,1, 0,1, 0,3, 0,3,    "Cape Canaveral",	"LEO", 0, 0, 0, " "],
 				 ];
-	var s_engine_count = 44;
+	var s_engine_count = 46;
 	var s_engine_data = [["Launcher E-2",		10000.,	290.5, 327., 0, 0, 9,"Launcher 1st stage"],
 			     ["Launcher E-2 vac",	12600.,	270.0, 365., 0, 0, 1,"Launcher 2nd stage"],				
 			     ["Ursa Hadley",		2690.,	260.0, 305., 0, 0, 9,"URSA Major ORSC engine for 1st stage"],
@@ -1292,6 +1292,8 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["BLue Origin BE-4U",	290000,	290.0, 358., 1, 0, 1,"Blue Origin New Glenn 2nd stage"],				
 			     ["120t ORSC Engine",	123000., 303., 334., 0, 0, 3,"Big Rocket 1st stage"],				
 			     ["Launcher E-2vac",	12600.,	 270., 365., 0, 0, 3,"Big Rocket 2nd stage"],
+			     ["Stoke Space 1st",	45000., 317.0, 345., 1, 0, 7,"Stoke Space NOVA 1st stage"],				
+			     ["Stoke Space 2nd",	11300.,	330.0, 425., 2, 1, 1,"Stoke Space NOVA 2nd stage"],				
 				];
 	var s_designed_first = false;
 
@@ -1305,11 +1307,10 @@ input[type=range]:focus::-ms-fill-upper {
 		modal.style.display = "block";
 		var popupContent1 = '<p>&emsp;This software is not intended to perform space launcher calculations because the method used is an approximation and is not accurate enough. It is only intended to assess the impact of the main rocket factors on the payload mass, and the resulting accuracy is about 10%. The tool allows you to simulate either a serial or parallel/tandem staging ("Booster stage" option), however, in the second case the calculation accuracy will be lower. With a parallel staging, the thrust-to-weight ratio for the first stage determined based on the thrust of the engines of both stages, and for the second stage the thrust of the engines and the total mass of the second and subsequent stages at the takeoff moment. The Calculator also does not take into account the possibility of optimizing due to multiple burn maneuvers, which is especially effective for GTO and GEO orbits. In addition it is assumed that the rocket design is conventional, meaning the body must be cylindrical with an aspect ratio of 20 to 30, the thrust-to-weight ratio of the first stage should be from 1.2 to 1.6, the mass ratio of the first to second stage should be from 1:0.05 to 1:0.25, and the fairing should jettison shortly after the second stage ignition upon reaching a predetermined velocity of 3500 m/s, which in general corresponds to a flight altitude of more than 95 km. To achieve high orbits, the upper stage engine must be capable of multiple restarts . When calculating possible orbits, it should also be taken into account that some space ports impose certain restrictions on the permissible inclinations of the orbits. This is usually due to an active trajectory leg passing over a populated area. For example, from the Canaveral spaceport, it is forbidden to to inject directly into SSO.</p>';
 		var popupContent2 = '<p style="color:red">&emsp; All parameters in the Launcher Calculator have hints that appear when hovering over. <a style="color:black"> Most of the answers to your questions can be found here. The main rocket factors are presented as a percentage of the stage or rocket mass. Only the rocket lift off mass and payload are presented as absolute values in kilograms. This approach is used because it is the relative ratios that are used to calculate the rocket effectiveness. This approach also allows us to better understand the basic principles of rocket design. However, if you want to evaluate an existing rocket, then most likely you know its absolute weights of stages&#039;, propellants, engine thrust, etc. Then these values can be entered in the "Output" section once the "Advanced" button is pressed. Afterwards these values will be converted into relative values automatically. Values can only be entered in cells marked with a border. The velocity losses are calculated according to the Y. Lobanovsky method described in the article: "Delta velocity prediction for injection into Low Earth Orbit." The influence of the second stage thrust-to-weight ratio over losses is taken into account according to the J.Schilling method.</p>'; 
-		var popupContent3 = '<p>&emsp;The reuse of the first stage is calculated for the most energy-intensive case with returning to the starting point. In case of choosing reusability, the propellant reserve on the first stage is increased by an amount sufficient for this stage (excluding the mass of the second stage) to reach a delta speed of 2200 m/s. This delta speed, according to the author&#039;s assessment, is sufficient for the first stage returning and landing according to the SpaceX&#039;s method. The Air Launch effect is calculated taking into account the increase in the altitude and speed of the rocket at the moment of launch, as well as the increase in engine thrust and specific impulse at the launch altitude.</p>'; 
-		var popupContent4 = '<p>&emsp;The Rocket Calculator provides two options - calculation based on an existing launcher, which allows you to evaluate its level of performance, or the engines-based calculation, which allows you to evaluate the performance of a hypothetical space launcher that can be created by applying a certain number of existing engines. For the second calculation option, select "Custom Rocket" in the "Select Rocket" menu. To compare the effectiveness of different fuels and cycles, it is convenient to use the averaged factors mode, "Set averages." The Calculator has reasonable restrictions on the various factors of the rocket. If you want to go beyond these limits, you can remove this restriction by deselecting "Limit to reasonable." To display more information press "Advanced" button.</p>';
-		var popupContent5 = '<p>&emsp;All of the rockets features are obtained from the Internet. They are averaged and may differ from the specific case of launch. Since many of the specifications of the majority of projected launchers have not been published, they are assumed by the author based on his experience to ensure the declared payload. Some of these specifications may turn out to be practically impossible, since most companies use very aggressive predictions. </p>';
-		var popupContent6 = 'Igor Nikishchenko <a href="https://www.linkedin.com/in/igor-nikishchenko-24b19b48">Linkedin</a>'
-		var modelContent = popupContent1 + popupContent2 + popupContent3 + popupContent4 + popupContent5 + popupContent6;
+		var popupContent3 = '<p>&emsp;The Rocket Calculator provides two options - calculation based on an existing launcher, which allows you to evaluate its level of performance, or the engines-based calculation, which allows you to evaluate the performance of a hypothetical space launcher that can be created by applying a certain number of existing engines. For the second calculation option, select "Custom Rocket" in the "Select Rocket" menu. To compare the effectiveness of different fuels and cycles, it is convenient to use the averaged factors mode, "Set averages." The Calculator has reasonable restrictions on the various factors of the rocket. If you want to go beyond these limits, you can remove this restriction by deselecting "Limit to reasonable." To display more information press "Advanced" button.</p>';
+		var popupContent4 = '<p>&emsp;All of the rockets features are obtained from the Internet. They are averaged and may differ from the specific case of launch. Since many of the specifications of the majority of projected launchers have not been published, they are assumed by the author based on his experience to ensure the declared payload. Some of these specifications may turn out to be practically impossible, since most companies use very aggressive predictions. </p>';
+		var popupContent5 = 'Igor Nikishchenko <a href="https://www.linkedin.com/in/igor-nikishchenko-24b19b48">Linkedin</a>'
+		var modelContent = popupContent1 + popupContent2 + popupContent3 + popupContent4 + popupContent5;
 		var strModel = document.getElementById("popupContent");
 		strModel.innerHTML = modelContent;
 		var modelTitle = document.getElementById("modelTitle");
@@ -1566,6 +1567,8 @@ function Sec2Day(a)
 
 		if (Thrust_to_weight_ratio<1.46) var Gravity_losses = 4./3.* Gravity_losses_at_specific_altitude*(1.5+2.5*(Thrust_to_weight_ratio-1.17)-4.25*(Thrust_to_weight_ratio-1.17)*(Thrust_to_weight_ratio-1.17));
 		else 				     Gravity_losses = 4./3.* 1.865*Gravity_losses_at_specific_altitude;
+//  Correction for too low Thrust to weight ratio
+		if (Thrust_to_weight_ratio<1.165) Gravity_losses = Gravity_losses + (1.165 - Thrust_to_weight_ratio) * 10000.;
 //  Gravity losses for a single-stage rocket
 		if (v2nd_Stage_mass_ratio == 0) Gravity_losses = 3./4. * Gravity_losses;
 
@@ -1612,6 +1615,8 @@ function Sec2Day(a)
 
 		if (Thrust_to_weight_ratio<1.46) var Gravity_losses = 4./3.* Gravity_losses_at_specific_altitude*(1.5+2.5*(Thrust_to_weight_ratio-1.17)-4.25*(Thrust_to_weight_ratio-1.17)*(Thrust_to_weight_ratio-1.17));
 		else 				     Gravity_losses = 4./3.* 1.865*Gravity_losses_at_specific_altitude;
+//  Correction for too low Thrust to weight ratio
+		if (Thrust_to_weight_ratio<1.165) Gravity_losses = Gravity_losses + (1.165 - Thrust_to_weight_ratio) * 10000.;
 //  Gravity losses for a single-stage rocket
 		if (v2nd_Stage_mass_ratio == 0) Gravity_losses = 3./4. * Gravity_losses;
 
@@ -3968,7 +3973,6 @@ function Sec2Day(a)
 		if (elRocket.selectedIndex == 0)Abs_Calculation.checked = false;
                 
 		document.addEventListener('change', OnForm);
-		if(rocket == "about") openAbout();
 	}
 
 	function onPageUnload()
