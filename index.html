@@ -2443,6 +2443,17 @@ function Sec2Day(a)
 //		updateWeight();
 	}	
 
+	function updateWeight_Ratio2()
+	{
+		if (Abs_Calculation.checked)
+		  {
+			el2nd_Stage_mass_ratio.value = (100.*(elSecond_stage_total_thrust.value / elThrust_to_weight_ratio_2nd.value - parseFloat(elFairing_mass.value) - Payload_mass_calculated) / parseFloat(elRocket_Mass.value)).toFixed(3);
+			updateWeight_Ratio();
+		  }
+		else
+		  updateWeight();
+	}	
+
 	function updateWeight_Mass()
 	{
 		if (Abs_Calculation.checked)
@@ -3875,7 +3886,7 @@ function Sec2Day(a)
 		elSecond_stage_engines_number.addEventListener('change', updateWeight_Rel);
 		
 		elThrust_to_weight_ratio.addEventListener('change', updateWeight_Ratio);
-		elThrust_to_weight_ratio_2nd.addEventListener('change', updateWeight_Rel);
+		elThrust_to_weight_ratio_2nd.addEventListener('change', updateWeight_Ratio2);
 
 		elRocket_Mass.addEventListener('change',  updateWeight_Mass);
 		elMax_midsection_D.addEventListener('change', Calculate);
