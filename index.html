@@ -399,7 +399,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-40c2efd3f639">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a title="Background and usage" href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
 				> | <a title="An open source code is here" href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a title="Write your questions and wishes here" href="https://discord.gg/2rcRQTK" target="_new">Discord</a> | <a style="color:green" title="Export rocket data to address bar" href="#" onclick="ExportRocket()">Export</a>
-				<label title="Software version"> &emsp;v55</FONT></p><center></p>
+				<label title="Software version"> &emsp;v56</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
 				<FONT size="5" title="Choose a preset Rocket or create a Custom one">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
@@ -1215,7 +1215,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["YZ1", "Yuzhnoye Zenit-2",	  1.605,0.95,  443730, 4.15,1800, 3500,  0,13470,   20.551, 0, 0.,     7.93,  9.15,   15, 20,    2., 1.2,  1, 0.8, 309.0, 336,   300, 349, 352, 352, 0,0, 0,0, 0,0, 0,0,    "Baikonur",		"LEO", 0, 0, 0, "Yuzhnoye Ukraine"],
 			     ["YZ2", "Yuzhnoye Zenit-3SL",	  1.574, 0.872, 462036, 4.15,1850, 3500,  0, 6160, 23.368,  0,3.526, 7.925,  10.359,  15, 11.122, 2., 1.2, 1, 5.0, 309.5, 337.2, 300, 350, 356, 356, 0,0, 0,0, 0,0, 0,0,    "Sea Launch (Equator)","GTO", 0, 0, 0, "Yuzhnoye Ukraine"],
 			     ["UL1", "ULA Delta-IV Medium",	  1.21, 0.30,  250570, 5.1, 2800, 4500,  0, 9420,    9.64,  0, 0.,    11.70, 11.79,   15, 20,    2,   1.5, 1, 0.8, 360.0, 412,   350, 462, 300, 300, 2,1, 2,1, 2,1, 2,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "United Launch Alliance"],
-			     ["UL2", "ULA Atlas V 401",		  1.15, 0.29,  328770, 4.2, 2900, 4500,  0, 9800,    7.05,  0, 0.,     7.04,   10.1,  15, 20,    1.5,  1,  1, 0.8, 311.9, 338.4, 350, 450.5,300,300, 0,0, 2,0, 2,0, 2,0,    "Cape Canaveral",	"ISS", 0, 0, 0, "United Launch Alliance"],
+			     ["UL2", "ULA Atlas V 401",		  1.15, 0.29,  328770, 4.2, 2900, 4500,  0, 8910,    7.05,  0, 0.,     7.04,   10.1,  15, 20,    1.5,  1,  1, 0.8, 311.9, 338.4, 350, 450.5,300,300, 0,0, 2,0, 2,0, 2,0,    "Cape Canaveral",	"ISS", 0, 0, 0, "United Launch Alliance"],
 			     ["UL3", "ULA Atlas V 541",		  1.50, 1.141, 514270, 5.4, 4650, 3500,  0, 8200,   64.019, 0, 4.439, 7.847, 7.281,   15, 8.892,  0.,  1., 1, 0.5, 245.0, 275, 311.9, 338.4,450,450, 9,1, 0,0, 2,0, 2,0,    "Cape Canaveral",	"GTO", 0, 0, 1, "ULA - CCB+SEC/DEC+4SRB+5mSPLF"],
 			     ["UL4", "ULA Vulcan VC6L",		  1.787,0.826, 839789, 5.4, 6000, 3500,  0,27200,   62.581, 0, 2.783, 8.632, 8.000,   15, 11.0,   0.,  2., 1, 2,   255.,  280.3, 310, 335, 324,453.8,9,1, 1,0, 5,3, 2,1,    "Cape Canaveral",	"LEO", 0, 0, 1, "ULA with BE-4"],
 			     ["NG1", "Orbital (NG now) Antares 100",1.19, 1.53, 274735, 3.9,  970, 4500,  0, 4600,    5.10, 0,  0.,     7.17,   8.69, 15, 20,    3,   0,   1, 0.8, 297.,  331.,  270, 301, 300, 300, 0,0, 9,1, 9,1, 9,1,    "Wallops",		"LEO", 0, 0, 0, "Orbital Sciences Corporation (Aj-26)"],
@@ -1643,24 +1643,27 @@ function Sec2Day(a)
 				Transfer_Orbit_stage_run_time = Transfer_Orbit_stage_prop_to_LEO/(Transfer_Orbit_stage_total_Start_mass*0.5/parseFloat(elTransfer_Orbit_Stage_isp.value));		
 			   }
 		   }
-		var Additional_losses = 0.0;
-//		var First_to_Second_stage_Vsp_delta = parseFloat(elSecond_stage_delta_v.textContent) - parseFloat(elFirst_stage_delta_v.textContent);
-//		if (First_to_Second_stage_Vsp_delta > 1500.) Additional_losses = 0.05 * (First_to_Second_stage_Vsp_delta -1500.);
-//		var Second_stage_delta_v_to_LEO = Vsp_for_LEO_with_losses - parseFloat(elFirst_stage_delta_v.textContent);
-//		if (Second_stage_delta_v_to_LEO > parseFloat(elSecond_stage_delta_v.textContent)) Second_stage_delta_v_to_LEO = parseFloat(elSecond_stage_delta_v.textContent);
-//		if (Second_stage_delta_v_to_LEO > 0. && Thrust_to_weight_ratio_2nd < 0.6) Additional_losses = Additional_losses + 0.5*(0.6 - Thrust_to_weight_ratio_2nd)*Second_stage_delta_v_to_LEO;
-		var First_to_Second_stage_Vsp_ratio = 0.;
-		if (elStages.selectedIndex > 0) First_to_Second_stage_Vsp_ratio = Thrust_to_weight_ratio / Thrust_to_weight_ratio_2nd * Math.sqrt(parseFloat(elSecond_stage_delta_v.textContent) / parseFloat(elFirst_stage_delta_v.textContent));
-		if (First_to_Second_stage_Vsp_ratio > 4.3) Additional_losses = Additional_losses + 0.08*(First_to_Second_stage_Vsp_ratio - 4.3)*parseFloat(elSecond_stage_delta_v.textContent);
-//		elAggressivity.textContent = First_to_Second_stage_Vsp_ratio.toFixed(1);
-		Ascent_Time = First_stage_run_time + Second_stage_run_time + 5.;
 
+// Additional losses due to non-optimal thrust-to-weight ratio of the first and second stages.
+		var Additional_losses = 0.0;
+		var Second_stage_delta_v_to_LEO = Vsp_for_LEO_with_losses - parseFloat(elFirst_stage_delta_v.textContent);
+		if (Second_stage_delta_v_to_LEO > parseFloat(elSecond_stage_delta_v.textContent)) Second_stage_delta_v_to_LEO = parseFloat(elSecond_stage_delta_v.textContent);
+//		var First_to_Second_stage_Vsp_ratio = 0.;
+//		if (elStages.selectedIndex > 0) First_to_Second_stage_Vsp_ratio = Thrust_to_weight_ratio / Thrust_to_weight_ratio_2nd * Math.sqrt(parseFloat(elSecond_stage_delta_v.textContent) / parseFloat(elFirst_stage_delta_v.textContent));
+//		if (First_to_Second_stage_Vsp_ratio > 4.3) Additional_losses = Additional_losses + 0.08*(First_to_Second_stage_Vsp_ratio - 4.3)*parseFloat(elSecond_stage_delta_v.textContent);
+
+		var First_to_Second_stage_Run_time_ratio = (Second_stage_run_time / parseFloat(elSecond_stage_delta_v.textContent) * Second_stage_delta_v_to_LEO) / First_stage_run_time;
+		if (elBooster.checked) 	First_to_Second_stage_Run_time_ratio = (Second_stage_run_time - First_stage_run_time -5.0) / First_stage_run_time;
+//		if (First_to_Second_stage_Run_time_ratio > 2.5) Additional_losses = Additional_losses + 0.04*Thrust_to_weight_ratio*(First_to_Second_stage_Run_time_ratio - 2.5)*parseFloat(elSecond_stage_delta_v.textContent);
+		if (First_to_Second_stage_Run_time_ratio > 2.75) Additional_losses = Additional_losses + 0.04*Thrust_to_weight_ratio*(First_to_Second_stage_Run_time_ratio - 2.75)*Second_stage_delta_v_to_LEO;;
+
+//		elAggressivity.textContent = First_to_Second_stage_Run_time_ratio.toFixed(1);
+		Ascent_Time = First_stage_run_time + Second_stage_run_time + 5.;
 		if (elBooster.checked) 
 			{var Second_stage_run_time_ = Second_stage_run_time;
 			 if (First_stage_run_time > Second_stage_run_time) Second_stage_run_time_ = First_stage_run_time +5.;
 			 Second_stage_prop_used_with_booster = (Second_stage_propellant_mass/100.*(100.-Unused_propellant_of_2nd_Stage))*(1. - (Second_stage_run_time_ - First_stage_run_time -5.)/Second_stage_run_time);
                          Ascent_Time = Second_stage_run_time_ + 5. ;}
-//		Ascent_Time = Ascent_Time + Transfer_Orbit_stage_run_time;
 		
 //		if(elFirst_stage_delta_v.textContent != "NaN") Ascent_Time = Ascent_Time*Vsp_for_LEO_with_losses/(parseFloat(elFirst_stage_delta_v.textContent) + parseFloat(elSecond_stage_delta_v.textContent));
 
