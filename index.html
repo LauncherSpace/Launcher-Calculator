@@ -399,7 +399,7 @@ input[type=range]:focus::-ms-fill-upper {
 						<BR><span>An open source orbital launch vehicle payload calculator by </span><a href="https://launcherspace.com">Launcher</a><BR>
 				<p class="hyper-content"><a href="https://medium.com/@launcherspace/introducing-the-launcher-rocket-calculator-40c2efd3f639">Blog</a> | <a href="https://youtu.be/XOZQGQaA3Hw">Tour</a> | <a class="hyper-content"><a title="Background and usage" href="#" onclick="openAbout()">About</a> | <a href="#" onclick="openLicense()">MIT License</a
 				> | <a title="An open source code is here" href="https://github.com/LauncherSpace/Launcher-Calculator" target="_new">Github</a> | <a title="Write your questions and wishes here" href="https://discord.gg/2rcRQTK" target="_new">Discord</a> | <a style="color:green" title="Export rocket data to address bar" href="#" onclick="ExportRocket()">Export</a>
-				<label title="Software version"> &emsp;v56</FONT></p><center></p>
+				<label title="Software version"> &emsp;v57</FONT></p><center></p>
 			</li>
 			<li class="secondHeader">
 				<FONT size="5" title="Choose a preset Rocket or create a Custom one">Select Rocket</FONT></FONT><SELECT id="Rocket" title="Rocket name"></SELECT> 
@@ -1249,7 +1249,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["PL1", "Miura 5",		  	  1.206, 0.720, 43200, 1.8,   250, 3500,  0,  900,   14.00, 0,  0.0,     8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  265.0, 296,   250, 322, 320, 320, 0,1, 0,1, 0,3, 0,3,    "Kuru (ESA)",	"LEO", 0, 0, 0, "PLD Space (project)"],
 			     ["NEW", " ",		  	  1.206, 0.720, 43200, 1.8,   250, 3500,  0,  900,   14.00, 0,  0.0,     8.00,  7.00, 15, 20.0,  2.,  1.,  1, 1.,  265.0, 296,   250, 322, 320, 320, 0,1, 0,1, 0,3, 0,3,    "Cape Canaveral",	"LEO", 0, 0, 0, " "],
 				 ];
-	var s_engine_count = 46;
+	var s_engine_count = 48;
 	var s_engine_data = [["Launcher E-2",		10000.,	290.5, 327., 0, 0, 9,"Launcher 1st stage"],
 			     ["Launcher E-2 vac",	12600.,	270.0, 365., 0, 0, 1,"Launcher 2nd stage"],				
 			     ["Ursa Hadley",		2690.,	260.0, 305., 0, 0, 9,"URSA Major ORSC engine for 1st stage"],
@@ -1283,13 +1283,17 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["Energomash RD-180",	390000,	311.9, 338.4,0, 0, 1,"United Launch Alliance Atlas V 1st stage"],
 			     ["AR RL-10C",		10400.,	350.0, 450., 2, 0, 1,"United Launch Alliance Atlas V 2nd stage"],
 			     ["Energomash RD-181",	196000,	311.9, 339.2,0, 0, 2,"Northrop Grumman Antares 230 1st stage"],				
-			     ["NG Castor 30XL",		48300.,	270.0, 304., 8, 3, 1,"Northrop Grumman Antares 230 2nd stage"],				
+			     ["NG Castor 30XL",		48300.,	270.0, 304., 9, 3, 1,"Northrop Grumman Antares 230 2nd stage"],				
 			     ["AR F-1",			690000,	263.0, 304., 0, 1, 5,"Saturn V 1st stage"],				
 			     ["AR J-2",			104000,	330.0, 421., 2, 1, 5,"Saturn V 2nd stage"],				
+			     ["SRB",			1320000,242.0, 268., 9, 3, 2,"Space Shuttle Solid Rocket Boosters"],				
+			     ["AR RS-25",		190000,	366.0, 452.3,2, 0, 4,"Space Shuttle Main Engine"],				
+			     ["AR RS-25",		190000,	366.0, 452.3,2, 0, 1,"Space Shuttle Main Engine"],				
+			     ["AR RL-10",		11250.,	355.0, 465.5,2, 0, 1,"Centaur upper stage"],				
 			     ["AR RS-68A",		320000,	360.0, 412., 2, 1, 1,"United Launch Alliance Delta IV 1st stage"],				
 			     ["AR RL-10B",		11300.,	355.0, 462., 2, 0, 1,"United Launch Alliance Delta IV 2nd stage"],				
 			     ["AR AJ-26",		166000,	297.0, 331., 0, 0, 2,"Orbital (NG now) Antares 100 1st stage"],				
-			     ["NG Castor 30A",		30000.,	270.0, 301., 8, 3, 1,"Orbital (NG now) Antares 100 2nd stage"],				
+			     ["NG Castor 30A",		30000.,	270.0, 301., 9, 3, 1,"Orbital (NG now) Antares 100 2nd stage"],				
 			     ["Blue Origin BE-4",	250000, 310.0, 335., 1, 0, 7,"Blue Origin New Glenn 1st stage"],				
 			     ["BLue Origin BE-4U",	290000,	290.0, 358., 1, 0, 1,"Blue Origin New Glenn 2nd stage"],				
 			     ["120t ORSC Engine",	123000., 303., 334., 0, 0, 3,"Big Rocket 1st stage"],				
@@ -1477,7 +1481,7 @@ function Sec2Day(a)
 		if (elRocket.selectedIndex == 0)
 		{
 		if(elBooster.checked)
-		   elFirst_stage_total_thrust.value = ((elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value + elSecond_stage_engine_thrust.value*elSecond_stage_engines_number.value*elSecond_stage_isp_sea_level.value/elSecond_stage_isp_vac.value)*AirLaunch_Thrust_gain).toFixed(1);
+		   elFirst_stage_total_thrust.value = ((elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value )*AirLaunch_Thrust_gain).toFixed(1);
 		else
 		   elFirst_stage_total_thrust.value = (elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value*AirLaunch_Thrust_gain).toFixed(1);
 
@@ -1515,7 +1519,11 @@ function Sec2Day(a)
 		if (Abs_Calculation.checked == false)
 // calculation using relative factors
 		{
-			if(elRocket.selectedIndex == 0)Rocket_Mass = elFirst_stage_total_thrust.value/elThrust_to_weight_ratio.value - Fairing_mass - Payload_mass;
+			if(elRocket.selectedIndex == 0)
+			    if(elBooster.checked)
+				Rocket_Mass = (parseFloat(elFirst_stage_total_thrust.value) + parseFloat(elSecond_stage_total_thrust.value))/elThrust_to_weight_ratio.value - Fairing_mass - Payload_mass;
+			    else
+				Rocket_Mass = elFirst_stage_total_thrust.value / elThrust_to_weight_ratio.value - Fairing_mass - Payload_mass;
 			var First_stage_wet_mass = (Rocket_Mass*(1.-v2nd_Stage_mass_ratio/100.));
 			var First_stage_propellant_mass = First_stage_wet_mass*(1.-v1st_Dry_to_Wet_mass_ratio/100.);
 			var First_stage_dry_mass = First_stage_wet_mass - First_stage_propellant_mass;
@@ -1530,9 +1538,9 @@ function Sec2Day(a)
 
 			if (elBooster.checked) First_stage_total_thrust = First_stage_total_thrust - Second_stage_total_thrust; 
 			if(elRocket.selectedIndex == 0) 
-			    if(elBooster.checked)
-				Second_stage_total_thrust = elSecond_stage_engine_thrust.value*elSecond_stage_engines_number.value*elSecond_stage_isp_sea_level.value/elSecond_stage_isp_vac.value;
-			    else
+//			    if(elBooster.checked)
+//				Second_stage_total_thrust = elSecond_stage_engine_thrust.value*elSecond_stage_engines_number.value;
+//			    else
 				Second_stage_total_thrust = elSecond_stage_engine_thrust.value*elSecond_stage_engines_number.value;
 
 			if(v3rd_Stage_mass_ratio == 0)var Third_stage_dry_mass = 0;
@@ -2358,7 +2366,10 @@ function Sec2Day(a)
 		  elFuel3.selectedIndex = elFuel2.selectedIndex;
 		}
 		elCycle2.selectedIndex = s_engine_data[Index][5];
-		elSecond_stage_engine_thrust.value = s_engine_data[Index][1];
+		if (elBooster.checked)
+			elSecond_stage_engine_thrust.value = s_engine_data[Index][1]*elSecond_stage_isp_sea_level.value/elSecond_stage_isp_vac.value;
+		else
+			elSecond_stage_engine_thrust.value = s_engine_data[Index][1];
 		elSecond_stage_isp_sea_level.value = s_engine_data[Index][2];
 		elSecond_stage_isp_vac.value = s_engine_data[Index][3];
 		if (s_designed_first == true)
@@ -2380,7 +2391,7 @@ function Sec2Day(a)
 			elFirst_stage_engines_number.value = First_stage_engines_number;
 			elSecond_stage_engines_number.value = Second_stage_engines_number;
 			if (elBooster.checked)
-			  Lift_off_Mass = 1./elThrust_to_weight_ratio.value * (elFirst_stage_engine_thrust.value * First_stage_engines_number + elSecond_stage_engine_thrust.value / elSecond_stage_isp_vac.value * Second_stage_isp_sea_level.value * Second_stage_engines_number);
+			  Lift_off_Mass = 1./elThrust_to_weight_ratio.value * (elFirst_stage_engine_thrust.value * First_stage_engines_number + elSecond_stage_engine_thrust.value * Second_stage_engines_number);
 			else
 			  Lift_off_Mass = 1./elThrust_to_weight_ratio.value * elFirst_stage_engine_thrust.value * First_stage_engines_number;
 //			Fairing_mass = parseFloat((0.0045*Lift_off_Mass).toFixed(0));
@@ -2432,10 +2443,7 @@ function Sec2Day(a)
 		}
 		if (Abs_Calculation.checked)
 		  {
-			if (elBooster.checked) 
-			  Lift_off_Mass = 1./elThrust_to_weight_ratio.value * (parseFloat(elFirst_stage_total_thrust.value) + parseFloat(elSecond_stage_total_thrust.value));
-			else
-			  Lift_off_Mass = 1./elThrust_to_weight_ratio.value * elFirst_stage_total_thrust.value;
+			Lift_off_Mass = 1./elThrust_to_weight_ratio.value * elFirst_stage_total_thrust.value;
 			Fairing_mass = parseFloat(elFairing_mass.value);
 			Rocket_Mass = Lift_off_Mass - Fairing_mass - Last_Payload_mass;
 			elRocket_Mass.value = Rocket_Mass.toFixed(0);
@@ -2448,6 +2456,8 @@ function Sec2Day(a)
 			Abs_Calculation.checked = true;
 		  }
 		Calculate();
+		CalculationError();		
+		if (Math.abs(elCalculation_Error.textContent) > 5.) Calculate();
 //		updateWeight();
 	}	
 
@@ -3178,17 +3188,17 @@ function Sec2Day(a)
 
 			if(elRocket.selectedIndex == 0)
 			{
-			s_designed_first = false;
-			while (elEngine2.firstChild) {elEngine2.removeChild(elEngine2.firstChild);}
-			for (var i = 0; i<s_engine_count; i=i+2)
-			{
-				var opt = document.createElement('option');
-				opt.value = s_engine_data[i][0];
-				opt.innerHTML = s_engine_data[i][0];
-				opt.title=s_engine_data[i][7];
-				elEngine2.appendChild(opt);
-			}
-			elEngine2.selectedIndex = elEngine1.selectedIndex;
+//			s_designed_first = false;
+//			while (elEngine2.firstChild) {elEngine2.removeChild(elEngine2.firstChild);}
+//			for (var i = 0; i<s_engine_count; i=i+2)
+//			{
+//				var opt = document.createElement('option');
+//				opt.value = s_engine_data[i][0];
+//				opt.innerHTML = s_engine_data[i][0];
+//				opt.title=s_engine_data[i][7];
+//				elEngine2.appendChild(opt);
+//			}
+//			elEngine2.selectedIndex = elEngine1.selectedIndex;
 			updateEngine2();
 			}
 		} else
