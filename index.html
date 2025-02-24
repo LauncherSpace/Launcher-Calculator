@@ -1214,6 +1214,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["NS4", "SLS Block2",		  1.351,0.565,2470500,11.3, 4000, 3500,  0,42000,   52.557, 0, 5.793, 14.997, 5.652,  15, 9.86,  0., 1.7,  1, 12., 242.0, 268,   366, 452, 461, 460,10,1, 2,0, 2,1, 2,1,    "Cape Canaveral",	"Moon",0, 0, 1, "NASA Artemis program (project)"],
 			     ["AR5", "Ariane-5",		  1.67, 0.413, 738300, 5.3, 3500, 3500,  0,22500,   24.827, 0, 1.693, 14.342, 7.436,  15, 21.6,  0., 1.5,  1, 1,   250.0, 275,   340, 430, 324, 324,10,1, 2,1, 6,3, 6,3,    "Kuru (ESA)",	"LEO", 0, 0, 1, "ESA The most powerful European launcher"],
 			     ["AR6", "Ariane-6",		  1.822,0.507, 816000, 5.4, 1800, 3500,  0,11500,   25.000, 0, 5.025,  7.190, 14.11,  15, 24.39, 0., 1.5,  1, 1,   252.0, 278.5, 340, 432, 457,457.2,10,1,2,1, 6,3, 2,1,    "Kuru (ESA)",	"GTO", 0, 0, 1, "ESA The most powerful European launcher"],
+			     ["VG1", "Vega",			  2.130,2.417, 137060, 3.0,  470, 3500,  0, 2000,   30.377, 8.621,0.706,7.689, 9.879, 11.14,43.18,0,   0,  0, 3,   253.0, 280,   260, 287.5,295.2,314.6,10,1,10,1,10,1,7,3, "Kuru (ESA)",	"SSO 700", 0, 0, 0, "ESA European Small-lift launcher"],
 			     ["CZ2", "Long March-2F",		  1.430,1.105, 452000, 6.0 ,2000, 3500,  0, 8400,   63.717, 0,20.343, 7.805,  4.835,  15, 6.011, 2.,  2.,  1, 1.0, 260.0, 291,   260, 291, 289, 289, 7,1, 7,1, 0,1, 0,1,    "Jiuquan (China)",	"LEO", 0, 0, 1, "Chang Zheng-2F (CZ-2F) China crewed"],
 			     ["CZ5", "Long March-5",		  1.264,0.549, 849300, 10. ,2000, 3500,  0, 6000,   26.245, 0, 4.239, 8.812, 11.557,  15, 19.167,2.,  2.,  1, 2.0, 300.0, 335,   317, 428, 442, 442, 0,0, 2,1, 2,1, 2,1,    "Wenchang (China)",	"Mars",0, 0, 1, "Chang Zheng-5 (CZ-5) China heavy"],
 			     ["SZ1", "Soyuz-ST",		  1.333,0.578, 305100, 6.2 ,3500, 3500,  0, 3250,   41.786, 0, 8.812, 11.557, 19.167, 15, 4.238, 2.,  2.,  1, 1.0, 263.3, 320,   255, 319, 359, 359, 0,1, 0,1, 0,1, 0,1,    "Kuru (ESA)",	"GTO", 0, 0, 1, "Roskosmos Russia"],
@@ -1992,7 +1993,7 @@ function Sec2Day(a)
 		if (s_orbit_data[elOrbit.selectedIndex][3] > 0 && 
 			s_orbit_data[elOrbit.selectedIndex][3] < elSpaceport_latitude.value) elOrbit.selectedIndex = 0;
 
-		if ((elOrbit.selectedIndex > 0) || (elOrbit_Perigee.value == "")) elOrbit_Perigee.value = s_orbit_data[elOrbit.selectedIndex][1];
+		if ((elOrbit.selectedIndex > 2) || (elOrbit_Perigee.value == "")) elOrbit_Perigee.value = s_orbit_data[elOrbit.selectedIndex][1];
 		
 		elOrbit_Apogee.value = 0;
 		if ((elOrbit.selectedIndex > 0) || (elOrbit_Apogee.value == "")) elOrbit_Apogee.value = s_orbit_data[elOrbit.selectedIndex][2];
@@ -2789,9 +2790,10 @@ function Sec2Day(a)
 		  for (var i = 1; i < 34; i++) s_rocket_data[s_rocket_count][i+1] = strs[i];
 		  s_rocket_data[s_rocket_count][35] = s_start_point_data[strs[34]][0];
 		  s_rocket_data[s_rocket_count][36] = s_orbit_data[strs[35]][0];
-		  s_rocket_data[s_rocket_count][37] = strs[36];
-		  s_rocket_data[s_rocket_count][38] = strs[37];
-		  s_rocket_data[s_rocket_count][39] = strs[38];
+		  elOrbit_Perigee.value = strs[36];
+		  s_rocket_data[s_rocket_count][37] = strs[37];
+		  s_rocket_data[s_rocket_count][38] = strs[38];
+		  s_rocket_data[s_rocket_count][39] = strs[39];
 		  s_rocket_count = s_rocket_count +1;
 		 }
 
@@ -2805,9 +2807,10 @@ function Sec2Day(a)
 		  for (var i = 30; i < 34; i++) s_rocket_data[0][i+1] = strs[i];
 		  s_rocket_data[0][35] = s_start_point_data[strs[34]][0];
 		  s_rocket_data[0][36] = s_orbit_data[strs[35]][0];
-		  s_rocket_data[0][37] = strs[36];
-		  s_rocket_data[0][38] = strs[37];
-		  s_rocket_data[0][39] = strs[38];
+		  elOrbit_Perigee.value = strs[36];
+		  s_rocket_data[0][37] = strs[37];
+		  s_rocket_data[0][38] = strs[38];
+		  s_rocket_data[0][39] = strs[39];
 
 		  s_designed_first = false;
 		  elEngine1.value = s_engine_data[strs[26]][0];
@@ -2891,10 +2894,18 @@ function Sec2Day(a)
 
 		if ( i == s_orbit_count)
 		{
+			if(orbit.slice(0,3).trim() == "SSO")
+			{
+			elOrbit.selectedIndex = 2;
+			elOrbit_Perigee.value = orbit.slice(4,7).trim();
+			}
+			else
+			{
 			elOrbit.selectedIndex = 0;
 			elOrbit_Perigee.value = orbit.slice(0,5).trim();
 			elOrbit_Apogee.value = orbit.slice(6).trim();
 //			elOrbit_Inclination.value = s_start_point_data[elStartingPoint.selectedIndex][4];
+			}
 		}
 		updateOrbit();
 		
@@ -3043,6 +3054,7 @@ function Sec2Day(a)
 		rdata = rdata + "|"+ elCycleO.selectedIndex.toFixed(0);
 		rdata = rdata + "|"+ elStartingPoint.selectedIndex.toFixed(0);
 		rdata = rdata + "|"+ elOrbit.selectedIndex.toFixed(0);
+		rdata = rdata + "|"+ parseFloat(elOrbit_Perigee.value).toFixed(0);
 		var l = 0; if (elAir_Launch.checked) l = 1;
 		rdata = rdata + "|"+ l;
 		l = 0; if (elReusable.checked) l = 1;
