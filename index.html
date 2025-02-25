@@ -1068,12 +1068,14 @@ input[type=range]:focus::-ms-fill-upper {
 	var elRequired = document.querySelector('#Required');
 //	Abs_Calculation.checked = false;
 //	var Irremovable_Gravity_Losses;
+	var s_designed_first = false;
 	var Orig_Orbit_Index = 0;
 	var Vsp_for_target_orbit;
 	var Payload_mass;
 	var Last_Payload_mass;
 	var AirLaunch_Thrust_gain = 1.;
 	var Starting_point_Altitude_Old = 0.1;
+	var Orbit_Inclination = "";
 	var Aggressivity = 0.;
 	var Specific_Impulse_Variation_old = 100.;
 	var Reus_corr = 0;
@@ -1308,7 +1310,6 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["Stoke Space 1st",	45000., 317.0, 345., 1, 0, 7, "T","Stoke Space NOVA 1st stage"],				
 			     ["Stoke Space 2nd",	11300.,	330.0, 425., 2, 1, 1, "T","Stoke Space NOVA 2nd stage"],				
 				];
-	var s_designed_first = false;
 
 	function closeModel(){
 		var modal = document.getElementById("myModal");
@@ -2757,6 +2758,7 @@ function Sec2Day(a)
 		elSet_AllMin.checked = false;
 		elSet_AllMax.checked = false;
 		elOrbit_Perigee.value = "";
+		Orbit_Inclination = "";
 		if (elRocket.selectedIndex == 0 && edata == null)
 		{ 
 			Abs_Calculation.checked = false;
@@ -2791,9 +2793,10 @@ function Sec2Day(a)
 		  s_rocket_data[s_rocket_count][35] = s_start_point_data[strs[34]][0];
 		  s_rocket_data[s_rocket_count][36] = s_orbit_data[strs[35]][0];
 		  elOrbit_Perigee.value = strs[36];
-		  s_rocket_data[s_rocket_count][37] = strs[37];
-		  s_rocket_data[s_rocket_count][38] = strs[38];
-		  s_rocket_data[s_rocket_count][39] = strs[39];
+		  Orbit_Inclination = strs[37];
+		  s_rocket_data[s_rocket_count][37] = strs[38];
+		  s_rocket_data[s_rocket_count][38] = strs[39];
+		  s_rocket_data[s_rocket_count][39] = strs[40];
 		  s_rocket_count = s_rocket_count +1;
 		 }
 
@@ -2808,9 +2811,10 @@ function Sec2Day(a)
 		  s_rocket_data[0][35] = s_start_point_data[strs[34]][0];
 		  s_rocket_data[0][36] = s_orbit_data[strs[35]][0];
 		  elOrbit_Perigee.value = strs[36];
-		  s_rocket_data[0][37] = strs[37];
-		  s_rocket_data[0][38] = strs[38];
-		  s_rocket_data[0][39] = strs[39];
+		  Orbit_Inclination = strs[37];
+		  s_rocket_data[0][37] = strs[38];
+		  s_rocket_data[0][38] = strs[39];
+		  s_rocket_data[0][39] = strs[40];
 
 		  s_designed_first = false;
 		  elEngine1.value = s_engine_data[strs[26]][0];
@@ -2908,6 +2912,7 @@ function Sec2Day(a)
 			}
 		}
 		updateOrbit();
+		if (Orbit_Inclination != "")elOrbit_Inclination.value = Orbit_Inclination;
 		
 		elFuel.selectedIndex = s_rocket_data[elRocket.selectedIndex][27];
 		elFuel2.selectedIndex = s_rocket_data[elRocket.selectedIndex][29];
@@ -3055,6 +3060,7 @@ function Sec2Day(a)
 		rdata = rdata + "|"+ elStartingPoint.selectedIndex.toFixed(0);
 		rdata = rdata + "|"+ elOrbit.selectedIndex.toFixed(0);
 		rdata = rdata + "|"+ parseFloat(elOrbit_Perigee.value).toFixed(0);
+		rdata = rdata + "|"+ parseFloat(elOrbit_Inclination.value).toFixed(1);
 		var l = 0; if (elAir_Launch.checked) l = 1;
 		rdata = rdata + "|"+ l;
 		l = 0; if (elReusable.checked) l = 1;
@@ -4017,7 +4023,7 @@ function Sec2Day(a)
 		
 		updateRocket();
 		updateStartingPoint();
-		updateOrbit();
+//		updateOrbit();
 		updateCycle();
 		updateFuel();
 	  
