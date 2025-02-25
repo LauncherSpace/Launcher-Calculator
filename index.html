@@ -2195,6 +2195,8 @@ function Sec2Day(a)
 		}
 		updateFuel();
 		if (elSet_averages.checked) SetAverages(0,13);
+		if (elSet_AllMax.checked) SetAllMax();
+		if (elSet_AllMin.checked) SetAllMin();
 		Calculate();
 	}
 
@@ -2269,6 +2271,8 @@ function Sec2Day(a)
 		    SetLimitation();
 		}
 		if (elSet_averages.checked) SetAverages(0,13);
+		if (elSet_AllMax.checked) SetAllMax();
+		if (elSet_AllMin.checked) SetAllMin();
 		Calculate();
 	}
 
