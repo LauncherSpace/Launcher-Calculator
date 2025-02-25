@@ -1393,14 +1393,15 @@ function Sec2Day(a)
 			var Eccentr=1.-((6371.+Orbit_Perigee)/((6371.+Orbit_Perigee+6371.+Orbit_Apogee)/2.))
 			Orbit_Inclination = Rad2Deg(Math.acos(-4.755411e-15*Math.pow(6371.+Orbit_Perigee,3.5)*Math.pow(1.-Eccentr*Eccentr,2)));
 			elOrbit_Inclination.value = Orbit_Inclination.toFixed(2);
-		} else
+		} 
+		else
+		{
+			if (Math.abs(elOrbit_Inclination.value) < Math.abs(Spaceport_latitude))elOrbit_Inclination.value = Spaceport_latitude;
 			Orbit_Inclination = parseFloat(elOrbit_Inclination.value);
-		
+		}
+
 		var Extra_speed_for_flight_to_the_planets = parseFloat(elExtra_speed_for_flight_to_the_planets.value);
-//		if (Math.abs(Orbit_Inclination) > Math.abs(Spaceport_latitude))
-			var Intermediate_angle = Rad2Deg(Math.asin(Math.cos(Deg2Rad(Orbit_Inclination))/Math.cos(Deg2Rad(Spaceport_latitude))));
-//		else
-//			Intermediate_angle = 90.-Rad2Deg(Math.asin(1.-(Math.cos(Deg2Rad(Orbit_Inclination))/Math.cos(Deg2Rad(Spaceport_latitude)))));
+		var Intermediate_angle = Rad2Deg(Math.asin(Math.cos(Deg2Rad(Orbit_Inclination))/Math.cos(Deg2Rad(Spaceport_latitude))));
 		elIntermediate_angle.textContent = Intermediate_angle.toFixed(2);
 		
 		var earth_radius = 6371.;
