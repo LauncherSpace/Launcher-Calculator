@@ -1494,6 +1494,7 @@ function Sec2Day(a)
 
 		if (elRocket.selectedIndex == 0)
 		{
+		   elSecond_stage_total_thrust.value = (elSecond_stage_engine_thrust.value*elSecond_stage_engines_number.value ).toFixed(1);
 		if(elBooster.checked)
 		   elFirst_stage_total_thrust.value = ((elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value )*AirLaunch_Thrust_gain).toFixed(1);
 		else
