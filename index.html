@@ -2360,8 +2360,12 @@ function Sec2Day(a)
 		{
 			elEngine2.selectedIndex = Index/2;
 			updateEngine2();
-			if (s_engine_data[Index][7] == "P") elBooster.checked = true;
-			BoosterChange();
+			if (s_engine_data[Index][7] == "P") 
+			{
+				elBooster.checked = true;
+				BoosterChange();
+			}
+			s_designed_first = false;
 		}
 
 	}
@@ -2395,7 +2399,7 @@ function Sec2Day(a)
 		elSecond_stage_isp_vac.value = s_engine_data[Index][3];
 		if (s_designed_first == true)
 			elSecond_stage_engines_number.value = s_engine_data[Index][6];
-		s_designed_first = false;
+//		s_designed_first = false;
 		updateWeight();
 		updateCycle();
 		updateFuel();
