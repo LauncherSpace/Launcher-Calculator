@@ -1270,7 +1270,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["Ursa Hadley vac",	2900.,	240.0, 345., 0, 0, 1,    39,"T","G","Cape Canaveral","URSA Major ORSC engine for 2nd stage"],
 			     ["RL Rutherford",		1800.,	256.0, 303., 0, 2, 9,    24,"T","G","Rocket Lab LC-1","RocketLab Electron 1st stage"],				
 			     ["RL Rutherford vac", 	2500.,	236.0, 333., 0, 2, 1,    33,"T","G","Rocket Lab LC-1","Rocketlab Electron 2nd stage"],
-			     ["Virgin Newton III",	33600.,	212.0, 308., 0, 1, 1,   448,"T","A","Mojave",	"Virgin Orbit Launcherone 1st stage"],				
+			     ["Virgin Newton III",	24581.,	212.0, 308., 0, 1, 1,   448,"T","A","Mojave",	"Virgin Orbit Launcherone 1st stage"],				
 			     ["Virgin Newton IV", 	2200.,	270.0, 328., 0, 1, 1,    29,"T","A","Mojave",	"Virgin Orbit Launcherone 2nd stage"],				
 			     ["Firefly Reaver",		16900.,	265.0, 295.6,0, 1, 4,   225,"T","G","Vandenberg",	"Firefly Alpha 1st stage"],				
 			     ["Firefly Lightning",	7100.,  245.0, 322., 0, 1, 1,    95,"T","G","Vandenberg",	"Firefly Alpha 2nd stage"],				
@@ -1491,18 +1491,6 @@ function Sec2Day(a)
 		var Rocket_Mass = parseFloat(elRocket_Mass.value);
 		var Max_midsection_D = parseFloat(elMax_midsection_D.value);
 		var Starting_point_Altitude = parseFloat(elStarting_point_Altitude.value);
-
-		if (elRocket.selectedIndex == 0)
-		{
-		   elSecond_stage_total_thrust.value = (elSecond_stage_engine_thrust.value*elSecond_stage_engines_number.value ).toFixed(1);
-		if(elBooster.checked)
-		   elFirst_stage_total_thrust.value = ((elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value )*AirLaunch_Thrust_gain).toFixed(1);
-		else
-		   elFirst_stage_total_thrust.value = (elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value*AirLaunch_Thrust_gain).toFixed(1);
-
-//		Rocket_Mass = elFirst_stage_total_thrust.value/elThrust_to_weight_ratio.value - Fairing_mass - Assumed_payload_mass;
-		} 
-
 		var Thrust_to_weight_ratio = parseFloat(elThrust_to_weight_ratio.value);
 		var Thrust_to_weight_ratio_2nd = parseFloat(elThrust_to_weight_ratio_2nd.value);
 		var v2nd_Stage_mass_ratio = parseFloat(el2nd_Stage_mass_ratio.value);
@@ -1553,9 +1541,6 @@ function Sec2Day(a)
 
 			if (elBooster.checked) First_stage_total_thrust = First_stage_total_thrust - Second_stage_total_thrust; 
 			if(elRocket.selectedIndex == 0) 
-//			    if(elBooster.checked)
-//				Second_stage_total_thrust = elSecond_stage_engine_thrust.value*elSecond_stage_engines_number.value;
-//			    else
 				Second_stage_total_thrust = elSecond_stage_engine_thrust.value*elSecond_stage_engines_number.value;
 
 			if(v3rd_Stage_mass_ratio == 0)var Third_stage_dry_mass = 0;
@@ -1825,7 +1810,7 @@ function Sec2Day(a)
 		elFirst_stage_average_trajectory_isp.textContent = First_stage_average_trajectory_isp.toFixed(1);
 		elFirst_stage_propellant_mass.value = First_stage_propellant_mass.toFixed(1);		
 		elFirst_stage_dry_mass.value = First_stage_dry_mass.toFixed(1);
-		if (elRocket.selectedIndex > 0) elFirst_stage_total_thrust.value = First_stage_total_thrust.toFixed(1);
+		elFirst_stage_total_thrust.value = First_stage_total_thrust.toFixed(1);
 		elFirst_stage_final_mass.textContent = First_stage_final_mass.toFixed(1);
 		elFirst_stage_delta_v.textContent = First_stage_delta_v.toFixed(1);
 		elFairing_jettison_delta_v.textContent = Fairing_jettison_delta_v.toFixed(1);
@@ -2329,26 +2314,18 @@ function Sec2Day(a)
 
 	function updateEngine1()
 	{
-		var Index = 0;
-		var engine = elEngine1.value;
-		for (var i=0; i < s_engine_count; ++i)
-		{
-			if ( s_engine_data[i][0] == engine )
-			{
-				Index = i;
-				break;
-			}
-		}
+		var Index = elEngine1.selectedIndex * 2;
 		Engine1_Index = Index;
 		elFirst_stage_engine_thrust.value = s_engine_data[Index][1];
 		elFirst_stage_isp_sea_level.value = s_engine_data[Index][2];
 		elFirst_stage_isp_vac.value = s_engine_data[Index][3];
+		elFirst_stage_engines_number.value = s_engine_data[Index][6];
 		elFuel.selectedIndex = s_engine_data[Index][4];
 		elCycle.selectedIndex = s_engine_data[Index][5];
 		if (s_designed_first == true)
 		{
 			elBooster.checked = 0;
-			elFirst_stage_engines_number.value = s_engine_data[Index][6];
+//			elFirst_stage_engines_number.value = s_engine_data[Index][6];
 			var spacePort = s_engine_data[Index][10];
 			for (var i=0; i < s_start_point_count; ++i)
 			{
@@ -2358,16 +2335,6 @@ function Sec2Day(a)
 					break;
 				}
 			}
-
-		}
-		updateWeight();
-		updateCycle();
-		updateFuel();
-		SolidChange();
-		SetAverages(0,7);
-//		if (s_engine_data[Index][9] != "A")elAir_Launch.checked = false; 
-		if (s_designed_first == true)
-		{
 			elEngine2.selectedIndex = Index/2;
 			updateEngine2();
 			if (s_engine_data[Index][8] == "P") 
@@ -2375,6 +2342,15 @@ function Sec2Day(a)
 				elBooster.checked = true;
 				BoosterChange();
 			}
+		}
+		updateWeight();
+		updateCycle();
+		updateFuel();
+		SolidChange();
+		SetAverages(0,7);
+		if (s_engine_data[Index][9] != "A")elAir_Launch.checked = false; 
+		if (s_designed_first == true)
+		{
 			if (s_engine_data[Index][9] == "A") 
 			{
 				elAir_Launch.checked = true;
@@ -2383,22 +2359,11 @@ function Sec2Day(a)
 			}
 			s_designed_first = false;
 		}
-		if (s_engine_data[Index][9] == "A" && elAir_Launch.checked == false) 
-			elFirst_stage_engine_thrust.value = s_engine_data[Index][1]*s_engine_data[Index][2]/s_engine_data[Index][3];
 	}
 
 	function updateEngine2()
 	{
-		var Index = 0;
-		var engine = elEngine2.value;
-		for (var i=0; i < s_engine_count; ++i)
-		{
-			if ( s_engine_data[i][0] == engine )
-			{
-				Index = i;
-				break;
-			}
-		}
+		var Index = (elEngine2.selectedIndex * 2) + 1;
 		Engine2_Index = Index;
 
 		elFuel2.selectedIndex = s_engine_data[Index][4];
@@ -2432,13 +2397,18 @@ function Sec2Day(a)
 			var Second_stage_engines_number = parseFloat(elSecond_stage_engines_number.value).toFixed(0);
 			elFirst_stage_engines_number.value = First_stage_engines_number;
 			elSecond_stage_engines_number.value = Second_stage_engines_number;
+
+			elSecond_stage_total_thrust.value = (elSecond_stage_engine_thrust.value*elSecond_stage_engines_number.value ).toFixed(1);
 			if (elBooster.checked)
 			 {
 			  elThrust_to_weight_ratio.value = 1.3;
 			  Lift_off_Mass = 1./elThrust_to_weight_ratio.value * (elFirst_stage_engine_thrust.value * First_stage_engines_number + elSecond_stage_engine_thrust.value * Second_stage_engines_number);
+			  elFirst_stage_total_thrust.value = ((elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value )*AirLaunch_Thrust_gain).toFixed(1);
 			 }
 			else
 			  Lift_off_Mass = 1./elThrust_to_weight_ratio.value * elFirst_stage_engine_thrust.value * First_stage_engines_number;
+			  elFirst_stage_total_thrust.value = (elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value*AirLaunch_Thrust_gain).toFixed(1);
+
 //			Fairing_mass = parseFloat((0.0045*Lift_off_Mass).toFixed(0));
 			Assumed_payload_mass = parseFloat((0.025*Lift_off_Mass).toFixed(0));
 			Fairing_mass = parseFloat((0.3*Assumed_payload_mass).toFixed(0));
@@ -2794,6 +2764,17 @@ function Sec2Day(a)
 		elSet_AllMax.checked = false;
 		elOrbit_Perigee.value = "";
 		Orbit_Inclination = "";
+		Starting_point_Altitude_Old = 0.1;
+		AirLaunch_Thrust_gain = 1.;
+		if (elRocket.selectedIndex == 0)
+		{
+			document.getElementById('First_stage_total_thrust').setAttribute('readonly',true);
+			document.getElementById('Second_stage_total_thrust').setAttribute('readonly',true);
+		} else
+		{
+			document.getElementById('First_stage_total_thrust').removeAttribute('readonly');
+			document.getElementById('Second_stage_total_thrust').removeAttribute('readonly');
+		}
 		if (elRocket.selectedIndex == 0 && edata == null)
 		{ 
 			Abs_Calculation.checked = false;
@@ -2805,7 +2786,7 @@ function Sec2Day(a)
 			s_rocket_data[0][11] = 0.;
 			s_rocket_data[0][12] = 0.;
 			s_designed_first = true;
-			updateEngine1()
+			updateEngine1();
 			s_designed_first = true;
 		}
 		else
@@ -2867,9 +2848,11 @@ function Sec2Day(a)
 		 }
 
 		elThrust_to_weight_ratio.value = s_rocket_data[elRocket.selectedIndex][2];
+		if (elRocket.selectedIndex > 0)
 		elFirst_stage_total_thrust.value = ((s_rocket_data[elRocket.selectedIndex][4]+s_rocket_data[elRocket.selectedIndex][6]+s_rocket_data[elRocket.selectedIndex][9])*s_rocket_data[elRocket.selectedIndex][2]).toFixed(1);
 
 		elThrust_to_weight_ratio_2nd.value = s_rocket_data[elRocket.selectedIndex][3];
+		if (elRocket.selectedIndex > 0)
 		elSecond_stage_total_thrust.value =((s_rocket_data[elRocket.selectedIndex][4]*s_rocket_data[elRocket.selectedIndex][10]+s_rocket_data[elRocket.selectedIndex][6]+s_rocket_data[elRocket.selectedIndex][9])*s_rocket_data[elRocket.selectedIndex][3]).toFixed(1); 
 
 		elLift_off_Mass.textContent = s_rocket_data[elRocket.selectedIndex][4] + s_rocket_data[elRocket.selectedIndex][6] + s_rocket_data[elRocket.selectedIndex][9];
@@ -2901,13 +2884,16 @@ function Sec2Day(a)
 
 		elSpecific_Impulse_Variation.value = 100.;
 		updateSliderEdit0(14);
-		
-		elFirst_stage_isp_sea_level.value =s_rocket_data[elRocket.selectedIndex][21];
-		elFirst_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][22];
-		elSecond_stage_isp_sea_level.value = s_rocket_data[elRocket.selectedIndex][23];
-		elSecond_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][24];
-		elThird_stage_isp.value = s_rocket_data[elRocket.selectedIndex][25];
-		elTransfer_Orbit_Stage_isp.value = s_rocket_data[elRocket.selectedIndex][26];
+
+		if (elRocket.selectedIndex > 0 )
+		{
+			elFirst_stage_isp_sea_level.value =s_rocket_data[elRocket.selectedIndex][21];
+			elFirst_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][22];
+			elSecond_stage_isp_sea_level.value = s_rocket_data[elRocket.selectedIndex][23];
+			elSecond_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][24];
+			elThird_stage_isp.value = s_rocket_data[elRocket.selectedIndex][25];
+			elTransfer_Orbit_Stage_isp.value = s_rocket_data[elRocket.selectedIndex][26];
+		}
 		
 		var spacePort = s_rocket_data[elRocket.selectedIndex][35];
 		for (var i=0; i < s_start_point_count; ++i)
@@ -3308,8 +3294,6 @@ function Sec2Day(a)
 	
 	function AirLaunchChange()
 	{
-		if (elRocket.selectedIndex == 0 && !s_designed_first) updateEngine1();
-
 		if (elAir_Launch.checked)
 		{
 			elLimitation.checked = false;
@@ -3324,10 +3308,10 @@ function Sec2Day(a)
 			  elStarting_point_Altitude.value = Starting_point_Altitude;
 			  elAdditional_Speed.value = 250;
 			}
-			if(Abs_Calculation.checked)
+			if(Abs_Calculation.checked || elRocket.selectedIndex == 0)
 			{
-			if(elAir_Launch.checked)
-			{
+//			if(elAir_Launch.checked)
+//			{
 			 var Starting_point_Pressure=(Math.exp(-Starting_point_Altitude/7.16));
 			 var First_stage_isp_sea_level = parseFloat(elFirst_stage_isp_sea_level.value);
 			 var First_stage_isp_vac = parseFloat(elFirst_stage_isp_vac.value);
@@ -3338,7 +3322,7 @@ function Sec2Day(a)
 			 var First_stage_total_thrust = parseFloat(elFirst_stage_total_thrust.value);
 			 elFirst_stage_total_thrust.value = (First_stage_total_thrust/First_stage_isp_sea_level_*First_stage_isp_sea_level).toFixed(3);
 
-			}
+//			}
 			}
 		Starting_point_Altitude_Old = parseFloat(elStarting_point_Altitude.value);
 		} 
@@ -3351,7 +3335,7 @@ function Sec2Day(a)
 			AirLaunch_Thrust_gain = 1.;
 			Starting_point_Altitude_Old = parseFloat(elStarting_point_Altitude.value);
 
-			if(Abs_Calculation.checked)
+			if(Abs_Calculation.checked || elRocket.selectedIndex == 0)
 			{
 			Starting_point_Pressure=(Math.exp(-Starting_point_Altitude/7.16));
 			First_stage_isp_sea_level = parseFloat(elFirst_stage_isp_sea_level.value);
@@ -3363,6 +3347,7 @@ function Sec2Day(a)
 			elFirst_stage_total_thrust.value = (First_stage_total_thrust/First_stage_isp_sea_level_*First_stage_isp_sea_level).toFixed(3);
 			}
 		}
+		if (elRocket.selectedIndex == 0) elFirst_stage_engine_thrust.value = elFirst_stage_total_thrust.value / elFirst_stage_engines_number.value;
 	}
 
 	function AirLaunchChangeAndCalc()
