@@ -2332,6 +2332,7 @@ function Sec2Day(a)
 				if ( s_start_point_data[i][0] == spacePort )
 				{
 					elStartingPoint.selectedIndex = i;
+					updateStartingPoint();
 					break;
 				}
 			}
@@ -2403,11 +2404,10 @@ function Sec2Day(a)
 			 {
 			  elThrust_to_weight_ratio.value = 1.3;
 			  Lift_off_Mass = 1./elThrust_to_weight_ratio.value * (elFirst_stage_engine_thrust.value * First_stage_engines_number + elSecond_stage_engine_thrust.value * Second_stage_engines_number);
-			  elFirst_stage_total_thrust.value = ((elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value )*AirLaunch_Thrust_gain).toFixed(1);
 			 }
 			else
 			  Lift_off_Mass = 1./elThrust_to_weight_ratio.value * elFirst_stage_engine_thrust.value * First_stage_engines_number;
-			  elFirst_stage_total_thrust.value = (elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value*AirLaunch_Thrust_gain).toFixed(1);
+			elFirst_stage_total_thrust.value = (elFirst_stage_engine_thrust.value*elFirst_stage_engines_number.value *AirLaunch_Thrust_gain).toFixed(1);
 
 //			Fairing_mass = parseFloat((0.0045*Lift_off_Mass).toFixed(0));
 			Assumed_payload_mass = parseFloat((0.025*Lift_off_Mass).toFixed(0));
@@ -2765,6 +2765,7 @@ function Sec2Day(a)
 		elOrbit_Perigee.value = "";
 		Orbit_Inclination = "";
 		Starting_point_Altitude_Old = 0.1;
+		elAdditional_Speed.value = 0.;
 		AirLaunch_Thrust_gain = 1.;
 		if (elRocket.selectedIndex == 0)
 		{
@@ -2891,9 +2892,9 @@ function Sec2Day(a)
 			elFirst_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][22];
 			elSecond_stage_isp_sea_level.value = s_rocket_data[elRocket.selectedIndex][23];
 			elSecond_stage_isp_vac.value = s_rocket_data[elRocket.selectedIndex][24];
+		}
 			elThird_stage_isp.value = s_rocket_data[elRocket.selectedIndex][25];
 			elTransfer_Orbit_Stage_isp.value = s_rocket_data[elRocket.selectedIndex][26];
-		}
 		
 		var spacePort = s_rocket_data[elRocket.selectedIndex][35];
 		for (var i=0; i < s_start_point_count; ++i)
@@ -2949,8 +2950,8 @@ function Sec2Day(a)
 		updateCycle();
 
 		if (elLimitation.checked) SetLimitation();
-		elAir_Launch.checked = s_rocket_data[elRocket.selectedIndex][37] != 0;
-		AirLaunchChange();
+//		elAir_Launch.checked = s_rocket_data[elRocket.selectedIndex][37] != 0;
+//		AirLaunchChange();
 
 		elRocketDescription.textContent = s_rocket_data[elRocket.selectedIndex][40];
 
@@ -2980,6 +2981,9 @@ function Sec2Day(a)
 				elProjectingH[i].removeAttribute("style");
 			DelAverages();
 		}
+
+		elAir_Launch.checked = s_rocket_data[elRocket.selectedIndex][37] != 0;
+		AirLaunchChange();
 
 		elReusable.checked = s_rocket_data[elRocket.selectedIndex][38] != 0;
 		ReusabilityChange(0);
@@ -3649,8 +3653,9 @@ function Sec2Day(a)
 			if (i < 4 & parseFloat(s_slider_edit[i].value)*100. < parseFloat(s_slider[i].min)) Aggressivity = Aggressivity + ScoreCalcWeight[StageIndex][i]*(Math.pow(1.+(-parseFloat(s_slider_edit[i].value)*100.+parseFloat(s_slider[i].min))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)), 3.0)-1.);
 			if (i < 4 & parseFloat(s_slider_edit[i].value) == 0.) Aggressivity = 1/0;
 			}
-		var i_end = 14;
-//		if (elStages.selectedIndex == 2) i_end = 12;
+//		var i_end = 14;
+		var i_end = 10 + elStages.selectedIndex * 2;
+		if (elStages.selectedIndex > 2) i_end = 14;
 		for (var i = 8; i < i_end; ++i)
 			{
 //			if (i == 0) Aggressivity = 0;
