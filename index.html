@@ -3353,6 +3353,7 @@ function Sec2Day(a)
 			}
 		}
 		if (elRocket.selectedIndex == 0) elFirst_stage_engine_thrust.value = elFirst_stage_total_thrust.value / elFirst_stage_engines_number.value;
+		if (elRocket.selectedIndex == 0) Calculate();
 	}
 
 	function AirLaunchChangeAndCalc()
