@@ -2319,13 +2319,13 @@ function Sec2Day(a)
 		elFirst_stage_engine_thrust.value = s_engine_data[Index][1];
 		elFirst_stage_isp_sea_level.value = s_engine_data[Index][2];
 		elFirst_stage_isp_vac.value = s_engine_data[Index][3];
-		elFirst_stage_engines_number.value = s_engine_data[Index][6];
+//		elFirst_stage_engines_number.value = s_engine_data[Index][6];
 		elFuel.selectedIndex = s_engine_data[Index][4];
 		elCycle.selectedIndex = s_engine_data[Index][5];
 		if (s_designed_first == true)
 		{
 			elBooster.checked = 0;
-//			elFirst_stage_engines_number.value = s_engine_data[Index][6];
+			elFirst_stage_engines_number.value = s_engine_data[Index][6];
 			var spacePort = s_engine_data[Index][10];
 			for (var i=0; i < s_start_point_count; ++i)
 			{
