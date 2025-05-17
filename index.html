@@ -3545,16 +3545,7 @@ function Sec2Day(a)
 		Calculate();
 		}
 		else
-		{
-		if (elRocket.selectedIndex > 0) 
-		  DelAverages();
-		else
-		  {
-		   s_designed_first = false;
-		   updateEngine2();
-		   updateEngine1();
-		  }
-		}
+		 DelAverages();
 	}
 
 	function SetAverages(Istr,Ifin)
@@ -3573,9 +3564,18 @@ function Sec2Day(a)
 
 	function DelAverages()
 	{
-		DelLimitation();
-		LimitationChange();
-		if(elReusable.checked) ReusabilityChange(0);
+		if (elRocket.selectedIndex > 0)
+		  { 
+		    DelLimitation();
+		    LimitationChange();
+		    if(elReusable.checked) ReusabilityChange(0);
+		  }
+		else
+		  {
+		    s_designed_first = false;
+		    updateEngine2();
+		    updateEngine1();
+		  }
 	}
 
 	function Set_AllMinChange()
@@ -3589,9 +3589,7 @@ function Sec2Day(a)
 		Calculate();
 		}
 		else
-		{
-		if (elRocket.selectedIndex > 0) DelAverages();
-		}
+		 DelAverages();
 	}
 
 	function SetAllMin()
@@ -3616,9 +3614,7 @@ function Sec2Day(a)
 		Calculate();
 		}
 		else
-		{
-		if (elRocket.selectedIndex > 0) DelAverages();
-		}
+		 DelAverages();
 	}
 
 	function SetAllMax()
