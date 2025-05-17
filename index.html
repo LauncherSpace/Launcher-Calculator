@@ -2438,6 +2438,10 @@ function Sec2Day(a)
 			updateFuel();
 			SetAverages(0,7);
 			SetAverages(12,13);
+
+			RangeMinMax(s_slider[0], s_slider_edit[0], elFuel.selectedIndex, elCycle.selectedIndex, 0);
+			RangeMinMax(s_slider[1], s_slider_edit[1], elFuel2.selectedIndex, elCycle2.selectedIndex, 1);
+			SetAverages(0,1);
 		}
 		Calculate();
 	}
@@ -3546,6 +3550,7 @@ function Sec2Day(a)
 		  DelAverages();
 		else
 		  {
+		   s_designed_first = false;
 		   updateEngine2();
 		   updateEngine1();
 		  }
