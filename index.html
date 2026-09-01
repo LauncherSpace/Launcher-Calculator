@@ -1124,13 +1124,14 @@ input[type=range]:focus::-ms-fill-upper {
 				  ["TiSpace Space Port", 	22.261,	120.89,	 0,  22.3, "Taiwan  (22.26,120.89)"]];
 
 
-	var s_orbit_count = 14;
+	var s_orbit_count = 16;
 	var s_orbit_data = [["LEO",  200,     0,-1,  0,		0,"Low Earth orbit"],
 			   ["ISS",   409,   418,51.6,0,		0,"International Space Station orbit"],
-			   ["SSO",   500,     0, 98, 0,		0,"Sun-synchronous orbit"],
-			   ["MEO",   20200,   0, 55, 0,		0,"Medium Earth orbit (GPS satellites)"],
-			   ["GTO",   200, 35786, -1, 0,		0,"Geosynchronous transfer orbit"],
-			   ["GEO",   35786,   0, -1, 0,		0,"Geosynchronous equatorial orbit"],
+			   ["SSO",   500,     0, 98, 0,		0,"Sun-Synchronous Orbit"],
+			   ["MEO",   20200,   0, 55, 0,		0,"Medium Earth Orbit (GPS satellites)"],
+			   ["GTO",   200, 35786, -1, 0,		0,"Geosynchronous Transfer Orbit"],
+			   ["GEO",   35786,   0, -1, 0,		0,"Geosynchronous Equatorial Orbit"],
+			   ["HEO",   24475,47093,62.15, 0,	0,"Highly Elliptical Orbit (quasi-gensynchronous)"],
 			   ["HCO or C3=0",   200,     0, -1, 3150.6, 	0,"Heliocentric Orbit (escape velocity)"],
 			   ["L1",    200,     0, -1, 3300., 8726400.,"Sun-Earth Lagrange Point 1"],
 			   ["Moon",  200,     0, -1, 3100  ,283107,"Trans-Lunar injection orbit"],
@@ -1138,6 +1139,7 @@ input[type=range]:focus::-ms-fill-upper {
 			   ["Venus", 200,     0, -1, 3506, 8380800,"Trans-Venus injection orbit"],
 			   ["Mercury",200,     0, -1, 5554, 9115200,"Trans-Mercury injection orbit"],
 			   ["Jupiter",200,     0, -1, 6304, 86185100,"Trans-Jupiter injection orbit"],
+			   ["Saturn",200,     0, -1, 7300, 190644900,"Trans-Saturn injection orbit"],
 			   ["Pluto", 200,     0, -1, 8364, 1438865550,"Trans-Pluto injection orbit"]];
 // To reduce the required Vsp, a gravity assist maneuver from Jupiter is usually used
 							  
