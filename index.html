@@ -483,7 +483,7 @@ input[type=range]:focus::-ms-fill-upper {
 			  <TD title="The initial mass of a rocket excluding payload and fairing"><div class="mobilelayout_l1">Rocket mass (Lift off excluding Payload and Fairing)</div></TD>
 			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT id="Rocket_Mass"  class="inputstyle-1" type="text"><span>kg</span></div></TD></TR>
 				<TR>
-			  <TD title="The maximum diameter midsection of the rocket, which determines the aerodynamic drag. &#013;For modern rockets this is usually the fairing diameter."><div class="mobilelayout_l1">Max Rocket Body Diameter</div></TD>
+			  <TD title="The maximum diameter midsection of the rocket, which determines the &#013;aerodynamic drag. For modern rockets this is usually the fairing diameter. &#013;However, for rockets with a parallel staging such as the Falcon Heavy or &#013;Soyuz, the equivalent diameter may be significantly larger than the fairing &#013;diameter."><div class="mobilelayout_l1">Max Rocket Body Diameter</div></TD>
 			  <TD><div class="mobilelayout_r1 layout_wt_content"><INPUT class="inputstyle-1" type="text" id="Max_midsection_D"> <span>m</span></div></TD></TR>
 	  
 				<TR>
@@ -1226,8 +1226,8 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["LV3", "LVM-3",			  1.877,0.881, 630000, 6.,  3000, 3500,  0, 4300,   25.079, 0, 5.238, 13.136, 7.2,    15, 15.15, 0.,  3.,  1, 2.0, 250.0, 274.5, 262, 293, 442, 442, 10,1,7,1, 2,1, 2,1,    "Shriharikota (India)","GTO", 0, 0, 1, "LVM-3 The most powerful Indian launcher"],
 			     ["H34", "H3-24L",			  1.962,1.050, 574000, 7.3, 3000, 3500,  0, 8800,   47.735, 0, 5.052, 13.333, 8.163,  15, 20.69, 0.,  3.,  1, 2.0, 258.0, 283.6, 353, 425, 448, 448, 10,1,2,1, 2,1, 2,1,    "Tanegashima (Japan)","GTO", 0, 0, 1, "H3-24L The most powerful Japan launcher"],
 			     ["PR1", "Proton KM",		  1.453,1.000, 673762, 6.5 ,6000, 3500,  0,23700,   31.890, 0, 6.911, 6.668,  6.536,  15, 7.517, 2.,  1.,  1, 1.0, 288.0, 316,   230, 325, 326, 326, 7,0, 7,0, 7,0, 7,0,    "Baikonur",		"LEO", 0, 0, 0, "Roskosmos Russia"],
-			     ["SZ1", "Soyuz-U",			  1.379,0.578, 305717, 6.2 ,2000, 3500,  0, 6950,   41.890, 0, 9.257, 8.520,  6.560,  15, 9.576, 3.,  2.,  1, 2.0, 263.3, 320,   255,320.6,359, 326, 0,1, 0,1, 0,1, 0,1,    "Baikonur",		"LEO", 0, 0, 1, "Roskosmos Russia"],
-			     ["SZ2", "Soyuz-ST",		  1.37, 0.570, 311752, 6.2 ,2000, 3500,  0, 2810,   43.015,8.903,2.111,8.520,6.560,8.485,14.894, 3.,  2.,  2, 2.0, 263.3, 320,   255,320.6,326,333.2,0,1, 0,1, 0,1, 7,1,    "Kourou (ESA)",	"GTO", 0, 0, 1, "Roskosmos Russia"],
+			     ["SZ1", "Soyuz-U",			  1.379,0.578, 305717, 8.2 ,2000, 3500,  0, 6950,   41.890, 0, 9.257, 8.520,  6.560,  15, 9.576, 3., 2.5,  1, 2.0, 263.3, 320,   255,320.6,359, 326, 0,1, 0,1, 0,1, 0,1,    "Baikonur",		"LEO", 0, 0, 1, "Roskosmos Russia"],
+			     ["SZ2", "Soyuz-ST",		  1.37, 0.570, 311752, 8.2 ,2000, 3500,  0, 2810,   43.015,8.903,2.111,8.520,6.560,8.485,14.894, 3., 2.5,  2, 2.0, 263.3, 320,   255,320.6,326,333.2,0,1, 0,1, 0,1, 7,1,    "Kourou (ESA)",	"GTO", 0, 0, 1, "Roskosmos Russia"],
 			     ["EN1", "Energia",			  1.514,0.714,2266500, 11.,    0, 3500,  0,100000,  34.245, 0,  0.0, 17.606, 9.357,   15, 32.58, 1.5, 1.,  1, 0,   309.0, 337,   353, 455, 324, 324, 0,0, 2,0, 7,3, 7,3,    "Baikonur",		"LEO", 0, 0, 1, "The largest Soviet rocket"],
 			     ["YZ1", "Yuzhnoye Zenit-2",	  1.612,0.949, 443730, 4.15,1800, 3500,  0,13470,   20.551, 0, 0.,     7.93,  9.15,   15, 20,    2., 1.2,  1, 0.8, 309.0, 336,   300, 349, 352, 352, 0,0, 0,0, 0,0, 0,0,    "Baikonur",		"LEO", 0, 0, 0, "Yuzhnoye Ukraine"],
 			     ["YZ2", "Yuzhnoye Zenit-3SL",	  1.572,0.865, 462786, 4.15,1850, 3500,  0, 6160,   23.492, 0, 3.682, 7.925, 10.359,  15, 15.033,2., 1.2,  1, 1.0, 309.5, 337.2, 300, 350, 356, 356, 0,0, 0,0, 0,0, 0,0,    "Sea Launch (Equator)","GTO", 0, 0, 0, "Yuzhnoye Ukraine"],
