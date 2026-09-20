@@ -1602,7 +1602,7 @@ function Sec2Day(a)
 				(Const2*(Const/First_stage_isp_sea_level)*
 				((Thrust_to_weight_ratio-1.)*9.81)-(1.-Const2*(Const/First_stage_isp_sea_level))*9.81))))*9.81));
 
-		if (Thrust_to_weight_ratio<1.46) var Gravity_losses = 4./3.* Gravity_losses_at_specific_altitude*(1.5+2.5*(Thrust_to_weight_ratio-1.17)-4.25*(Thrust_to_weight_ratio-1.17)*(Thrust_to_weight_ratio-1.17));
+		if (Thrust_to_weight_ratio<1.46) var Gravity_losses = 4./3.* Gravity_losses_at_specific_altitude*(1.5+2.5*(Thrust_to_weight_ratio-1.17)-4.25*(Thrust_to_weight_ratio-1.17)**2);
 		else 				     Gravity_losses = 4./3.* 1.865*Gravity_losses_at_specific_altitude;
 //  Gravity losses for a single-stage rocket
 		if (v2nd_Stage_mass_ratio == 0) Gravity_losses = 3./4. * Gravity_losses;
@@ -1656,7 +1656,9 @@ function Sec2Day(a)
 
 // Calculation of the third stage run time to reach the LEO, assuming that the initial thrust to weight ratio is 0.5
 		var Transfer_Orbit_stage_run_time = 0.
-		var Vsp_for_LEO_with_losses = Vsp_for_LEO + Gravity_losses + 200.;
+		var Vsp_for_LEO_with_losses = Vsp_for_LEO + Gravity_losses + Pressure_losses + Aerodynamic_losses +145.;
+		if(Gravity_losses < parseFloat(elGravity_losses.textContent))Vsp_for_LEO_with_losses = Vsp_for_LEO + parseFloat(elGravity_losses.textContent) + Pressure_losses + Aerodynamic_losses + 145.;
+
 		if (elStages.selectedIndex > 0)
 		   {
 			var Transfer_Orbit_stage_delta_v_to_LEO = Vsp_for_LEO_with_losses - parseFloat(elFirst_stage_delta_v.textContent) - parseFloat(elSecond_stage_delta_v.textContent);
@@ -1679,19 +1681,21 @@ function Sec2Day(a)
 //		if (First_to_Second_stage_Run_time_ratio > 3.85) Additional_losses = Additional_losses + 0.075*Second_stage_delta_v_to_LEO*(First_to_Second_stage_Run_time_ratio -3.85);
 		if (Second_stage_run_time_to_LEO > 500.) Additional_losses = Additional_losses + 0.03*(Vsp_for_LEO_with_losses-parseFloat(elFirst_stage_delta_v.textContent))*(Second_stage_run_time_to_LEO / 500.);
 
-		Ascent_Time = First_stage_run_time + Second_stage_run_time + 5.;
+//		Ascent_Time = First_stage_run_time + Second_stage_run_time + 5.;
+		Ascent_Time = First_stage_run_time + Second_stage_run_time_to_LEO + 5.;
 		if (elBooster.checked) 
 			{var Second_stage_run_time_ = Second_stage_run_time;
 			 if (First_stage_run_time > Second_stage_run_time) Second_stage_run_time_ = First_stage_run_time +5.;
 			 Second_stage_prop_used_with_booster = (Second_stage_propellant_mass/100.*(100.-Unused_propellant_of_2nd_Stage))*(1. - (Second_stage_run_time_ - First_stage_run_time -5.)/Second_stage_run_time);
-                         Ascent_Time = Second_stage_run_time_ + 5. ;}
+			}
+//                         Ascent_Time = Second_stage_run_time_ + 5. ;}
 		
 //		if(elFirst_stage_delta_v.textContent != "NaN") Ascent_Time = Ascent_Time*Vsp_for_LEO_with_losses/(parseFloat(elFirst_stage_delta_v.textContent) + parseFloat(elSecond_stage_delta_v.textContent));
 
 		//=== Additional losses calculation by J.Schilling ===
 		var Gravity_losses_Time_Correction = 0.;
-//		if(Ascent_Time > 523.) Gravity_losses_Time_Correction = 0.275*(0.0013*Math.pow(Ascent_Time,2)+0.0882*Ascent_Time)-110.;
-		if(elStages.selectedIndex > 0) Gravity_losses_Time_Correction = 0.275*(0.0013*Math.pow(Ascent_Time,2)+0.0882*Ascent_Time)-110.;
+//		if(Ascent_Time > 523.) Gravity_losses_Time_Correction = 0.275*(0.0013*Ascent_Time**2+0.0882*Ascent_Time)-110.;
+		if(elStages.selectedIndex > 0) Gravity_losses_Time_Correction = 0.275*(0.0013*Ascent_Time**2+0.0882*Ascent_Time)-110.;
 		Gravity_losses = Gravity_losses+Gravity_losses_Time_Correction + Additional_losses;
 		var Summary_losses = Gravity_losses+Aerodynamic_losses+Pressure_losses+145.;
 
