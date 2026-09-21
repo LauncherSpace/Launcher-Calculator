@@ -1682,7 +1682,7 @@ function Sec2Day(a)
 		if (Second_stage_run_time_to_LEO > 500.) Additional_losses = Additional_losses + 0.03*(Vsp_for_LEO_with_losses-parseFloat(elFirst_stage_delta_v.textContent))*(Second_stage_run_time_to_LEO / 500.);
 
 //		Ascent_Time = First_stage_run_time + Second_stage_run_time + 5.;
-		if (Second_stage_run_time_to_LEO != "NaN") Second_stage_run_time_to_LEO = Second_stage_run_time;
+		if (Second_stage_run_time_to_LEO.toFixed(1) == "NaN") Second_stage_run_time_to_LEO = Second_stage_run_time;
 		Ascent_Time = First_stage_run_time + Second_stage_run_time_to_LEO + 5.;
 		if (elBooster.checked) 
 			{var Second_stage_run_time_ = Second_stage_run_time;
