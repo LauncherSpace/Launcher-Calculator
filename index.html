@@ -1242,7 +1242,7 @@ input[type=range]:focus::-ms-fill-upper {
 			     ["SX1", "SpaceX Falcon 1",		  1.185,0.611, 29400, 1.7,  145, 3500,  0,  420,   15.341,  0,0.00,   6.5,    9.0,    15, 20.00, 3,   2,   1, 1,   264.0, 300,   260, 317, 320, 320, 0,1, 0,3, 0,3, 0,3,    "Omelek Island",	"LEO", 0, 0, 0, "First SpaceX Launcher"],
 			     ["SX2", "SpaceX Falcon 9 V1.0",	  1.218,0.739,308000,3.66, 1900, 3500,  0, 8500,   16.56,   0,0.00,   6.74,   5.96,   15, 20.00, 2.0, 1.0, 1, 1,   266.0, 304,   260, 336, 320, 320, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "SpaceX"],
 			     ["SX3", "SpaceX Falcon 9 V1.1",	  1.187,0.84, 490600, 5.2, 1900, 3500,  0, 13150,  14.656,  0,0.00,   5.493,  5.425,  15, 20.00, 3.0, 3.0, 1, 1,   282.0, 311,   260, 340, 320, 320, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "SpaceX"],
-			     ["SX4", "SpaceX Falcon 9 FT",	  1.413,0.71, 524554, 5.2, 1700, 3500,  0, 22800,  20.93,   0,0.00,   5.14,   4.04,   15, 20.00, 1.0, 1.0, 1, 1,   286.0, 321,   280, 348, 320, 320, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "Advanced SpaceX Launcher"],
+			     ["SX4", "SpaceX Falcon 9 FT",	  1.364,0.701,544600, 5.2, 1700, 3500,  0, 22800,  20.47,   0,0.00,   5.13,   3.59,   15, 20.00, 2.0, 1.0, 1, 1,   283.0, 312,   270, 348, 320, 320, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 0, "Advanced SpaceX Launcher"],
 			     ["SX5", "SpaceX Falcon Heavy",	  1.545,1.102,1437000,7.7, 1700, 3500,  0, 63800,  39.722,  0,8.038,  5.126,  4.876,  15, 3.463, 1.0, 1.0, 1, 1,   286.0, 321,   286, 321, 320, 348, 0,1, 0,1, 0,1, 0,1,    "Cape Canaveral",	"LEO", 0, 0, 1, "Heavy SpaceX Launcher"],
 			     ["SX6", "SpaceX Starship",		  1.434,0.549, 5226000, 9.0,  0, 3500,  0,150000,  25.238,  0, 0.00,  13.0,   9.0,    15, 10.,   1.5, 1.5, 1, 1,   327.0, 356,   280, 380, 380, 380, 1,0, 1,0, 1,0, 1,0,    "SpaceX Boca Chica","LEO", 0, 0, 0, "SpaceX "],
 			     ["RL1", "Rocket Lab Electron",	  1.291, 0.931,  12355, 1.2,   44, 3500, 50,   150,  20.16,   0,1.83,   9.31,  10.42,   15, 18.00, 2.,  2.,  1, 1,   256.0, 303,   250, 333, 250, 250, 0,2, 0,2, 8,3, 8,3,    "Rocket Lab LC-1",	"SSO", 0, 0, 0, "Rocket Lab"],
@@ -1605,7 +1605,7 @@ function Sec2Day(a)
 		if (Thrust_to_weight_ratio<1.46) var Gravity_losses = 4./3.* Gravity_losses_at_specific_altitude*(1.5+2.5*(Thrust_to_weight_ratio-1.17)-4.25*(Thrust_to_weight_ratio-1.17)**2);
 		else 				     Gravity_losses = 4./3.* 1.865*Gravity_losses_at_specific_altitude;
 //  Gravity losses for a single-stage rocket
-		if (v2nd_Stage_mass_ratio == 0) Gravity_losses = 3./4. * Gravity_losses;
+		if (elStages.selectedIndex == 0) Gravity_losses = 3./4. * Gravity_losses;
 
 //  Correction for too low Thrust to weight ratio
 //		if (Thrust_to_weight_ratio<1.165 && !elAir_Launch.checked) Gravity_losses = Gravity_losses + (1.165 - Thrust_to_weight_ratio) * 10000.;
