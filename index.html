@@ -3086,11 +3086,17 @@ function Sec2Day(a)
 		var rname ="New_Rocket";
 		if (Export_count == 0)rname ="new_Rocket";
 		var rdata = "?rdata=" + rname;
-		if(elRocket.selectedIndex == 0)rdata = "?edata=" + rname;
-//		rdata = rdata + "|"+ elThrust_to_weight_ratio.value;
-		rdata = rdata + "|"+ ((First_stage_total_thrust+elBooster.checked*Second_stage_total_thrust)/(Lift_off_Mass+Assumed_payload_mass-Payload_mass_calculated)).toFixed(3);
-//		rdata = rdata + "|"+ elThrust_to_weight_ratio_2nd.value;
-		rdata = rdata + "|"+ (Second_stage_total_thrust/(Lift_off_Mass-First_stage_propellant_mass-First_stage_dry_mass+Assumed_payload_mass-Payload_mass_calculated)).toFixed(3);
+		if(elRocket.selectedIndex == 0)
+			{
+			 rdata = "?edata=" + rname;
+			 rdata = rdata + "|"+ elThrust_to_weight_ratio.value;
+			 rdata = rdata + "|"+ elThrust_to_weight_ratio_2nd.value;
+			}
+			else
+			{
+			 rdata = rdata + "|"+ ((First_stage_total_thrust+elBooster.checked*Second_stage_total_thrust)/(Lift_off_Mass+Assumed_payload_mass-Payload_mass_calculated)).toFixed(3);
+			 rdata = rdata + "|"+ (Second_stage_total_thrust/(Lift_off_Mass-First_stage_propellant_mass-First_stage_dry_mass+Assumed_payload_mass-Payload_mass_calculated)).toFixed(3);
+			}
 		rdata = rdata + "|"+ elRocket_Mass.value;
 		rdata = rdata + "|"+ elMax_midsection_D.value;
 		rdata = rdata + "|"+ elFairing_mass.value;
