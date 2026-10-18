@@ -2835,12 +2835,15 @@ function Sec2Day(a)
 		  elRocket.selectedIndex = s_rocket_count;
 		  for (var i = 1; i < 34; i++) s_rocket_data[s_rocket_count][i+1] = strs[i];
 		  s_rocket_data[s_rocket_count][35] = s_start_point_data[strs[34]][0];
-		  s_rocket_data[s_rocket_count][36] = s_orbit_data[strs[35]][0];
 //		  elOrbit_Perigee.value = strs[36];
 		  var str_orb = strs[36].split(";");
 		  if (str_orb[1] == null) str_orb[1] = "0";
 		  elOrbit_Perigee.value = str_orb[0].trim();
 		  elOrbit_Apogee.value = str_orb[1].trim();
+		  s_rocket_data[s_rocket_count][36] = s_orbit_data[strs[35]][0];
+		  if(s_orbit_data[strs[35]][0] =="LEO") s_rocket_data[s_rocket_count][36] = elOrbit_Perigee.value +";"+ elOrbit_Apogee.value;
+		  if(s_orbit_data[strs[35]][0] =="SSO") s_rocket_data[s_rocket_count][36] = "SSO" +";"+ elOrbit_Perigee.value;
+
 		  Orbit_Inclination = strs[37];
 		  s_rocket_data[s_rocket_count][37] = strs[38];
 		  s_rocket_data[s_rocket_count][38] = strs[39];
@@ -3140,7 +3143,7 @@ function Sec2Day(a)
 		rdata = rdata + "|"+ elCycleO.selectedIndex.toFixed(0);
 		rdata = rdata + "|"+ elStartingPoint.selectedIndex.toFixed(0);
 		rdata = rdata + "|"+ elOrbit.selectedIndex.toFixed(0);
-		rdata = rdata + "|"+ parseFloat(elOrbit_Perigee.value).toFixed(0)+ ";"+ parseFloat(elOrbit_Apogee.value).toFixed(0);
+		rdata = rdata + "|"+ elOrbit_Perigee.value +";"+ elOrbit_Apogee.value;
 		rdata = rdata + "|"+ parseFloat(elOrbit_Inclination.value).toFixed(1);
 		var l = 0; if (elAir_Launch.checked) l = 1;
 		rdata = rdata + "|"+ l;
@@ -3718,7 +3721,7 @@ function Sec2Day(a)
 			if (parseFloat(s_slider_edit[i].value)*100. > parseFloat(s_slider[i].max)) Aggressivity = Aggressivity + ScoreCalcWeight[StageIndex][i]*(Math.pow(1.+(parseFloat(s_slider_edit[i].value)*parseFloat(s_slider_edit[14].value)-parseFloat(s_slider[i].max))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)),3.0)-1.);
 			}
 		if (Aggressivity < 0)Aggressivity = 0.;
-		elAggressivity.textContent = Aggressivity.toFixed(1);
+//		elAggressivity.textContent = Aggressivity.toFixed(1);
 
 		if (Aggressivity <= 12)
 		{
