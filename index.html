@@ -3721,7 +3721,7 @@ function Sec2Day(a)
 			if (parseFloat(s_slider_edit[i].value)*100. > parseFloat(s_slider[i].max)) Aggressivity = Aggressivity + ScoreCalcWeight[StageIndex][i]*(Math.pow(1.+(parseFloat(s_slider_edit[i].value)*parseFloat(s_slider_edit[14].value)-parseFloat(s_slider[i].max))/(parseFloat(s_slider[i].max)-parseFloat(s_slider[i].min)),3.0)-1.);
 			}
 		if (Aggressivity < 0)Aggressivity = 0.;
-//		elAggressivity.textContent = Aggressivity.toFixed(1);
+		elAggressivity.textContent = Aggressivity.toFixed(1);
 
 		if (Aggressivity <= 12)
 		{
